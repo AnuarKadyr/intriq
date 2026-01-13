@@ -1,4 +1,4 @@
-/* Tony Face Component - Reusable with expressions */
+/* Tony Face Component - Simple blinking eyes */
 
 /* Size variants */
 .tony-face-small {
@@ -125,10 +125,9 @@
 .tony-face-medium .tony-eyes { gap: 12px; }
 .tony-face-large .tony-eyes { gap: 20px; }
 
-/* ========== NEUTRAL EXPRESSION ========== */
-/* Oval eyes that blink */
+/* Blinking eyes */
 .tony-eye {
-  background-color: #1a1a2e;
+  background-color: #fff;
   border-radius: 40%;
   animation: blink-tony 4s infinite ease-in-out;
 }
@@ -151,136 +150,6 @@
 @keyframes blink-tony {
   0%, 42%, 58%, 100% { transform: scaleY(1); }
   50% { transform: scaleY(0.1); }
-}
-
-/* ========== HAPPY EXPRESSION ========== */
-/* Curved arc eyes like ^_^ - using SVG-like curves */
-.tony-eye-happy {
-  width: 20px;
-  height: 10px;
-  border-bottom: 4px solid #1a1a2e;
-  border-radius: 0 0 50% 50%;
-  animation: happy-bounce 2s ease-in-out infinite;
-}
-
-.tony-face-small .tony-eye-happy {
-  width: 12px;
-  height: 6px;
-  border-bottom-width: 3px;
-}
-
-.tony-face-medium .tony-eye-happy {
-  width: 16px;
-  height: 8px;
-  border-bottom-width: 3px;
-}
-
-.tony-face-large .tony-eye-happy {
-  width: 28px;
-  height: 14px;
-  border-bottom-width: 5px;
-}
-
-@keyframes happy-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
-}
-
-/* ========== THINKING EXPRESSION ========== */
-/* Round eyes looking up */
-.tony-eyes.thinking {
-  transform: translateY(-20%);
-}
-
-.tony-eye-thinking {
-  background-color: #1a1a2e;
-  border-radius: 50%;
-  animation: thinking-look 3s ease-in-out infinite;
-}
-
-.tony-face-small .tony-eye-thinking {
-  width: 8px;
-  height: 8px;
-}
-
-.tony-face-medium .tony-eye-thinking {
-  width: 12px;
-  height: 12px;
-}
-
-.tony-face-large .tony-eye-thinking {
-  width: 20px;
-  height: 20px;
-}
-
-@keyframes thinking-look {
-  0%, 100% { transform: translateX(0) translateY(0); }
-  25% { transform: translateX(3px) translateY(-2px); }
-  75% { transform: translateX(-3px) translateY(-2px); }
-}
-
-/* ========== EXCITED EXPRESSION ========== */
-/* Big round eyes that bounce */
-.tony-eyes.excited {
-  animation: excited-bounce 0.5s ease-in-out infinite;
-}
-
-.tony-eye-excited {
-  background-color: #1a1a2e;
-  border-radius: 50%;
-  animation: excited-pulse 0.8s ease-in-out infinite;
-}
-
-.tony-face-small .tony-eye-excited {
-  width: 10px;
-  height: 10px;
-}
-
-.tony-face-medium .tony-eye-excited {
-  width: 14px;
-  height: 14px;
-}
-
-.tony-face-large .tony-eye-excited {
-  width: 24px;
-  height: 24px;
-}
-
-@keyframes excited-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-@keyframes excited-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-}
-
-/* ========== WAVING - Hand ========== */
-.tony-hand {
-  position: absolute;
-  bottom: 8%;
-  right: 8%;
-  animation: wave-hand 0.8s ease-in-out infinite;
-  transform-origin: bottom center;
-}
-
-.tony-face-small .tony-hand {
-  font-size: 14px;
-}
-
-.tony-face-medium .tony-hand {
-  font-size: 18px;
-}
-
-.tony-face-large .tony-hand {
-  font-size: 28px;
-}
-
-@keyframes wave-hand {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(25deg); }
-  75% { transform: rotate(-15deg); }
 }
 
 /* Ball rotation */
