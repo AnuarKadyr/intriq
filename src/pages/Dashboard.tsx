@@ -16,6 +16,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/AppSidebar";
+import { AiChatInput } from "@/components/AiChatInput";
 import logoBlack from "@/assets/logo-black.svg";
 import {
   AreaChart,
@@ -442,6 +443,7 @@ const Dashboard = () => {
           </Card>
 
         </div>
+        <AiChatInput />
       </main>
     </div>
   );
