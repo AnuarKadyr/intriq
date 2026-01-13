@@ -1,9 +1,9 @@
 .container-ai-input {
   --perspective: 1000px;
-  --translateY: 45px;
+  --translateY: 20px;
   position: relative;
-  width: 320px;
-  height: 180px;
+  width: 140px;
+  height: 70px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   transform-style: preserve-3d;
@@ -38,16 +38,16 @@
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-55%);
-  width: 12rem;
-  height: 11rem;
+  width: 4.5rem;
+  height: 4rem;
   background-color: #dedfe0;
-  border-radius: 3.2rem;
+  border-radius: 1.2rem;
   transition: all 0.3s ease;
 }
 
 .container-wrap:hover:after {
   transform: translateX(-50%) translateY(-50%);
-  height: 12rem;
+  height: 4.5rem;
 }
 
 .container-wrap input {
@@ -62,12 +62,12 @@
 }
 
 .container-wrap input:checked + .card .content-card {
-  width: 260px;
-  height: 160px;
+  width: 180px;
+  height: 110px;
 }
 
 .container-wrap input:checked + .card .background-blur-balls {
-  border-radius: 20px;
+  border-radius: 14px;
 }
 
 .container-wrap input:checked + .card .container-ai-chat {
@@ -83,10 +83,10 @@
   transform-style: preserve-3d;
   will-change: transform;
   transition: all 0.6s ease;
-  border-radius: 3rem;
+  border-radius: 1.2rem;
   display: flex;
   align-items: center;
-  transform: translateZ(50px);
+  transform: translateZ(25px);
   justify-content: center;
 }
 
@@ -104,7 +104,7 @@
   width: 100%;
   height: 100%;
   z-index: -10;
-  border-radius: 3rem;
+  border-radius: 1.2rem;
   transition: all 0.3s ease;
   background-color: rgba(255, 255, 255, 0.8);
   overflow: hidden;
@@ -123,11 +123,11 @@
 }
 
 .background-blur-balls .ball {
-  width: 6rem;
-  height: 6rem;
+  width: 2.5rem;
+  height: 2.5rem;
   position: absolute;
   border-radius: 50%;
-  filter: blur(30px);
+  filter: blur(15px);
 }
 
 .background-blur-balls .ball.violet {
@@ -159,10 +159,10 @@
 }
 
 .content-card {
-  width: 12rem;
-  height: 12rem;
+  width: 4.5rem;
+  height: 4.5rem;
   display: flex;
-  border-radius: 3rem;
+  border-radius: 1.2rem;
   transition: all 0.3s ease;
   overflow: hidden;
 }
@@ -181,16 +181,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 52px;
-  gap: 2rem;
+  height: 20px;
+  gap: 0.6rem;
   transition: all 0.3s ease;
 }
 
 .eyes .eye {
-  width: 26px;
-  height: 52px;
+  width: 10px;
+  height: 20px;
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 6px;
   animation: animate-eyes 10s infinite linear;
   transition: all 0.3s ease;
 }
@@ -202,7 +202,7 @@
 }
 
 .eyes.happy svg {
-  width: 60px;
+  width: 24px;
 }
 
 .container-wrap:hover .eyes .eye {
@@ -217,7 +217,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 6px;
+  padding: 4px;
   opacity: 0;
   pointer-events: none;
 }
@@ -226,10 +226,10 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  border-radius: 15px;
+  border-radius: 10px;
   width: 100%;
   height: 100%;
-  padding: 4px;
+  padding: 3px;
   overflow: hidden;
   background-color: #ffffff;
 }
@@ -243,22 +243,22 @@
 
 .card .chat .chat-bot textarea {
   background-color: transparent;
-  border-radius: 16px;
+  border-radius: 8px;
   border: none;
   width: 100%;
   height: 100%;
   color: #8b8b8b;
   font-family: sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 400;
-  padding: 10px;
+  padding: 6px;
   resize: none;
   outline: none;
 }
 
 .card .chat .chat-bot textarea::-webkit-scrollbar {
-  width: 6px;
-  height: 10px;
+  width: 4px;
+  height: 6px;
 }
 
 .card .chat .chat-bot textarea::-webkit-scrollbar-track {
@@ -267,7 +267,7 @@
 
 .card .chat .chat-bot textarea::-webkit-scrollbar-thumb {
   background: #dedfe0;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 .card .chat .chat-bot textarea::-webkit-scrollbar-thumb:hover {
@@ -288,7 +288,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 10px;
+  padding: 4px 6px;
 }
 
 .card .chat .options button {
@@ -297,7 +297,7 @@
 
 .card .chat .options .btns-add {
   display: flex;
-  gap: 8px;
+  gap: 4px;
 }
 
 .card .chat .options .btns-add button {
@@ -309,8 +309,13 @@
   transition: all 0.3s ease;
 }
 
+.card .chat .options .btns-add button svg {
+  width: 14px;
+  height: 14px;
+}
+
 .card .chat .options .btns-add button:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   color: #8b8b8b;
 }
 
@@ -318,8 +323,8 @@
   display: flex;
   padding: 2px;
   background-image: linear-gradient(to top, #ff4141, #9147ff, #3b82f6);
-  border-radius: 10px;
-  box-shadow: inset 0 6px 2px -4px rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  box-shadow: inset 0 4px 2px -3px rgba(255, 255, 255, 0.5);
   cursor: pointer;
   border: none;
   outline: none;
@@ -328,11 +333,11 @@
 }
 
 .card .chat .options .btn-submit i {
-  width: 30px;
-  height: 30px;
-  padding: 6px;
+  width: 20px;
+  height: 20px;
+  padding: 4px;
   background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 6px;
   backdrop-filter: blur(3px);
   color: #cfcfcf;
 }
@@ -511,21 +516,21 @@
 
 @keyframes animate-eyes {
   46% {
-    height: 52px;
+    height: 20px;
   }
   48% {
-    height: 20px;
+    height: 8px;
   }
   50% {
-    height: 52px;
-  }
-  96% {
-    height: 52px;
-  }
-  98% {
     height: 20px;
   }
+  96% {
+    height: 20px;
+  }
+  98% {
+    height: 8px;
+  }
   100% {
-    height: 52px;
+    height: 20px;
   }
 }
