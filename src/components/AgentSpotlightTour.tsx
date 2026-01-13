@@ -3,22 +3,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText } from "lucide-react";
 import "./AgentSpotlightTour.css";
 
-// Approximate button positions (left offset from sidebar)
-const agentPositions = [
-  { offset: 24 },   // IRT
-  { offset: 230 },  // Data Inventory
-  { offset: 380 },  // Data Integrity
-  { offset: 520 },  // Management Questions
-  { offset: 710 },  // Insights Engine
-  { offset: 860 },  // Report Generator
-];
-
 const tourSteps = [
   {
     id: "intro",
     title: "Your AI Agents",
     description: "These agents help you with different aspects of due diligence. Click through to learn what each one does.",
-    positionIndex: 0,
+    agentIndex: 0,
   },
   {
     id: "irt",
@@ -26,7 +16,7 @@ const tourSteps = [
     description: "Manages deliverables and coordinates your workflow.",
     icon: ClipboardList,
     color: "bg-blue-500",
-    positionIndex: 0,
+    agentIndex: 0,
   },
   {
     id: "data-inventory",
@@ -34,7 +24,7 @@ const tourSteps = [
     description: "Processes and classifies all uploaded documents.",
     icon: BarChart2,
     color: "bg-emerald-500",
-    positionIndex: 1,
+    agentIndex: 1,
   },
   {
     id: "data-integrity",
@@ -42,7 +32,7 @@ const tourSteps = [
     description: "Reconciles data and detects anomalies.",
     icon: GitCompare,
     color: "bg-purple-500",
-    positionIndex: 2,
+    agentIndex: 2,
   },
   {
     id: "mgmt-questions",
@@ -50,7 +40,7 @@ const tourSteps = [
     description: "Generates questions for management interviews.",
     icon: HelpCircle,
     color: "bg-amber-500",
-    positionIndex: 3,
+    agentIndex: 3,
   },
   {
     id: "insights",
@@ -58,7 +48,7 @@ const tourSteps = [
     description: "Surfaces patterns and actionable recommendations.",
     icon: Lightbulb,
     color: "bg-yellow-500",
-    positionIndex: 4,
+    agentIndex: 4,
   },
   {
     id: "report",
@@ -66,15 +56,16 @@ const tourSteps = [
     description: "Produces final reports and deliverables.",
     icon: FileText,
     color: "bg-orange-500",
-    positionIndex: 5,
+    agentIndex: 5,
   },
 ];
 
 interface AgentSpotlightTourProps {
   onComplete: () => void;
+  buttonPositions: { left: number; width: number }[];
 }
 
-export function AgentSpotlightTour({ onComplete }: AgentSpotlightTourProps) {
+export function AgentSpotlightTour({ onComplete, buttonPositions }: AgentSpotlightTourProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -100,9 +91,11 @@ export function AgentSpotlightTour({ onComplete }: AgentSpotlightTourProps) {
   const IconComponent = step.icon;
   const isLast = currentStep === tourSteps.length - 1;
   
-  // Calculate horizontal position based on current agent
-  const sidebarWidth = 288;
-  const leftPosition = sidebarWidth + agentPositions[step.positionIndex].offset;
+  // Get position from actual button measurements
+  const buttonPos = buttonPositions[step.agentIndex];
+  const modalWidth = 320;
+  // Center the modal under the button, but account for the arrow being on the left
+  const leftPosition = buttonPos ? buttonPos.left + (buttonPos.width / 2) - 48 : 312;
 
   return (
     <div className={`spotlight-overlay ${isVisible ? 'visible' : ''}`}>

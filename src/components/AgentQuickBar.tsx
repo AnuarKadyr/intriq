@@ -1,8 +1,9 @@
 import { ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAiChat } from "@/contexts/AiChatContext";
+import { useRef, useEffect, useCallback } from "react";
 
-const agents = [
+export const agents = [
   {
     id: "irt",
     name: "Information Request Tracker",
@@ -41,23 +42,47 @@ const agents = [
   },
 ];
 
-export function AgentQuickBar() {
+interface AgentQuickBarProps {
+  onButtonPositionsChange?: (positions: { left: number; width: number }[]) => void;
+}
+
+export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
   const { openAiChat } = useAiChat();
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const updatePositions = useCallback(() => {
+    if (onButtonPositionsChange) {
+      const positions = buttonRefs.current.map(btn => {
+        if (btn) {
+          const rect = btn.getBoundingClientRect();
+          return { left: rect.left, width: rect.width };
+        }
+        return { left: 0, width: 0 };
+      });
+      onButtonPositionsChange(positions);
+    }
+  }, [onButtonPositionsChange]);
+
+  useEffect(() => {
+    updatePositions();
+    window.addEventListener('resize', updatePositions);
+    return () => window.removeEventListener('resize', updatePositions);
+  }, [updatePositions]);
 
   const handleAgentClick = (agentId: string) => {
     openAiChat();
-    // TODO: Auto-start the selected agent in chat
     console.log(`Starting agent: ${agentId}`);
   };
 
   return (
     <div className="bg-white border-b border-gray-200 px-8 py-3 fixed top-[88px] left-72 right-0 z-10">
       <div className="flex items-center gap-3">
-        {agents.map((agent) => {
+        {agents.map((agent, index) => {
           const IconComponent = agent.icon;
           return (
             <Button
               key={agent.id}
+              ref={el => buttonRefs.current[index] = el}
               variant="outline"
               size="sm"
               onClick={() => handleAgentClick(agent.id)}
