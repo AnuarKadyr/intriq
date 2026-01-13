@@ -10,10 +10,13 @@ import {
   Building2,
   Users,
   FileText,
-  ArrowUpRight
+  ArrowUpRight,
+  Download
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/AppSidebar";
+import logoBlack from "@/assets/logo-black.svg";
 import {
   AreaChart,
   Area,
@@ -177,15 +180,20 @@ const Dashboard = () => {
         {/* Header */}
         <header className="border-b border-gray-200 bg-white px-8 py-6 sticky top-0 z-10">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
-              <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
+            <div className="flex items-center gap-4">
+              <img src={logoBlack} alt="Intriq AI" className="h-8 w-8" />
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
+                <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="px-3 py-1.5 text-sm font-medium rounded-full bg-amber-100 text-amber-700">
-                In Progress
-              </span>
-            </div>
+            <Button 
+              variant="outline" 
+              className="text-gray-600 border-gray-200 hover:bg-gray-50"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Export
+            </Button>
           </div>
         </header>
 
