@@ -73,7 +73,7 @@ const Onboarding = () => {
       </header>
 
       {/* Stepper */}
-      <div className="container mx-auto px-6 py-10">
+      <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-center">
           {steps.map((step, stepIdx) => (
             <div key={step.id} className="flex items-center">
@@ -81,26 +81,26 @@ const Onboarding = () => {
               <div className="flex flex-col items-center">
                 <div
                   className={`
-                    relative flex h-12 w-12 items-center justify-center rounded-full 
-                    transition-all duration-300 ease-out
+                    relative flex h-8 w-8 items-center justify-center rounded-full 
+                    transition-all duration-300 ease-out text-xs
                     ${
                       step.id < currentStep
-                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                        ? "bg-primary text-primary-foreground"
                         : step.id === currentStep
-                        ? "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/40 ring-4 ring-primary/20"
+                        ? "bg-primary text-primary-foreground ring-[3px] ring-primary/20"
                         : "bg-muted text-muted-foreground"
                     }
                   `}
                 >
                   {step.id < currentStep ? (
-                    <Check className="h-5 w-5" strokeWidth={3} />
+                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
                   ) : (
-                    <span className="text-sm font-semibold">{step.id}</span>
+                    <span className="font-semibold">{step.id}</span>
                   )}
                 </div>
                 <span
                   className={`
-                    mt-3 text-sm font-medium text-center max-w-[100px] leading-tight
+                    mt-2 text-xs font-medium text-center max-w-[80px] leading-tight
                     transition-colors duration-300
                     ${
                       step.id === currentStep
@@ -117,15 +117,11 @@ const Onboarding = () => {
 
               {/* Connector Line */}
               {stepIdx !== steps.length - 1 && (
-                <div className="flex items-center mx-4 -mt-8">
+                <div className="flex items-center mx-3 -mt-6">
                   <div
                     className={`
-                      h-1 w-16 sm:w-24 md:w-32 rounded-full transition-all duration-500
-                      ${
-                        step.id < currentStep
-                          ? "bg-gradient-to-r from-primary to-primary"
-                          : "bg-muted"
-                      }
+                      h-[2px] w-12 sm:w-16 rounded-full transition-all duration-500
+                      ${step.id < currentStep ? "bg-primary" : "bg-muted"}
                     `}
                   />
                 </div>
