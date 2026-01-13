@@ -1,0 +1,40 @@
+.loading-page {
+  align-items: center;
+  background: linear-gradient(
+    to top right,
+    rgba(5, 211, 211, 0.15) 10%,
+    rgba(5, 211, 211, 0.25) 65%,
+    rgba(5, 211, 211, 0.35) 125%
+  );
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity 1s;
+  z-index: 50;
+}
+
+.loading-phrase-box {
+  display: flex;
+  flex-flow: column;
+  height: 150px;
+  overflow: hidden;
+  width: 260px;
+}
+
+.loading-footer {
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+}
+
+.loading-logo {
+  height: 32px;
+  filter: brightness(0) invert(1);
+}

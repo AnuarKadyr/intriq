@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Check, Upload, FileText, X, Briefcase, FileCheck, FolderUp, Sparkles } from "lucide-react";
+import { Check, Upload, FileText, X, Briefcase, FileCheck, FolderUp } from "lucide-react";
+import LoadingAnimation from "@/components/LoadingAnimation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,6 +36,7 @@ const industries = [
 const Onboarding = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     engagementName: "",
     industry: "",
@@ -68,6 +70,9 @@ const Onboarding = () => {
   const handleContinue = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === steps.length) {
+      // Final step - show loading
+      setIsLoading(true);
     }
   };
 
@@ -132,6 +137,10 @@ const Onboarding = () => {
   };
 
   const progressPercentage = ((currentStep - 1) / (steps.length - 1)) * 100;
+
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative overflow-hidden">
