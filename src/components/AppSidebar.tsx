@@ -17,16 +17,16 @@ import logoTiffany from "@/assets/logo-tiffany.svg";
 
 // Mock data for engagements
 const engagements = [
-  { id: 1, name: "JPMorgan" },
-  { id: 2, name: "Greenwoods LLP" },
-  { id: 3, name: "Aurora LLC" },
-  { id: 4, name: "Michael & Brothers" },
+  { id: 1, name: "Nextera Holdings" },
+  { id: 2, name: "Vertex Partners" },
+  { id: 3, name: "Pinnacle Group" },
+  { id: 4, name: "Atlas Industries" },
 ];
 
 // Mock data for company research
 const companyResearch = [
-  { id: 1, name: "Tech Corp Analysis" },
-  { id: 2, name: "Market Leaders 2024" },
+  { id: 1, name: "Orion Systems" },
+  { id: 2, name: "Meridian Corp" },
 ];
 
 export function AppSidebar() {
