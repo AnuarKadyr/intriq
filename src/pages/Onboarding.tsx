@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Check, Upload, FileText, X } from "lucide-react";
+import { Check, Upload, FileText, X, Briefcase, FileCheck, FolderUp, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,9 +14,9 @@ import {
 import logoBlack from "@/assets/logo-black.svg";
 
 const steps = [
-  { id: 1, name: "Engagement Details" },
-  { id: 2, name: "Engagement Letter" },
-  { id: 3, name: "Client Data Upload" },
+  { id: 1, name: "Engagement Details", icon: Briefcase },
+  { id: 2, name: "Engagement Letter", icon: FileCheck },
+  { id: 3, name: "Client Data Upload", icon: FolderUp },
 ];
 
 const industries = [
@@ -131,87 +131,127 @@ const Onboarding = () => {
     return true;
   };
 
+  const progressPercentage = ((currentStep - 1) / (steps.length - 1)) * 100;
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      
       {/* Header */}
-      <header className="border-b border-border bg-card">
+      <header className="border-b border-border bg-card/80 backdrop-blur-sm relative z-10">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <img src={logoBlack} alt="Intriq AI" className="h-8" />
-          <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
+          <Button variant="ghost" size="sm" onClick={() => navigate("/")} className="hover:bg-primary/10">
             Back to Home
           </Button>
         </div>
       </header>
 
-      {/* Stepper */}
-      <div className="container mx-auto px-6 py-6">
-        <div className="flex items-center justify-center">
-          {steps.map((step, stepIdx) => (
-            <div key={step.id} className="flex items-center">
-              {/* Step Circle and Label */}
-              <div className="flex flex-col items-center">
-                <div
-                  className={`
-                    relative flex h-8 w-8 items-center justify-center rounded-full 
-                    transition-all duration-300 ease-out text-xs
-                    ${
-                      step.id < currentStep
-                        ? "bg-primary text-primary-foreground"
-                        : step.id === currentStep
-                        ? "bg-primary text-primary-foreground ring-[3px] ring-primary/20"
-                        : "bg-muted text-muted-foreground"
-                    }
-                  `}
-                >
-                  {step.id < currentStep ? (
-                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                  ) : (
-                    <span className="font-semibold">{step.id}</span>
-                  )}
-                </div>
-                <span
-                  className={`
-                    mt-2 text-xs font-medium whitespace-nowrap
-                    transition-colors duration-300
-                    ${
-                      step.id === currentStep
-                        ? "text-foreground"
-                        : step.id < currentStep
-                        ? "text-primary"
-                        : "text-muted-foreground"
-                    }
-                  `}
-                >
-                  {step.name}
-                </span>
-              </div>
+      {/* Progress Bar */}
+      <div className="container mx-auto px-6 pt-6 relative z-10">
+        <div className="max-w-md mx-auto">
+          <div className="flex justify-between text-xs text-muted-foreground mb-2">
+            <span>Step {currentStep} of {steps.length}</span>
+            <span>{Math.round(progressPercentage)}% complete</span>
+          </div>
+          <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-500 ease-out"
+              style={{ width: `${progressPercentage}%` }}
+            />
+          </div>
+        </div>
+      </div>
 
-              {/* Connector Line */}
-              {stepIdx !== steps.length - 1 && (
-                <div className="flex items-center mx-3 -mt-6">
+      {/* Stepper */}
+      <div className="container mx-auto px-6 py-6 relative z-10">
+        <div className="flex items-center justify-center">
+          {steps.map((step, stepIdx) => {
+            const StepIcon = step.icon;
+            return (
+              <div key={step.id} className="flex items-center">
+                {/* Step Circle and Label */}
+                <div className="flex flex-col items-center group">
                   <div
                     className={`
-                      h-[2px] w-12 sm:w-16 rounded-full transition-all duration-500
-                      ${step.id < currentStep ? "bg-primary" : "bg-muted"}
+                      relative flex h-10 w-10 items-center justify-center rounded-xl 
+                      transition-all duration-300 ease-out
+                      ${
+                        step.id < currentStep
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                          : step.id === currentStep
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 ring-4 ring-primary/20 scale-110"
+                          : "bg-muted text-muted-foreground hover:bg-muted/80"
+                      }
                     `}
-                  />
+                  >
+                    {step.id < currentStep ? (
+                      <Check className="h-4 w-4" strokeWidth={3} />
+                    ) : (
+                      <StepIcon className="h-4 w-4" />
+                    )}
+                    {step.id === currentStep && (
+                      <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                      </span>
+                    )}
+                  </div>
+                  <span
+                    className={`
+                      mt-2.5 text-xs font-medium whitespace-nowrap
+                      transition-all duration-300
+                      ${
+                        step.id === currentStep
+                          ? "text-foreground font-semibold"
+                          : step.id < currentStep
+                          ? "text-primary"
+                          : "text-muted-foreground"
+                      }
+                    `}
+                  >
+                    {step.name}
+                  </span>
                 </div>
-              )}
-            </div>
-          ))}
+
+                {/* Connector Line */}
+                {stepIdx !== steps.length - 1 && (
+                  <div className="flex items-center mx-4 -mt-6">
+                    <div className="relative w-16 sm:w-20 h-[2px]">
+                      <div className="absolute inset-0 bg-muted rounded-full" />
+                      <div
+                        className={`
+                          absolute inset-y-0 left-0 bg-gradient-to-r from-primary to-primary/80 rounded-full 
+                          transition-all duration-500 ease-out
+                        `}
+                        style={{ width: step.id < currentStep ? '100%' : '0%' }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Form Content */}
-      <div className="container mx-auto px-6 py-8 max-w-xl">
-        <div className="bg-card rounded-xl border border-border p-8 shadow-intriq-md">
+      <div className="container mx-auto px-6 py-6 max-w-xl relative z-10">
+        <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border/50 p-8 shadow-xl shadow-black/5 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10">
           {/* Step 1: Engagement Details */}
           {currentStep === 1 && (
-            <>
-              <h1 className="text-2xl font-semibold text-foreground mb-2">
-                Start a New Engagement
-              </h1>
-              <p className="text-muted-foreground mb-8">
+            <div className="animate-fade-in">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <Sparkles className="h-5 w-5 text-primary" />
+                </div>
+                <h1 className="text-2xl font-semibold text-foreground">
+                  Start a New Engagement
+                </h1>
+              </div>
+              <p className="text-muted-foreground mb-8 ml-12">
                 Enter the details for your new due diligence engagement.
               </p>
 
@@ -270,16 +310,21 @@ const Onboarding = () => {
                   />
                 </div>
               </div>
-            </>
+            </div>
           )}
 
           {/* Step 2: Engagement Letter */}
           {currentStep === 2 && (
-            <>
-              <h1 className="text-2xl font-semibold text-foreground mb-2">
-                Upload Engagement Letter
-              </h1>
-              <p className="text-muted-foreground mb-8">
+            <div className="animate-fade-in">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <FileCheck className="h-5 w-5 text-primary" />
+                </div>
+                <h1 className="text-2xl font-semibold text-foreground">
+                  Upload Engagement Letter
+                </h1>
+              </div>
+              <p className="text-muted-foreground mb-8 ml-12">
                 Upload the engagement letter to set up your project. Key scope and
                 deliverables will be pulled automatically to build AI agents that
                 mirror your workstreams.
@@ -289,25 +334,24 @@ const Onboarding = () => {
                 {/* Upload Area */}
                 <div
                   className={`
-                    relative border-2 border-dashed rounded-xl p-8 text-center
-                    transition-all duration-200 cursor-pointer
+                    relative border-2 border-dashed rounded-2xl p-10 text-center
+                    transition-all duration-300 cursor-pointer group
                     ${
                       isDragOver
-                        ? "border-primary bg-primary/5"
+                        ? "border-primary bg-primary/10 scale-[1.02]"
                         : uploadedFile
                         ? "border-primary/50 bg-primary/5"
-                        : "border-border hover:border-primary/50 hover:bg-muted/50"
+                        : "border-border hover:border-primary/50 hover:bg-primary/5 hover:scale-[1.01]"
                     }
                   `}
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onClick={() => {
-                    // Mock file upload for demo
                     const mockFile = new File([""], "Engagement_Letter_ProjectAlpha.pdf", {
                       type: "application/pdf",
                     });
-                    Object.defineProperty(mockFile, "size", { value: 2457600 }); // 2.4 MB
+                    Object.defineProperty(mockFile, "size", { value: 2457600 });
                     setUploadedFile(mockFile);
                   }}
                 >
@@ -321,8 +365,10 @@ const Onboarding = () => {
 
                   {uploadedFile ? (
                     <div className="flex items-center justify-center gap-4">
-                      <div className="flex items-center gap-3 bg-background rounded-lg px-4 py-3 border border-border">
-                        <FileText className="h-8 w-8 text-primary" />
+                      <div className="flex items-center gap-3 bg-background rounded-xl px-5 py-4 border border-border shadow-sm">
+                        <div className="p-2 rounded-lg bg-primary/10">
+                          <FileText className="h-6 w-6 text-primary" />
+                        </div>
                         <div className="text-left">
                           <p className="text-sm font-medium text-foreground truncate max-w-[200px]">
                             {uploadedFile.name}
@@ -336,16 +382,16 @@ const Onboarding = () => {
                             e.stopPropagation();
                             removeFile();
                           }}
-                          className="ml-2 p-1 rounded-full hover:bg-muted transition-colors"
+                          className="ml-2 p-1.5 rounded-full hover:bg-destructive/10 transition-colors"
                         >
-                          <X className="h-4 w-4 text-muted-foreground" />
+                          <X className="h-4 w-4 text-muted-foreground hover:text-destructive" />
                         </button>
                       </div>
                     </div>
                   ) : (
                     <>
-                      <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                        <Upload className="h-6 w-6 text-primary" />
+                      <div className="mx-auto w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Upload className="h-7 w-7 text-primary" />
                       </div>
                       <p className="text-foreground font-medium mb-1">
                         Drop your file here, or click to browse
@@ -357,16 +403,21 @@ const Onboarding = () => {
                   )}
                 </div>
               </div>
-            </>
+            </div>
           )}
 
           {/* Step 3: Client Data Upload */}
           {currentStep === 3 && (
-            <>
-              <h1 className="text-2xl font-semibold text-foreground mb-2">
-                Client Data Upload
-              </h1>
-              <p className="text-muted-foreground mb-8">
+            <div className="animate-fade-in">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <FolderUp className="h-5 w-5 text-primary" />
+                </div>
+                <h1 className="text-2xl font-semibold text-foreground">
+                  Client Data Upload
+                </h1>
+              </div>
+              <p className="text-muted-foreground mb-8 ml-12">
                 Upload your own documents before sending the request to your client.
               </p>
 
@@ -374,29 +425,30 @@ const Onboarding = () => {
                 {/* Upload Area */}
                 <div
                   className={`
-                    relative border-2 border-dashed rounded-xl p-8 text-center
-                    transition-all duration-200 cursor-pointer
+                    relative border-2 border-dashed rounded-2xl p-10 text-center
+                    transition-all duration-300 cursor-pointer group
                     ${
                       isDragOver
-                        ? "border-primary bg-primary/5"
+                        ? "border-primary bg-primary/10 scale-[1.02]"
                         : clientDataFile
                         ? "border-primary/50 bg-primary/5"
-                        : "border-border hover:border-primary/50 hover:bg-muted/50"
+                        : "border-border hover:border-primary/50 hover:bg-primary/5 hover:scale-[1.01]"
                     }
                   `}
                   onClick={() => {
-                    // Mock file upload for demo
                     const mockFile = new File([""], "Client_Financial_Data_2024.pdf", {
                       type: "application/pdf",
                     });
-                    Object.defineProperty(mockFile, "size", { value: 5242880 }); // 5 MB
+                    Object.defineProperty(mockFile, "size", { value: 5242880 });
                     setClientDataFile(mockFile);
                   }}
                 >
                   {clientDataFile ? (
                     <div className="flex items-center justify-center gap-4">
-                      <div className="flex items-center gap-3 bg-background rounded-lg px-4 py-3 border border-border">
-                        <FileText className="h-8 w-8 text-primary" />
+                      <div className="flex items-center gap-3 bg-background rounded-xl px-5 py-4 border border-border shadow-sm">
+                        <div className="p-2 rounded-lg bg-primary/10">
+                          <FileText className="h-6 w-6 text-primary" />
+                        </div>
                         <div className="text-left">
                           <p className="text-sm font-medium text-foreground truncate max-w-[200px]">
                             {clientDataFile.name}
@@ -410,16 +462,16 @@ const Onboarding = () => {
                             e.stopPropagation();
                             setClientDataFile(null);
                           }}
-                          className="ml-2 p-1 rounded-full hover:bg-muted transition-colors"
+                          className="ml-2 p-1.5 rounded-full hover:bg-destructive/10 transition-colors"
                         >
-                          <X className="h-4 w-4 text-muted-foreground" />
+                          <X className="h-4 w-4 text-muted-foreground hover:text-destructive" />
                         </button>
                       </div>
                     </div>
                   ) : (
                     <>
-                      <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                        <Upload className="h-6 w-6 text-primary" />
+                      <div className="mx-auto w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <Upload className="h-7 w-7 text-primary" />
                       </div>
                       <p className="text-foreground font-medium mb-1">
                         Drop your file here, or click to browse
@@ -431,18 +483,22 @@ const Onboarding = () => {
                   )}
                 </div>
               </div>
-            </>
+            </div>
           )}
 
           {/* Actions */}
-          <div className="mt-8 flex justify-between">
-            <Button variant="outline" onClick={handleBack}>
+          <div className="mt-10 flex justify-between items-center">
+            <Button 
+              variant="outline" 
+              onClick={handleBack}
+              className="hover:bg-muted/50"
+            >
               {currentStep === 1 ? "Cancel" : "Back"}
             </Button>
             <Button
               onClick={handleContinue}
               disabled={!canContinue()}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground min-w-[160px]"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground min-w-[180px] shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
             >
               {currentStep === steps.length ? "Submit & Finish" : "Continue"}
             </Button>
