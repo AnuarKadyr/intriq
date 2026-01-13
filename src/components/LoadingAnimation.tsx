@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import logoWhite from "@/assets/logo-white.svg";
 import "./LoadingAnimation.css";
 
@@ -100,6 +100,7 @@ const LoadingAnimation = ({ onComplete }: LoadingAnimationProps) => {
   const phrasesRef = useRef<SVGGElement>(null);
   const animationRef = useRef<number | null>(null);
   const hasCompletedRef = useRef(false);
+  const [isFadingOut, setIsFadingOut] = useState(false);
 
   useEffect(() => {
     const phrasesGroup = phrasesRef.current;
@@ -162,10 +163,12 @@ const LoadingAnimation = ({ onComplete }: LoadingAnimationProps) => {
       if (currentY <= endPosition) {
         if (!hasCompletedRef.current && onComplete) {
           hasCompletedRef.current = true;
-          // Small delay to let the last checkmark animate
+          // Start fade out animation
+          setIsFadingOut(true);
+          // Wait for fade animation to complete before navigating
           setTimeout(() => {
             onComplete();
-          }, 800);
+          }, 600);
         }
         return;
       }
@@ -183,7 +186,7 @@ const LoadingAnimation = ({ onComplete }: LoadingAnimationProps) => {
   }, [onComplete]);
 
   return (
-    <div className="loading-page">
+    <div className={`loading-page ${isFadingOut ? 'loading-fade-out' : ''}`}>
       <div className="loading-phrase-box">
         <svg width="100%" height="100%">
           <defs>
