@@ -12,15 +12,17 @@ const Welcome = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-br from-[hsl(180_30%_95%)] via-[hsl(180_20%_97%)] to-[hsl(180_10%_98%)]">
-      {/* Background illustration */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[800px] opacity-60 pointer-events-none">
-        <img 
-          src={illustration} 
-          alt="" 
-          className="w-full h-full object-contain"
-        />
-      </div>
+    <div 
+      className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-br from-[hsl(180_30%_95%)] via-[hsl(180_20%_97%)] to-[hsl(180_10%_98%)]"
+      style={{
+        backgroundImage: `url(${illustration})`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: '150px',
+        backgroundPosition: 'center',
+      }}
+    >
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(180_30%_95%)/90] via-[hsl(180_20%_97%)/85] to-[hsl(180_10%_98%)/90]" />
 
       {/* Logo */}
       <header className="relative z-10 px-8 py-6">
