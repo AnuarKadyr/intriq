@@ -27,7 +27,7 @@
   left: 0;
   right: 0;
   height: 88px;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Bottom section - below agent bar */
@@ -38,7 +38,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Left side - sidebar area */
@@ -48,26 +48,72 @@
   left: 0;
   width: 288px;
   height: 52px;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Beautiful glow highlight around the agent bar */
+.spotlight-glow {
+  position: absolute;
+  top: 86px;
+  left: 286px;
+  right: -2px;
+  height: 56px;
+  border: 2px solid rgba(5, 211, 211, 0.5);
+  border-radius: 8px;
+  box-shadow: 
+    0 0 20px rgba(5, 211, 211, 0.3),
+    0 0 40px rgba(5, 211, 211, 0.15),
+    inset 0 0 20px rgba(5, 211, 211, 0.05);
+  pointer-events: none;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(5, 211, 211, 0.3),
+      0 0 40px rgba(5, 211, 211, 0.15),
+      inset 0 0 20px rgba(5, 211, 211, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 25px rgba(5, 211, 211, 0.4),
+      0 0 50px rgba(5, 211, 211, 0.2),
+      inset 0 0 25px rgba(5, 211, 211, 0.08);
+  }
 }
 
 .spotlight-card {
   position: absolute;
   top: 155px;
-  left: 288px;
-  margin-left: 24px;
   background: white;
   border-radius: 16px;
   padding: 20px 24px;
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 20px 40px -12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
   opacity: 0;
   transform: translateY(10px);
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 2;
-  max-width: 320px;
+  width: 320px;
 }
 
 .spotlight-card.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Arrow pointing up to the agent button */
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 40px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  transform: rotate(45deg);
+  border-radius: 3px 0 0 0;
+  box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
 }
