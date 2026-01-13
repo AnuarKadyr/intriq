@@ -42,6 +42,7 @@ const Onboarding = () => {
     projectLead: "",
   });
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [clientDataFile, setClientDataFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -59,6 +60,10 @@ const Onboarding = () => {
 
   const isStep2Complete = () => {
     return uploadedFile !== null;
+  };
+
+  const isStep3Complete = () => {
+    return clientDataFile !== null;
   };
 
   const handleContinue = () => {
@@ -123,6 +128,7 @@ const Onboarding = () => {
   const canContinue = () => {
     if (currentStep === 1) return isStep1Complete();
     if (currentStep === 2) return isStep2Complete();
+    if (currentStep === 3) return isStep3Complete();
     return true;
   };
 
@@ -355,17 +361,76 @@ const Onboarding = () => {
             </>
           )}
 
-          {/* Step 3: Client Data Upload - Placeholder */}
+          {/* Step 3: Client Data Upload */}
           {currentStep === 3 && (
             <>
               <h1 className="text-2xl font-semibold text-foreground mb-2">
                 Client Data Upload
               </h1>
               <p className="text-muted-foreground mb-8">
-                Upload client data files for analysis.
+                Upload your own documents before sending the request to your client.
               </p>
-              <div className="py-12 text-center text-muted-foreground">
-                Coming soon...
+
+              <div className="space-y-6">
+                {/* Upload Area */}
+                <div
+                  className={`
+                    relative border-2 border-dashed rounded-xl p-8 text-center
+                    transition-all duration-200 cursor-pointer
+                    ${
+                      isDragOver
+                        ? "border-primary bg-primary/5"
+                        : clientDataFile
+                        ? "border-primary/50 bg-primary/5"
+                        : "border-border hover:border-primary/50 hover:bg-muted/50"
+                    }
+                  `}
+                  onClick={() => {
+                    // Mock file upload for demo
+                    const mockFile = new File([""], "Client_Financial_Data_2024.pdf", {
+                      type: "application/pdf",
+                    });
+                    Object.defineProperty(mockFile, "size", { value: 5242880 }); // 5 MB
+                    setClientDataFile(mockFile);
+                  }}
+                >
+                  {clientDataFile ? (
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="flex items-center gap-3 bg-background rounded-lg px-4 py-3 border border-border">
+                        <FileText className="h-8 w-8 text-primary" />
+                        <div className="text-left">
+                          <p className="text-sm font-medium text-foreground truncate max-w-[200px]">
+                            {clientDataFile.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {formatFileSize(clientDataFile.size)}
+                          </p>
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setClientDataFile(null);
+                          }}
+                          className="ml-2 p-1 rounded-full hover:bg-muted transition-colors"
+                        >
+                          <X className="h-4 w-4 text-muted-foreground" />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <Upload className="h-6 w-6 text-primary" />
+                      </div>
+                      <p className="text-foreground font-medium mb-1">
+                        Drop your file here, or click to browse
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Supports PDF, DOC, DOCX (max 20MB)
+                      </p>
+                    </>
+                  )}
+                </div>
               </div>
             </>
           )}
