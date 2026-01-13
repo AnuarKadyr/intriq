@@ -19,17 +19,12 @@
   transform: translateX(-50%) translateY(-50%);
   z-index: 9;
   transform-style: preserve-3d;
-  cursor: pointer;
   padding: 4px;
   transition: all 0.3s ease;
 }
 
 .container-wrap:hover {
   padding: 0;
-}
-
-.container-wrap:active {
-  transform: translateX(-50%) translateY(-50%) scale(0.95);
 }
 
 .container-wrap:after {
@@ -48,33 +43,6 @@
 .container-wrap:hover:after {
   transform: translateX(-50%) translateY(-50%);
   height: 3.2rem;
-}
-
-.container-wrap input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
-
-.container-wrap input:checked + .card .eyes {
-  opacity: 0;
-}
-
-.container-wrap input:checked + .card .content-card {
-  width: 140px;
-  height: 90px;
-}
-
-.container-wrap input:checked + .card .background-blur-balls {
-  border-radius: 14px;
-}
-
-.container-wrap input:checked + .card .container-ai-chat {
-  opacity: 1;
-  visibility: visible;
-  z-index: 99999;
-  pointer-events: visible;
 }
 
 .card {
@@ -213,158 +181,6 @@
   display: flex;
 }
 
-.container-ai-chat {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  padding: 4px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.container-wrap .card .chat {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  border-radius: 10px;
-  width: 100%;
-  height: 100%;
-  padding: 3px;
-  overflow: hidden;
-  background-color: #ffffff;
-}
-
-.container-wrap .card .chat .chat-bot {
-  position: relative;
-  display: flex;
-  height: 100%;
-  transition: all 0.3s ease;
-}
-
-.card .chat .chat-bot textarea {
-  background-color: transparent;
-  border-radius: 6px;
-  border: none;
-  width: 100%;
-  height: 100%;
-  color: #8b8b8b;
-  font-family: sans-serif;
-  font-size: 9px;
-  font-weight: 400;
-  padding: 4px;
-  resize: none;
-  outline: none;
-}
-
-.card .chat .chat-bot textarea::-webkit-scrollbar {
-  width: 4px;
-  height: 6px;
-}
-
-.card .chat .chat-bot textarea::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.card .chat .chat-bot textarea::-webkit-scrollbar-thumb {
-  background: #dedfe0;
-  border-radius: 4px;
-}
-
-.card .chat .chat-bot textarea::-webkit-scrollbar-thumb:hover {
-  background: #8b8b8b;
-  cursor: pointer;
-}
-
-.card .chat .chat-bot textarea::placeholder {
-  color: #dedfe0;
-  transition: all 0.3s ease;
-}
-
-.card .chat .chat-bot textarea:focus::placeholder {
-  color: #8b8b8b;
-}
-
-.card .chat .options {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 3px 4px;
-}
-
-.card .chat .options button {
-  transition: all 0.3s ease;
-}
-
-.card .chat .options .btns-add {
-  display: flex;
-  gap: 3px;
-}
-
-.card .chat .options .btns-add button {
-  display: flex;
-  color: rgba(0, 0, 0, 0.1);
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.card .chat .options .btns-add button svg {
-  width: 12px;
-  height: 12px;
-}
-
-.card .chat .options .btns-add button:hover {
-  transform: translateY(-3px);
-  color: #8b8b8b;
-}
-
-.card .chat .options .btn-submit {
-  display: flex;
-  padding: 1px;
-  background-image: linear-gradient(to top, #ff4141, #9147ff, #3b82f6);
-  border-radius: 5px;
-  box-shadow: inset 0 3px 2px -2px rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  border: none;
-  outline: none;
-  opacity: 0.7;
-  transition: all 0.15s ease;
-}
-
-.card .chat .options .btn-submit i {
-  width: 16px;
-  height: 16px;
-  padding: 3px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  backdrop-filter: blur(3px);
-  color: #cfcfcf;
-}
-
-.card .chat .options .btn-submit svg {
-  transition: all 0.3s ease;
-}
-
-.card .chat .options .btn-submit:hover {
-  opacity: 1;
-}
-
-.card .chat .options .btn-submit:hover svg {
-  color: #f3f6fd;
-  filter: drop-shadow(0 0 5px #ffffff);
-}
-
-.card .chat .options .btn-submit:focus svg {
-  color: #f3f6fd;
-  filter: drop-shadow(0 0 5px #ffffff);
-  transform: scale(1.2) rotate(45deg) translateX(-2px) translateY(1px);
-}
-
-.card .chat .options .btn-submit:active {
-  transform: scale(0.92);
-}
-
 /* 3D Hover Effects for Areas */
 .area:nth-child(15):hover ~ .container-wrap .card,
 .area:nth-child(15):hover ~ .container-wrap .eyes .eye {
@@ -428,83 +244,6 @@
 .area:nth-child(1):hover ~ .container-wrap .eyes .eye {
   transform: perspective(var(--perspective)) rotateX(15deg) rotateY(-15deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
 }
-
-/* Chat 3D effects */
-.area:nth-child(15):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(15):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(-10deg) rotateY(8deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(14):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(14):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(-10deg) rotateY(4deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(13):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(13):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(-10deg) rotateY(0deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(12):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(12):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(-10deg) rotateY(-4deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(11):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(11):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(-10deg) rotateY(-8deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(10):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(10):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(0deg) rotateY(8deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(9):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(9):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(0deg) rotateY(4deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(8):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(8):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(0deg) rotateY(0deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(7):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(7):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(0deg) rotateY(-4deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(6):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(6):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(0deg) rotateY(-8deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(5):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(5):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(10deg) rotateY(8deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(4):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(4):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(10deg) rotateY(4deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(3):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(3):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(10deg) rotateY(0deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(2):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(2):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(10deg) rotateY(-4deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
-.area:nth-child(1):hover ~ .container-wrap .card .container-ai-chat .chat .options button,
-.area:nth-child(1):hover ~ .container-wrap .card .container-ai-chat .chat .chat-bot {
-  transform: perspective(var(--perspective)) rotateX(10deg) rotateY(-8deg) translateZ(var(--translateY)) scale3d(1, 1, 1);
-}
-
 @keyframes rotate-background-balls {
   from {
     transform: translateX(-50%) translateY(-50%) rotate(360deg);
