@@ -16,6 +16,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/AppSidebar";
+import { AiChatInput } from "@/components/AiChatInput";
 import logoBlack from "@/assets/logo-black.svg";
 import {
   AreaChart,
@@ -177,7 +178,6 @@ const Dashboard = () => {
       <AppSidebar />
       
       <main className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
         <header className="border-b border-gray-200 bg-white px-8 py-6 sticky top-0 z-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -187,13 +187,16 @@ const Dashboard = () => {
                 <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              className="text-gray-600 border-gray-200 hover:bg-gray-50"
-            >
-              <Download className="h-4 w-4 mr-2" />
-              Export
-            </Button>
+            <div className="flex items-center gap-6">
+              <AiChatInput />
+              <Button 
+                variant="outline" 
+                className="text-gray-600 border-gray-200 hover:bg-gray-50"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </div>
           </div>
         </header>
 
