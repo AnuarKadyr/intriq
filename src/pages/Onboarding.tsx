@@ -149,21 +149,6 @@ const Onboarding = () => {
         </div>
       </header>
 
-      {/* Progress Bar */}
-      <div className="container mx-auto px-6 pt-6 relative z-10">
-        <div className="max-w-md mx-auto">
-          <div className="flex justify-between text-xs text-muted-foreground mb-2">
-            <span>Step {currentStep} of {steps.length}</span>
-            <span>{Math.round(progressPercentage)}% complete</span>
-          </div>
-          <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-500 ease-out"
-              style={{ width: `${progressPercentage}%` }}
-            />
-          </div>
-        </div>
-      </div>
 
       {/* Stepper */}
       <div className="container mx-auto px-6 py-6 relative z-10">
@@ -194,8 +179,8 @@ const Onboarding = () => {
                     )}
                     {step.id === currentStep && (
                       <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-white border-2 border-primary"></span>
                       </span>
                     )}
                   </div>
@@ -243,15 +228,10 @@ const Onboarding = () => {
           {/* Step 1: Engagement Details */}
           {currentStep === 1 && (
             <div className="animate-fade-in">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Sparkles className="h-5 w-5 text-primary" />
-                </div>
-                <h1 className="text-2xl font-semibold text-foreground">
-                  Start a New Engagement
-                </h1>
-              </div>
-              <p className="text-muted-foreground mb-8 ml-12">
+              <h1 className="text-2xl font-semibold text-foreground mb-2">
+                Start a New Engagement
+              </h1>
+              <p className="text-muted-foreground mb-8">
                 Enter the details for your new due diligence engagement.
               </p>
 
@@ -316,15 +296,10 @@ const Onboarding = () => {
           {/* Step 2: Engagement Letter */}
           {currentStep === 2 && (
             <div className="animate-fade-in">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <FileCheck className="h-5 w-5 text-primary" />
-                </div>
-                <h1 className="text-2xl font-semibold text-foreground">
-                  Upload Engagement Letter
-                </h1>
-              </div>
-              <p className="text-muted-foreground mb-8 ml-12">
+              <h1 className="text-2xl font-semibold text-foreground mb-2">
+                Upload Engagement Letter
+              </h1>
+              <p className="text-muted-foreground mb-8">
                 Upload the engagement letter to set up your project. Key scope and
                 deliverables will be pulled automatically to build AI agents that
                 mirror your workstreams.
@@ -409,15 +384,10 @@ const Onboarding = () => {
           {/* Step 3: Client Data Upload */}
           {currentStep === 3 && (
             <div className="animate-fade-in">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <FolderUp className="h-5 w-5 text-primary" />
-                </div>
-                <h1 className="text-2xl font-semibold text-foreground">
-                  Client Data Upload
-                </h1>
-              </div>
-              <p className="text-muted-foreground mb-8 ml-12">
+              <h1 className="text-2xl font-semibold text-foreground mb-2">
+                Client Data Upload
+              </h1>
+              <p className="text-muted-foreground mb-8">
                 Upload your own documents before sending the request to your client.
               </p>
 
