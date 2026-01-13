@@ -2,9 +2,9 @@
   align-items: center;
   background: linear-gradient(
     to top right,
-    rgba(5, 211, 211, 0.15) 10%,
-    rgba(5, 211, 211, 0.25) 65%,
-    rgba(5, 211, 211, 0.35) 125%
+    hsl(180, 95%, 20%) 10%,
+    hsl(180, 95%, 30%) 50%,
+    hsl(180, 95%, 38%) 100%
   );
   bottom: 0;
   display: flex;
@@ -36,5 +36,4 @@
 
 .loading-logo {
   height: 32px;
-  filter: brightness(0) invert(1);
 }

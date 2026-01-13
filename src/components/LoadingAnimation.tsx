@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import logoBlack from "@/assets/logo-black.svg";
+import logoTiffany from "@/assets/logo-tiffany.svg";
 import "./LoadingAnimation.css";
 
 const phrases = [
@@ -196,7 +196,7 @@ const LoadingAnimation = () => {
         </svg>
       </div>
       <div className="loading-footer">
-        <img src={logoBlack} alt="Logo" className="loading-logo" />
+        <img src={logoTiffany} alt="Logo" className="loading-logo" />
       </div>
     </div>
   );
