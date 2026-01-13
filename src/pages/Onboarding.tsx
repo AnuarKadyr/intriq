@@ -138,8 +138,12 @@ const Onboarding = () => {
 
   const progressPercentage = ((currentStep - 1) / (steps.length - 1)) * 100;
 
+  const handleLoadingComplete = () => {
+    navigate("/onboarding-complete");
+  };
+
   if (isLoading) {
-    return <LoadingAnimation />;
+    return <LoadingAnimation onComplete={handleLoadingComplete} />;
   }
 
   return (

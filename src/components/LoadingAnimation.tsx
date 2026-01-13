@@ -92,9 +92,14 @@ function easeInOut(t: number): number {
   return (Math.sin(t / period + 100) + 1) / 2;
 }
 
-const LoadingAnimation = () => {
+interface LoadingAnimationProps {
+  onComplete?: () => void;
+}
+
+const LoadingAnimation = ({ onComplete }: LoadingAnimationProps) => {
   const phrasesRef = useRef<SVGGElement>(null);
   const animationRef = useRef<number | null>(null);
+  const hasCompletedRef = useRef(false);
 
   useEffect(() => {
     const phrasesGroup = phrasesRef.current;
@@ -103,11 +108,12 @@ const LoadingAnimation = () => {
     // Clear existing content
     phrasesGroup.innerHTML = "";
 
-    const shuffledPhrases = shuffleArray(phrases);
+    // Don't shuffle - show in logical order
+    const orderedPhrases = [...phrases];
     const verticalSpacing = 50;
 
     // Add phrases to the SVG
-    shuffledPhrases.forEach((phrase, index) => {
+    orderedPhrases.forEach((phrase, index) => {
       const yOffset = 30 + verticalSpacing * index;
       phrasesGroup.appendChild(createPhraseSvg(phrase, yOffset));
       phrasesGroup.appendChild(createCheckSvg(yOffset, index));
@@ -115,12 +121,13 @@ const LoadingAnimation = () => {
 
     // Animation logic
     let currentY = 0;
-    const totalHeight = shuffledPhrases.length * verticalSpacing;
+    const totalHeight = orderedPhrases.length * verticalSpacing;
+    const endPosition = -totalHeight + 80;
 
     const checkmarkIdPrefix = "loadingCheckSVG-";
     const checkmarkCircleIdPrefix = "loadingCheckCircleSVG-";
 
-    const checks = shuffledPhrases.map((_, i) => ({
+    const checks = orderedPhrases.map((_, i) => ({
       check: document.getElementById(checkmarkIdPrefix + i),
       circle: document.getElementById(checkmarkCircleIdPrefix + i),
     }));
@@ -129,16 +136,6 @@ const LoadingAnimation = () => {
       const now = new Date().getTime();
       phrasesGroup!.setAttribute("transform", "translate(0 " + currentY + ")");
       currentY -= 1.35 * easeInOut(now);
-
-      // Reset to loop infinitely when reaching the end
-      if (currentY < -totalHeight + 100) {
-        currentY = 0;
-        // Reset all checkmarks
-        checks.forEach((check) => {
-          if (check.circle) check.circle.setAttribute("fill", "rgba(255, 255, 255, 0)");
-          if (check.check) check.check.setAttribute("fill", "rgba(255, 255, 255, 1)");
-        });
-      }
 
       checks.forEach((check, i) => {
         const colorChangeBoundary = -i * verticalSpacing + verticalSpacing + 15;
@@ -161,6 +158,18 @@ const LoadingAnimation = () => {
         }
       });
 
+      // Stop when reaching the last item and trigger completion
+      if (currentY <= endPosition) {
+        if (!hasCompletedRef.current && onComplete) {
+          hasCompletedRef.current = true;
+          // Small delay to let the last checkmark animate
+          setTimeout(() => {
+            onComplete();
+          }, 800);
+        }
+        return;
+      }
+
       animationRef.current = requestAnimationFrame(animateLoading);
     }
 
@@ -171,7 +180,7 @@ const LoadingAnimation = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, []);
+  }, [onComplete]);
 
   return (
     <div className="loading-page">
