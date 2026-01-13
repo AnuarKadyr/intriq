@@ -3,22 +3,18 @@ import logoWhite from "@/assets/logo-white.svg";
 import "./LoadingAnimation.css";
 
 const phrases = [
-  "Feeding unicorns",
-  "Grabbing tasks",
-  "Collating conversations",
-  "Reticulating splines",
-  "Pondering emptiness",
-  "Considering alternatives",
-  "Shuffling bits",
-  "Celebrating moments",
-  "Generating phrases",
-  "Simulating workflow",
-  "Empowering humanity",
-  "Being aspirational",
-  "Doing the hokey pokey",
-  "Bueller",
-  "Cracking jokes",
-  "Slacking off",
+  "Parsing engagement letter",
+  "Extracting scope & deliverables",
+  "Analyzing client data",
+  "Mapping workstreams",
+  "Building AI agents",
+  "Configuring compliance checks",
+  "Indexing documents",
+  "Training on industry context",
+  "Generating task templates",
+  "Setting up data room",
+  "Calibrating risk models",
+  "Finalizing engagement setup",
 ];
 
 function shuffleArray(array: string[]) {
