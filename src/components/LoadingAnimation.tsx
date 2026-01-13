@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import logoTiffany from "@/assets/logo-tiffany.svg";
+import logoWhite from "@/assets/logo-white.svg";
 import "./LoadingAnimation.css";
 
 const phrases = [
@@ -118,8 +118,8 @@ const LoadingAnimation = () => {
     });
 
     // Animation logic
-    const startTime = new Date().getTime();
     let currentY = 0;
+    const totalHeight = shuffledPhrases.length * verticalSpacing;
 
     const checkmarkIdPrefix = "loadingCheckSVG-";
     const checkmarkCircleIdPrefix = "loadingCheckCircleSVG-";
@@ -134,6 +134,16 @@ const LoadingAnimation = () => {
       phrasesGroup!.setAttribute("transform", "translate(0 " + currentY + ")");
       currentY -= 1.35 * easeInOut(now);
 
+      // Reset to loop infinitely when reaching the end
+      if (currentY < -totalHeight + 100) {
+        currentY = 0;
+        // Reset all checkmarks
+        checks.forEach((check) => {
+          if (check.circle) check.circle.setAttribute("fill", "rgba(255, 255, 255, 0)");
+          if (check.check) check.check.setAttribute("fill", "rgba(255, 255, 255, 1)");
+        });
+      }
+
       checks.forEach((check, i) => {
         const colorChangeBoundary = -i * verticalSpacing + verticalSpacing + 15;
         if (currentY < colorChangeBoundary && check.circle && check.check) {
@@ -142,18 +152,19 @@ const LoadingAnimation = () => {
             0
           );
           check.circle.setAttribute("fill", "rgba(255, 255, 255, " + alpha + ")");
+          // Primary color: #05D3D3 = rgb(5, 211, 211)
           const checkColor = [
-            Math.round(255 * (1 - alpha) + 120 * alpha),
-            Math.round(255 * (1 - alpha) + 154 * alpha),
+            Math.round(255 * (1 - alpha) + 5 * alpha),
+            Math.round(255 * (1 - alpha) + 211 * alpha),
+            Math.round(255 * (1 - alpha) + 211 * alpha),
           ];
           check.check.setAttribute(
             "fill",
-            "rgba(255, " + checkColor[0] + "," + checkColor[1] + ", 1)"
+            "rgba(" + checkColor[0] + ", " + checkColor[1] + "," + checkColor[2] + ", 1)"
           );
         }
       });
 
-      // Infinite loop - removed the stop condition
       animationRef.current = requestAnimationFrame(animateLoading);
     }
 
@@ -196,7 +207,7 @@ const LoadingAnimation = () => {
         </svg>
       </div>
       <div className="loading-footer">
-        <img src={logoTiffany} alt="Logo" className="loading-logo" />
+        <img src={logoWhite} alt="Logo" className="loading-logo" />
       </div>
     </div>
   );
