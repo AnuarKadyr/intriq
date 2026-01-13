@@ -8,7 +8,7 @@ const Welcome = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const handleBegin = () => {
-    navigate("/");
+    navigate("/onboarding");
   };
 
   useEffect(() => {
