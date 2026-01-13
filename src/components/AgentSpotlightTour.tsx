@@ -1,55 +1,53 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, X, ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText } from "lucide-react";
+import { ArrowRight, ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText } from "lucide-react";
 import "./AgentSpotlightTour.css";
 
 const tourSteps = [
   {
     id: "intro",
-    title: "Meet Your AI Agents",
-    description: "These specialized agents help you with different aspects of due diligence. Let me show you what each one does.",
-    icon: null,
-    color: null,
+    title: "Your AI Agents",
+    description: "These agents help you with different aspects of due diligence. Click through to learn what each one does.",
   },
   {
     id: "irt",
     title: "Information Request Tracker",
-    description: "Manages engagement scope, deliverables, and coordinates your workflow. Think of it as your project manager.",
+    description: "Manages deliverables and coordinates your workflow.",
     icon: ClipboardList,
     color: "bg-blue-500",
   },
   {
     id: "data-inventory",
     title: "Data Inventory",
-    description: "Automatically processes and classifies all your uploaded documents, making them searchable and organized.",
+    description: "Processes and classifies all uploaded documents.",
     icon: BarChart2,
     color: "bg-emerald-500",
   },
   {
     id: "data-integrity",
     title: "Data Integrity",
-    description: "Maps accounts, reconciles data across sources, and detects anomalies that need attention.",
+    description: "Reconciles data and detects anomalies.",
     icon: GitCompare,
     color: "bg-purple-500",
   },
   {
     id: "mgmt-questions",
     title: "Management Questions",
-    description: "Generates smart questions for management interviews based on your data analysis.",
+    description: "Generates questions for management interviews.",
     icon: HelpCircle,
     color: "bg-amber-500",
   },
   {
     id: "insights",
     title: "Insights Engine",
-    description: "Surfaces patterns, trends, and actionable recommendations from your engagement data.",
+    description: "Surfaces patterns and actionable recommendations.",
     icon: Lightbulb,
     color: "bg-yellow-500",
   },
   {
     id: "report",
     title: "Report Generator",
-    description: "Produces polished final reports and deliverables ready for client presentation.",
+    description: "Produces final reports and deliverables.",
     icon: FileText,
     color: "bg-orange-500",
   },
@@ -64,7 +62,6 @@ export function AgentSpotlightTour({ onComplete }: AgentSpotlightTourProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Animate in after a short delay
     const timer = setTimeout(() => setIsVisible(true), 300);
     return () => clearTimeout(timer);
   }, []);
@@ -84,81 +81,53 @@ export function AgentSpotlightTour({ onComplete }: AgentSpotlightTourProps) {
 
   const step = tourSteps[currentStep];
   const IconComponent = step.icon;
-  const isIntro = currentStep === 0;
   const isLast = currentStep === tourSteps.length - 1;
 
   return (
     <div className={`spotlight-overlay ${isVisible ? 'visible' : ''}`}>
-      {/* Backdrop */}
       <div className="spotlight-backdrop" />
-      
-      {/* Spotlight on agent bar area */}
       <div className="spotlight-highlight" />
       
-      {/* Tour Card */}
       <div className={`spotlight-card ${isVisible ? 'visible' : ''}`}>
-        <button 
-          onClick={handleComplete}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-        >
-          <X className="h-5 w-5" />
-        </button>
-
-        <div className="flex flex-col items-center text-center">
-          {/* Icon */}
-          {isIntro ? (
-            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-              <div className="grid grid-cols-3 gap-1">
-                {[ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText].map((Icon, i) => (
-                  <div key={i} className="w-4 h-4 bg-primary/20 rounded flex items-center justify-center">
-                    <Icon className="h-2.5 w-2.5 text-primary" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className={`w-14 h-14 ${step.color} rounded-2xl flex items-center justify-center mb-4 shadow-lg`}>
-              {IconComponent && <IconComponent className="h-7 w-7 text-white" />}
+        <div className="flex items-start gap-4">
+          {IconComponent && (
+            <div className={`w-10 h-10 ${step.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+              <IconComponent className="h-5 w-5 text-white" />
             </div>
           )}
+          <div className="flex-1 min-w-0">
+            <h3 className="text-base font-semibold text-gray-900 mb-1">{step.title}</h3>
+            <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
+          </div>
+        </div>
 
-          {/* Content */}
-          <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-          <p className="text-gray-600 text-sm leading-relaxed max-w-[280px] mb-6">
-            {step.description}
-          </p>
-
-          {/* Progress dots */}
-          <div className="flex gap-1.5 mb-6">
+        <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
+          <div className="flex gap-1">
             {tourSteps.map((_, index) => (
               <div 
                 key={index}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  index === currentStep 
-                    ? 'w-6 bg-primary' 
-                    : index < currentStep 
-                      ? 'w-1.5 bg-primary/50' 
-                      : 'w-1.5 bg-gray-200'
+                className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                  index <= currentStep ? 'bg-primary' : 'bg-gray-200'
                 }`}
               />
             ))}
           </div>
-
-          {/* Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
+              size="sm"
               onClick={handleComplete}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-400 hover:text-gray-600 h-8 px-3"
             >
-              Skip tour
+              Skip
             </Button>
             <Button
+              size="sm"
               onClick={handleNext}
-              className="bg-primary hover:bg-primary/90 rounded-full px-6 gap-2"
+              className="bg-primary hover:bg-primary/90 h-8 px-4 gap-1.5"
             >
-              {isLast ? "Get started" : "Next"}
-              <ArrowRight className="h-4 w-4" />
+              {isLast ? "Done" : "Next"}
+              <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </div>
         </div>
