@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/AppSidebar";
 import { AiChatInput } from "@/components/AiChatInput";
 import { AiChatPanel } from "@/components/AiChatPanel";
+import { AgentQuickBar } from "@/components/AgentQuickBar";
 import { useAiChat } from "@/contexts/AiChatContext";
 import {
   AreaChart,
@@ -199,8 +200,11 @@ const Dashboard = () => {
           </div>
         </header>
 
+        {/* Agent Quick Bar */}
+        <AgentQuickBar />
+
         {/* Content */}
-        <div className="flex-1 p-8 space-y-6 overflow-y-auto mt-[88px]">
+        <div className="flex-1 p-8 space-y-6 overflow-y-auto mt-[140px]">
           
           {/* KPI Cards Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
