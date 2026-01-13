@@ -86,7 +86,7 @@ export function AgentSpotlightTour({ onComplete }: AgentSpotlightTourProps) {
   return (
     <div className={`spotlight-overlay ${isVisible ? 'visible' : ''}`}>
       <div className="spotlight-backdrop" />
-      <div className="spotlight-highlight" />
+      <div className="spotlight-sidebar-cover" />
       
       <div className={`spotlight-card ${isVisible ? 'visible' : ''}`}>
         <div className="flex items-start gap-4">

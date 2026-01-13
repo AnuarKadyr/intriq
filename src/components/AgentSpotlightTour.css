@@ -12,35 +12,43 @@
   pointer-events: auto;
 }
 
-/* Dark backdrop with cutout for agent bar */
+/* Dark backdrop with transparent cutout for agent bar */
 .spotlight-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  /* Cutout effect using clip-path */
-  clip-path: polygon(
-    0% 0%,
-    0% 100%,
-    288px 100%,
-    288px 88px,
-    100% 88px,
-    100% 140px,
-    288px 140px,
-    288px 100%,
-    100% 100%,
-    100% 0%
-  );
+  pointer-events: auto;
 }
 
-/* The highlighted agent bar area */
-.spotlight-highlight {
+/* Top section - above agent bar */
+.spotlight-backdrop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 88px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* Bottom section - below agent bar */
+.spotlight-backdrop::after {
+  content: '';
+  position: absolute;
+  top: 140px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* Left side - sidebar area */
+.spotlight-sidebar-cover {
   position: absolute;
   top: 88px;
-  left: 288px;
-  right: 0;
+  left: 0;
+  width: 288px;
   height: 52px;
-  background: white;
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .spotlight-card {
