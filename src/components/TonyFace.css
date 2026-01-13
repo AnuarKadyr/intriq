@@ -1,0 +1,308 @@
+/* Tony Face Component - Reusable with expressions */
+
+/* Size variants */
+.tony-face-small {
+  width: 60px;
+  height: 60px;
+}
+
+.tony-face-medium {
+  width: 80px;
+  height: 80px;
+}
+
+.tony-face-large {
+  width: 140px;
+  height: 140px;
+}
+
+/* Base structure */
+.tony-face-outer {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(5, 211, 211, 0.15), rgba(147, 51, 234, 0.15));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8%;
+}
+
+.tony-face-large .tony-face-outer {
+  box-shadow: 0 20px 60px rgba(5, 211, 211, 0.2), 0 10px 30px rgba(147, 51, 234, 0.1);
+}
+
+.tony-face-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.tony-face-background {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+}
+
+/* Animated balls */
+.tony-ball {
+  position: absolute;
+  border-radius: 50%;
+  animation: rotate-tony-balls 8s linear infinite;
+}
+
+.tony-face-small .tony-ball {
+  width: 16px;
+  height: 16px;
+  filter: blur(8px);
+}
+
+.tony-face-medium .tony-ball {
+  width: 24px;
+  height: 24px;
+  filter: blur(12px);
+}
+
+.tony-face-large .tony-ball {
+  width: 40px;
+  height: 40px;
+  filter: blur(20px);
+}
+
+.tony-ball.violet {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #9147ff;
+}
+
+.tony-ball.green {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #34d399;
+}
+
+.tony-ball.rosa {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #ec4899;
+}
+
+.tony-ball.cyan {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: #05e0f5;
+}
+
+.tony-face-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(30px);
+  border-radius: 50%;
+}
+
+.tony-face-large .tony-face-content {
+  backdrop-filter: blur(40px);
+}
+
+/* Eyes container */
+.tony-eyes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tony-face-small .tony-eyes { gap: 6px; }
+.tony-face-medium .tony-eyes { gap: 10px; }
+.tony-face-large .tony-eyes { gap: 18px; }
+
+/* ========== NEUTRAL EXPRESSION ========== */
+.tony-eye {
+  background-color: #fff;
+  border-radius: 40%;
+  animation: blink-tony 4s infinite ease-in-out;
+}
+
+.tony-face-small .tony-eye {
+  width: 6px;
+  height: 12px;
+}
+
+.tony-face-medium .tony-eye {
+  width: 8px;
+  height: 16px;
+}
+
+.tony-face-large .tony-eye {
+  width: 14px;
+  height: 28px;
+}
+
+@keyframes blink-tony {
+  0%, 45%, 55%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.1); }
+}
+
+/* ========== HAPPY EXPRESSION ========== */
+.tony-eye-happy {
+  background-color: transparent;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  transform: rotate(0deg);
+  animation: happy-bounce 2s ease-in-out infinite;
+}
+
+.tony-face-small .tony-eye-happy {
+  width: 10px;
+  height: 6px;
+  border-width: 2px;
+}
+
+.tony-face-medium .tony-eye-happy {
+  width: 14px;
+  height: 8px;
+  border-width: 3px;
+}
+
+.tony-face-large .tony-eye-happy {
+  width: 24px;
+  height: 14px;
+  border-width: 4px;
+}
+
+@keyframes happy-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ========== THINKING EXPRESSION ========== */
+.tony-eyes.thinking {
+  transform: translateY(-15%);
+}
+
+.tony-eye-thinking {
+  background-color: #fff;
+  border-radius: 50%;
+  animation: thinking-look 3s ease-in-out infinite;
+}
+
+.tony-face-small .tony-eye-thinking {
+  width: 8px;
+  height: 8px;
+}
+
+.tony-face-medium .tony-eye-thinking {
+  width: 10px;
+  height: 10px;
+}
+
+.tony-face-large .tony-eye-thinking {
+  width: 18px;
+  height: 18px;
+}
+
+@keyframes thinking-look {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(2px) translateY(-2px); }
+  75% { transform: translateX(-2px) translateY(-2px); }
+}
+
+/* ========== EXCITED EXPRESSION ========== */
+.tony-eyes.excited {
+  animation: excited-bounce 0.5s ease-in-out infinite;
+}
+
+.tony-eye-excited {
+  background-color: #fff;
+  border-radius: 50%;
+  animation: excited-pulse 0.8s ease-in-out infinite;
+}
+
+.tony-face-small .tony-eye-excited {
+  width: 10px;
+  height: 10px;
+}
+
+.tony-face-medium .tony-eye-excited {
+  width: 14px;
+  height: 14px;
+}
+
+.tony-face-large .tony-eye-excited {
+  width: 22px;
+  height: 22px;
+}
+
+@keyframes excited-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes excited-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* ========== WAVING - Hand ========== */
+.tony-hand {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  font-size: 1.2em;
+  animation: wave-hand 1s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.tony-face-small .tony-hand {
+  font-size: 0.8em;
+}
+
+.tony-face-large .tony-hand {
+  font-size: 1.8em;
+}
+
+@keyframes wave-hand {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(20deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+/* Ball rotation */
+@keyframes rotate-tony-balls {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bounce in animation for entrance */
+.tony-bounce-in {
+  animation: tony-bounce-in 0.6s ease-out forwards;
+}
+
+@keyframes tony-bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
