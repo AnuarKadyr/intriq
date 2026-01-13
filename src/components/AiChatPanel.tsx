@@ -1,4 +1,4 @@
-import { X, Send, Paperclip, Mic } from "lucide-react";
+import { X, Send, Paperclip, Mic, Sparkles } from "lucide-react";
 import { useAiChat } from "@/contexts/AiChatContext";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -16,9 +16,7 @@ export function AiChatPanel() {
       <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center">
-              <span className="text-white text-xs font-bold">AI</span>
-            </div>
+            <Sparkles className="w-5 h-5 text-primary" />
           </div>
           <div>
             <h3 className="font-semibold text-gray-900">AI Assistant</h3>
@@ -53,9 +51,6 @@ export function AiChatPanel() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center font-medium">
-              32%
             </div>
           </div>
           <h2 className="text-xl font-bold text-gray-900 mb-1">
