@@ -398,10 +398,9 @@ button.contact-btn:hover .glow::before {
 .hero-p {
   font-size: 1.2em;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 20.6em;
-  margin: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 22em;
   height: fit-content;
   width: fit-content;
   text-align: center;
