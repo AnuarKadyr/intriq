@@ -180,8 +180,8 @@ const Dashboard = () => {
     <div className="min-h-screen flex w-full bg-gray-50">
       <AppSidebar />
       
-      <main className={`flex-1 flex flex-col overflow-hidden ml-72 transition-all duration-300 ${isAiChatOpen ? 'mr-[380px]' : ''}`}>
-        <header className={`border-b border-gray-200 bg-white px-8 py-6 fixed top-0 left-72 z-10 transition-all duration-300 ${isAiChatOpen ? 'right-[380px]' : 'right-0'}`}>
+      <main className="flex-1 flex flex-col overflow-hidden ml-72">
+        <header className="border-b border-gray-200 bg-white px-8 py-6 fixed top-0 left-72 right-0 z-10">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
