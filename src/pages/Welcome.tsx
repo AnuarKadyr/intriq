@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logoBlack from "@/assets/logo-black.svg";
-import illustration from "@/assets/illustration.svg";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -12,18 +11,7 @@ const Welcome = () => {
   };
 
   return (
-    <div 
-      className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-br from-[hsl(180_30%_95%)] via-[hsl(180_20%_97%)] to-[hsl(180_10%_98%)]"
-      style={{
-        backgroundImage: `url(${illustration})`,
-        backgroundRepeat: 'repeat',
-        backgroundSize: '150px',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[hsl(180_30%_95%)/90] via-[hsl(180_20%_97%)/85] to-[hsl(180_10%_98%)/90]" />
-
+    <div className="min-h-screen flex flex-col relative overflow-hidden bg-gradient-to-br from-[hsl(180_30%_95%)] via-[hsl(180_20%_97%)] to-[hsl(180_10%_98%)]">
       {/* Logo */}
       <header className="relative z-10 px-8 py-6">
         <img src={logoBlack} alt="Intriq AI" className="h-8" />
