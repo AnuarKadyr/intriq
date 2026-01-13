@@ -2,6 +2,7 @@ import { X, Send, Paperclip, Mic } from "lucide-react";
 import { useAiChat } from "@/contexts/AiChatContext";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import "./AiChatPanel.css";
 
 export function AiChatPanel() {
   const { isAiChatOpen, closeAiChat } = useAiChat();
@@ -35,9 +36,23 @@ export function AiChatPanel() {
       {/* Greeting Section */}
       <div className="flex-1 overflow-y-auto p-6">
         <div className="flex flex-col items-center text-center mb-8 pt-8">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/10 to-purple-500/10 flex items-center justify-center mb-4 relative">
-            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
-              <span className="text-3xl">🔥</span>
+          {/* AI Face Avatar */}
+          <div className="ai-face-avatar mb-4 relative">
+            <div className="ai-face-outer">
+              <div className="ai-face-inner">
+                <div className="ai-face-background">
+                  <span className="ai-ball rosa"></span>
+                  <span className="ai-ball violet"></span>
+                  <span className="ai-ball green"></span>
+                  <span className="ai-ball cyan"></span>
+                </div>
+                <div className="ai-face-content">
+                  <div className="ai-eyes">
+                    <span className="ai-eye"></span>
+                    <span className="ai-eye"></span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-primary text-white text-xs flex items-center justify-center font-medium">
               32%
