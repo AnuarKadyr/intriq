@@ -158,18 +158,10 @@ function OnboardingStep2() {
         )}
       </div>
 
-      {/* Agent dots */}
-      <div className="flex gap-2 mb-6">
-        {agents.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentAgent(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              index === currentAgent ? 'bg-primary w-4' : 'bg-gray-300'
-            }`}
-          />
-        ))}
-      </div>
+      {/* Agent counter */}
+      <p className="text-xs text-gray-400 mb-6">
+        {currentAgent + 1} of {agents.length}
+      </p>
 
       <Button 
         onClick={handleNext}
