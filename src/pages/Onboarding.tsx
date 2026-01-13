@@ -165,7 +165,7 @@ const Onboarding = () => {
                       transition-all duration-300 ease-out
                       ${
                         step.id < currentStep
-                          ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25"
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
                           : step.id === currentStep
                           ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 ring-4 ring-primary/20 scale-110"
                           : "bg-muted text-muted-foreground hover:bg-muted/80"
@@ -192,7 +192,7 @@ const Onboarding = () => {
                         step.id === currentStep
                           ? "text-foreground font-semibold"
                           : step.id < currentStep
-                          ? "text-emerald-500"
+                          ? "text-primary"
                           : "text-muted-foreground"
                       }
                     `}
