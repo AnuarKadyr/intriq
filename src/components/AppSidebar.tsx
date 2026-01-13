@@ -9,7 +9,6 @@ import {
   LogOut,
   Settings
 } from "lucide-react";
-import { NavLink } from "@/components/NavLink";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -55,31 +54,32 @@ export function AppSidebar() {
 
   const [engagementsOpen, setEngagementsOpen] = useState(true);
   const [researchOpen, setResearchOpen] = useState(false);
-
-  const isActive = (path: string) => currentPath === path;
+  const [activeEngagement, setActiveEngagement] = useState(2); // Mock active state
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-border bg-card">
+    <Sidebar collapsible="icon" className="border-r border-border/40 bg-white">
       {/* Header with Logo */}
-      <div className="p-5 flex items-center justify-between">
+      <div className="px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img 
-            src={logoTiffany} 
-            alt="Intriq AI" 
-            className="h-10 w-10"
-          />
+          <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+            <img 
+              src={logoTiffany} 
+              alt="Intriq AI" 
+              className="h-7 w-7 brightness-0 invert"
+            />
+          </div>
           {!collapsed && (
-            <span className="font-semibold text-lg text-foreground">Intriq AI</span>
+            <span className="font-bold text-xl text-foreground tracking-tight">Intriq AI</span>
           )}
         </div>
         {!collapsed && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
-                <MoreVertical className="h-4 w-4" />
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="bg-white">
               <DropdownMenuItem>
                 <Settings className="h-4 w-4 mr-2" />
                 Settings
@@ -95,99 +95,93 @@ export function AppSidebar() {
 
       {/* New Engagement Button */}
       {!collapsed && (
-        <div className="px-4 pb-4">
+        <div className="px-5 pb-6">
           <Button 
             onClick={() => navigate("/onboarding")}
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-md shadow-primary/20"
+            className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground text-base font-medium rounded-xl shadow-sm"
           >
-            <Plus className="h-4 w-4 mr-2" />
+            <Plus className="h-5 w-5 mr-2" strokeWidth={2.5} />
             Start New Engagement
           </Button>
         </div>
       )}
 
       {collapsed && (
-        <div className="px-2 pb-4 flex justify-center">
+        <div className="px-3 pb-4 flex justify-center">
           <Button 
             onClick={() => navigate("/onboarding")}
             size="icon"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md shadow-primary/20"
+            className="h-10 w-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl shadow-sm"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-5 w-5" strokeWidth={2.5} />
           </Button>
         </div>
       )}
 
-      <div className="px-4">
-        <div className="border-t border-border" />
+      {/* Separator */}
+      <div className="px-5 pb-4">
+        <div className="border-t border-border/60" />
       </div>
 
-      <SidebarContent className="px-2 py-4">
+      <SidebarContent className="px-3">
         {/* Engagements Section */}
         <Collapsible open={engagementsOpen} onOpenChange={setEngagementsOpen}>
-          <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg hover:bg-muted/50 transition-colors group">
+          <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-3 rounded-xl hover:bg-muted/40 transition-colors">
             <div className="flex items-center gap-3">
               <Clock className="h-5 w-5 text-muted-foreground" />
               {!collapsed && (
-                <span className="font-medium text-foreground">Engagements</span>
+                <span className="font-semibold text-base text-foreground">Engagements</span>
               )}
             </div>
             {!collapsed && (
-              <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${engagementsOpen ? '' : '-rotate-90'}`} />
+              <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${engagementsOpen ? '' : '-rotate-90'}`} />
             )}
           </CollapsibleTrigger>
           
           {!collapsed && (
-            <CollapsibleContent className="mt-1 ml-4 space-y-0.5">
+            <CollapsibleContent className="mt-1 space-y-1">
               {engagements.map((engagement) => (
-                <NavLink
+                <button
                   key={engagement.id}
-                  to={engagement.url}
+                  onClick={() => setActiveEngagement(engagement.id)}
                   className={`
-                    block px-4 py-2.5 rounded-lg text-sm transition-colors
-                    ${isActive(engagement.url) 
-                      ? 'bg-muted font-medium text-foreground' 
-                      : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                    w-full text-left px-4 py-3 ml-6 mr-2 rounded-xl text-sm transition-all duration-150
+                    ${activeEngagement === engagement.id
+                      ? 'bg-muted/80 font-medium text-foreground shadow-sm' 
+                      : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
                     }
                   `}
                 >
                   {engagement.name}
-                </NavLink>
+                </button>
               ))}
             </CollapsibleContent>
           )}
         </Collapsible>
 
         {/* Company Research Section */}
-        <Collapsible open={researchOpen} onOpenChange={setResearchOpen}>
-          <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg hover:bg-muted/50 transition-colors group mt-1">
+        <Collapsible open={researchOpen} onOpenChange={setResearchOpen} className="mt-2">
+          <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-3 rounded-xl hover:bg-muted/40 transition-colors">
             <div className="flex items-center gap-3">
               <Building2 className="h-5 w-5 text-muted-foreground" />
               {!collapsed && (
-                <span className="font-medium text-foreground">Company Research</span>
+                <span className="font-semibold text-base text-foreground">Company Research</span>
               )}
             </div>
             {!collapsed && (
-              <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${researchOpen ? '' : '-rotate-90'}`} />
+              <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${researchOpen ? '' : '-rotate-90'}`} />
             )}
           </CollapsibleTrigger>
           
           {!collapsed && (
-            <CollapsibleContent className="mt-1 ml-4 space-y-0.5">
+            <CollapsibleContent className="mt-1 space-y-1">
               {companyResearch.map((research) => (
-                <NavLink
+                <button
                   key={research.id}
-                  to={research.url}
-                  className={`
-                    block px-4 py-2.5 rounded-lg text-sm transition-colors
-                    ${isActive(research.url) 
-                      ? 'bg-muted font-medium text-foreground' 
-                      : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-                    }
-                  `}
+                  className="w-full text-left px-4 py-3 ml-6 mr-2 rounded-xl text-sm text-muted-foreground hover:bg-muted/40 hover:text-foreground transition-all duration-150"
                 >
                   {research.name}
-                </NavLink>
+                </button>
               ))}
             </CollapsibleContent>
           )}
@@ -195,29 +189,29 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* User Profile Footer */}
-      <SidebarFooter className="p-4 border-t border-border mt-auto">
+      <SidebarFooter className="p-5 border-t border-border/40 mt-auto">
         {!collapsed ? (
-          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center text-primary font-medium">
-              MG
+          <div className="flex items-center gap-3 p-3 rounded-xl hover:bg-muted/40 transition-colors cursor-pointer">
+            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-amber-200 to-orange-300 flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <span className="text-orange-700 font-semibold text-sm">MG</span>
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <span className="font-medium text-sm text-foreground truncate">Mia Gasker</span>
-                <div className="w-4 h-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-sm text-foreground">Mia Gasker</span>
+                <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
               </div>
-              <span className="text-xs text-muted-foreground truncate block">mia@intriq.ai</span>
+              <span className="text-xs text-muted-foreground block mt-0.5">mia@intriq.ai</span>
             </div>
-            <ChevronRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+            <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
           </div>
         ) : (
           <div className="flex justify-center">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center text-primary font-medium cursor-pointer">
-              MG
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-200 to-orange-300 flex items-center justify-center cursor-pointer">
+              <span className="text-orange-700 font-semibold text-xs">MG</span>
             </div>
           </div>
         )}
