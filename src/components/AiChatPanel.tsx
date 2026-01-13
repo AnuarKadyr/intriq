@@ -83,7 +83,7 @@ function OnboardingStep1() {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
+    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center step-enter">
       <TonyFace size="large" className="tony-bounce-in mb-8" />
 
       <div className={`transition-all duration-500 ${showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
@@ -120,12 +120,17 @@ function OnboardingStep1() {
 
 // Onboarding Step 2 - Meet the Team (Happy)
 function OnboardingStep2() {
-  const { nextOnboardingStep, skipOnboarding } = useAiChat();
+  const { nextOnboardingStep } = useAiChat();
   const [currentAgent, setCurrentAgent] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleNext = () => {
     if (currentAgent < agents.length - 1) {
-      setCurrentAgent(prev => prev + 1);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentAgent(prev => prev + 1);
+        setIsTransitioning(false);
+      }, 250);
     } else {
       nextOnboardingStep();
     }
@@ -135,27 +140,23 @@ function OnboardingStep2() {
   const IconComponent = agent.icon;
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center step-enter">
       <TonyFace size="medium" className="mb-4" />
       
       <p className="text-gray-500 text-sm mb-6">I work with a team of specialists...</p>
 
       {/* Agent Card */}
-      <div className="w-full max-w-[300px] bg-gray-50 rounded-2xl p-6 mb-6 transition-all duration-300">
-        <div className={`w-14 h-14 ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-4 ${agent.status === 'coming-soon' ? 'opacity-50' : ''}`}>
-          {agent.status === 'coming-soon' ? (
-            <Lock className="h-6 w-6 text-white" />
-          ) : (
-            <IconComponent className="h-6 w-6 text-white" />
-          )}
+      <div 
+        key={currentAgent}
+        className={`w-full max-w-[300px] bg-gray-50 rounded-2xl p-6 mb-6 transition-all duration-300 ${
+          isTransitioning ? 'opacity-0 scale-95 translate-y-2' : 'opacity-100 scale-100 translate-y-0'
+        }`}
+      >
+        <div className={`w-14 h-14 ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-4`}>
+          <IconComponent className="h-6 w-6 text-white" />
         </div>
         <h3 className="font-semibold text-gray-900 mb-1">{agent.name}</h3>
         <p className="text-sm text-gray-500">{agent.description}</p>
-        {agent.status === 'coming-soon' && (
-          <span className="inline-block mt-2 text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded-full">
-            Coming Soon
-          </span>
-        )}
       </div>
 
       {/* Agent counter */}
@@ -183,10 +184,10 @@ function OnboardingStep2() {
 
 // Onboarding Step 3 - How to use (Thinking)
 function OnboardingStep3() {
-  const { nextOnboardingStep, skipOnboarding } = useAiChat();
+  const { nextOnboardingStep } = useAiChat();
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center step-enter">
       <TonyFace size="large" className="mb-6" />
       
       <h2 className="text-xl font-bold text-gray-900 mb-2">
@@ -251,7 +252,7 @@ function OnboardingStep4() {
   }, []);
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+    <div className="flex-1 flex flex-col items-center justify-center p-6 text-center step-enter">
       <TonyFace size="large" className="tony-bounce-in mb-6" />
       
       <h2 className="text-2xl font-bold text-gray-900 mb-2">
