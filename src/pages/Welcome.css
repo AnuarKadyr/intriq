@@ -584,7 +584,7 @@ button.contact-btn:hover .glow::before {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 27em;
+  top: 32em;
   z-index: 10;
   opacity: 0;
   translate: 0 1em;
