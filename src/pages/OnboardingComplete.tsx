@@ -33,38 +33,13 @@ const OnboardingComplete = () => {
 
           {/* Heading */}
           <h1 className="text-4xl font-semibold text-foreground mb-4">
-            All Set!
+            You are all set!
           </h1>
 
           {/* Description */}
           <p className="text-lg text-muted-foreground mb-8">
-            Your engagement has been configured successfully. AI agents are ready to assist with your due diligence workflow.
+            Your engagement is configured. AI agents are ready to assist your workflow.
           </p>
-
-          {/* Features summary */}
-          <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border/50 p-6 mb-8 text-left">
-            <h3 className="font-medium text-foreground mb-4">What's ready for you:</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <CheckCircle2 className="w-3 h-3 text-primary" />
-                </div>
-                <span className="text-muted-foreground">AI agents configured for your workstreams</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <CheckCircle2 className="w-3 h-3 text-primary" />
-                </div>
-                <span className="text-muted-foreground">Document analysis & indexing complete</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <CheckCircle2 className="w-3 h-3 text-primary" />
-                </div>
-                <span className="text-muted-foreground">Task templates generated from engagement scope</span>
-              </li>
-            </ul>
-          </div>
 
           {/* CTA Button */}
           <Button
