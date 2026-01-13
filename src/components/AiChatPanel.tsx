@@ -84,7 +84,7 @@ function OnboardingStep1() {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-      <TonyFace expression="waving" size="large" className="tony-bounce-in mb-8" />
+      <TonyFace size="large" className="tony-bounce-in mb-8" />
 
       <div className={`transition-all duration-500 ${showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -145,7 +145,7 @@ function OnboardingStep2() {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-      <TonyFace expression="happy" size="medium" className="mb-4" />
+      <TonyFace size="medium" className="mb-4" />
       
       <p className="text-gray-500 text-sm mb-6">I work with a team of specialists...</p>
 
@@ -210,7 +210,7 @@ function OnboardingStep3() {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-      <TonyFace expression="thinking" size="large" className="mb-6" />
+      <TonyFace size="large" className="mb-6" />
       
       <h2 className="text-xl font-bold text-gray-900 mb-2">
         How we'll work together
@@ -281,7 +281,7 @@ function OnboardingStep4() {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-      <TonyFace expression="excited" size="large" className="tony-bounce-in mb-6" />
+      <TonyFace size="large" className="tony-bounce-in mb-6" />
       
       <h2 className="text-2xl font-bold text-gray-900 mb-2">
         We're all set! 🚀
@@ -357,7 +357,7 @@ function ChatInterface() {
       {/* Greeting Section */}
       <div className="flex-1 overflow-y-auto p-6">
         <div className="flex flex-col items-center text-center mb-8 pt-4">
-          <TonyFace expression="neutral" size="medium" className="mb-4" />
+          <TonyFace size="medium" className="mb-4" />
           <h2 className="text-xl font-bold text-gray-900 mb-1">
             How can I help you today?
           </h2>
