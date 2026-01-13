@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { CheckCircle2, ArrowRight, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Confetti from "@/components/Confetti";
 import logoBlack from "@/assets/logo-black.svg";
 
 const OnboardingComplete = () => {
@@ -8,6 +9,9 @@ const OnboardingComplete = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative overflow-hidden flex flex-col">
+      {/* Confetti Animation */}
+      <Confetti />
+      
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />

@@ -13,8 +13,13 @@
   position: fixed;
   right: 0;
   top: 0;
-  transition: opacity 1s;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
   z-index: 50;
+}
+
+.loading-page.loading-fade-out {
+  opacity: 0;
 }
 
 .loading-phrase-box {
