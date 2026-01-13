@@ -300,7 +300,7 @@ const Onboarding = () => {
                 Upload Engagement Letter
               </h1>
               <p className="text-muted-foreground mb-8">
-                Key scope and deliverables will be pulled automatically to build AI agents.
+                Scope and deliverables will be pulled automatically to build AI agents that mirror your workstreams.
               </p>
 
               <div className="space-y-6">
