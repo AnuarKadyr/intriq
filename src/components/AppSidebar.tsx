@@ -13,7 +13,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import logoTiffany from "@/assets/logo-tiffany.svg";
+import logoFull from "@/assets/logo-full.svg";
 
 // Mock data for engagements
 const engagements = [
@@ -38,15 +38,12 @@ export function AppSidebar() {
   return (
     <aside className="w-72 h-screen bg-white border-r border-gray-100 flex flex-col">
       {/* Header */}
-      <div className="p-6 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-          <img 
-            src={logoTiffany} 
-            alt="Intriq AI" 
-            className="h-6 w-6 brightness-0 invert"
-          />
-        </div>
-        <span className="font-semibold text-lg text-gray-900">Intriq AI</span>
+      <div className="p-6 flex items-center">
+        <img 
+          src={logoFull} 
+          alt="Intriq AI" 
+          className="h-7"
+        />
       </div>
 
       {/* New Engagement Button */}
