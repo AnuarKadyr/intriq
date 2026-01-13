@@ -285,17 +285,17 @@ button.contact-btn:hover .glow::before {
   width: fit-content;
   font-size: 7em;
   font-weight: 600;
-  color: #9dc3f7;
+  color: #05D3D3;
   background: radial-gradient(2em 2em at 50% 50%,
       transparent calc(var(--p) - 2em),
       #fff calc(var(--p) - 1em),
       #fff calc(var(--p) - 0.4em),
       transparent var(--p)),
-    linear-gradient(0deg, #bad1f1 30%, #9dc3f7 100%);
+    linear-gradient(0deg, #05D3D3 30%, #7EEAEA 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 16px rgba(174, 207, 242, .24);
+  text-shadow: 0 2px 16px rgba(5, 211, 211, .3);
   --p: 0%;
   transition: --p 3s linear;
   animation: pulse 10s linear 1.2s infinite;
@@ -350,9 +350,9 @@ button.contact-btn:hover .glow::before {
   position: relative;
   width: fit-content;
   margin: auto;
-  color: #d8ecf8;
-  text-shadow: 0 2px 16px rgba(174, 207, 242, .24);
-  background: linear-gradient(0deg, #d8ecf8 0, #98c0ef 100%);
+  color: #7EEAEA;
+  text-shadow: 0 2px 16px rgba(5, 211, 211, .2);
+  background: linear-gradient(0deg, #7EEAEA 0, #05D3D3 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -400,9 +400,9 @@ button.contact-btn:hover .glow::before {
   opacity: 0;
   translate: 0 1em;
   animation: load 2s ease-out 2s forwards, up 1.4s ease-out 2s forwards;
-  color: #d8ecf8;
-  text-shadow: 0 2px 16px rgba(174, 207, 242, .24);
-  background: linear-gradient(0deg, #d8ecf8 0, #98c0ef 100%);
+  color: #b8e8e8;
+  text-shadow: 0 2px 16px rgba(5, 211, 211, .2);
+  background: linear-gradient(0deg, #d0f4f4 0, #7EEAEA 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
