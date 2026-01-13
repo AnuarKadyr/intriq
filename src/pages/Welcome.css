@@ -50,6 +50,8 @@
   top: 50%;
   transform: translateY(-50%);
   height: 2em;
+  filter: brightness(0) saturate(100%) invert(78%) sepia(15%) saturate(497%) hue-rotate(182deg) brightness(95%) contrast(91%);
+  opacity: 0.85;
 }
 
 .mid-spot {
