@@ -178,13 +178,13 @@ const Dashboard = () => {
       <AppSidebar />
       
       <main className="flex-1 flex flex-col overflow-hidden ml-72">
-        <header className="border-b border-gray-200 bg-white px-8 py-6 sticky top-0 z-10">
+        <header className="border-b border-gray-200 bg-white px-8 py-6 fixed top-0 right-0 left-72 z-10">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
               <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
               <AiChatInput />
               <Button 
                 variant="outline" 
@@ -198,7 +198,7 @@ const Dashboard = () => {
         </header>
 
         {/* Content */}
-        <div className="flex-1 p-8 space-y-6 overflow-y-auto">
+        <div className="flex-1 p-8 space-y-6 overflow-y-auto mt-[88px]">
           
           {/* KPI Cards Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
