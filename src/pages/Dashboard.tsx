@@ -5,14 +5,12 @@ import {
   FileText, 
   Clock,
   ArrowUpRight,
-  MoreHorizontal,
-  Plus
+  MoreHorizontal
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { useNavigate } from "react-router-dom";
 
 const stats = [
   {
@@ -108,8 +106,6 @@ const recentActivity = [
 ];
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -117,7 +113,7 @@ const Dashboard = () => {
         
         <main className="flex-1 flex flex-col">
           {/* Header */}
-          <header className="h-16 border-b border-border bg-card/50 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-10">
+          <header className="h-16 border-b border-border bg-card/50 backdrop-blur-sm flex items-center px-6 sticky top-0 z-10">
             <div className="flex items-center gap-4">
               <SidebarTrigger />
               <div>
@@ -125,13 +121,6 @@ const Dashboard = () => {
                 <p className="text-sm text-muted-foreground">Welcome back! Here's an overview of your engagements.</p>
               </div>
             </div>
-            <Button 
-              onClick={() => navigate("/onboarding")}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/25"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              New Engagement
-            </Button>
           </header>
 
           {/* Content */}
