@@ -121,65 +121,64 @@
   justify-content: center;
 }
 
-.tony-face-small .tony-eyes { gap: 6px; }
-.tony-face-medium .tony-eyes { gap: 10px; }
-.tony-face-large .tony-eyes { gap: 18px; }
+.tony-face-small .tony-eyes { gap: 8px; }
+.tony-face-medium .tony-eyes { gap: 12px; }
+.tony-face-large .tony-eyes { gap: 20px; }
 
 /* ========== NEUTRAL EXPRESSION ========== */
+/* Oval eyes that blink */
 .tony-eye {
-  background-color: #fff;
+  background-color: #1a1a2e;
   border-radius: 40%;
   animation: blink-tony 4s infinite ease-in-out;
 }
 
 .tony-face-small .tony-eye {
   width: 6px;
-  height: 12px;
+  height: 14px;
 }
 
 .tony-face-medium .tony-eye {
   width: 8px;
-  height: 16px;
+  height: 18px;
 }
 
 .tony-face-large .tony-eye {
-  width: 14px;
+  width: 12px;
   height: 28px;
 }
 
 @keyframes blink-tony {
-  0%, 45%, 55%, 100% { transform: scaleY(1); }
+  0%, 42%, 58%, 100% { transform: scaleY(1); }
   50% { transform: scaleY(0.1); }
 }
 
 /* ========== HAPPY EXPRESSION ========== */
+/* Curved arc eyes like ^_^ - using SVG-like curves */
 .tony-eye-happy {
-  background-color: transparent;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  transform: rotate(0deg);
+  width: 20px;
+  height: 10px;
+  border-bottom: 4px solid #1a1a2e;
+  border-radius: 0 0 50% 50%;
   animation: happy-bounce 2s ease-in-out infinite;
 }
 
 .tony-face-small .tony-eye-happy {
-  width: 10px;
+  width: 12px;
   height: 6px;
-  border-width: 2px;
+  border-bottom-width: 3px;
 }
 
 .tony-face-medium .tony-eye-happy {
-  width: 14px;
+  width: 16px;
   height: 8px;
-  border-width: 3px;
+  border-bottom-width: 3px;
 }
 
 .tony-face-large .tony-eye-happy {
-  width: 24px;
+  width: 28px;
   height: 14px;
-  border-width: 4px;
+  border-bottom-width: 5px;
 }
 
 @keyframes happy-bounce {
@@ -188,12 +187,13 @@
 }
 
 /* ========== THINKING EXPRESSION ========== */
+/* Round eyes looking up */
 .tony-eyes.thinking {
-  transform: translateY(-15%);
+  transform: translateY(-20%);
 }
 
 .tony-eye-thinking {
-  background-color: #fff;
+  background-color: #1a1a2e;
   border-radius: 50%;
   animation: thinking-look 3s ease-in-out infinite;
 }
@@ -204,28 +204,29 @@
 }
 
 .tony-face-medium .tony-eye-thinking {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 .tony-face-large .tony-eye-thinking {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 @keyframes thinking-look {
   0%, 100% { transform: translateX(0) translateY(0); }
-  25% { transform: translateX(2px) translateY(-2px); }
-  75% { transform: translateX(-2px) translateY(-2px); }
+  25% { transform: translateX(3px) translateY(-2px); }
+  75% { transform: translateX(-3px) translateY(-2px); }
 }
 
 /* ========== EXCITED EXPRESSION ========== */
+/* Big round eyes that bounce */
 .tony-eyes.excited {
   animation: excited-bounce 0.5s ease-in-out infinite;
 }
 
 .tony-eye-excited {
-  background-color: #fff;
+  background-color: #1a1a2e;
   border-radius: 50%;
   animation: excited-pulse 0.8s ease-in-out infinite;
 }
@@ -241,42 +242,45 @@
 }
 
 .tony-face-large .tony-eye-excited {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 @keyframes excited-bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  50% { transform: translateY(-6px); }
 }
 
 @keyframes excited-pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  50% { transform: scale(1.15); }
 }
 
 /* ========== WAVING - Hand ========== */
 .tony-hand {
   position: absolute;
-  bottom: 5%;
-  right: 5%;
-  font-size: 1.2em;
-  animation: wave-hand 1s ease-in-out infinite;
+  bottom: 8%;
+  right: 8%;
+  animation: wave-hand 0.8s ease-in-out infinite;
   transform-origin: bottom center;
 }
 
 .tony-face-small .tony-hand {
-  font-size: 0.8em;
+  font-size: 14px;
+}
+
+.tony-face-medium .tony-hand {
+  font-size: 18px;
 }
 
 .tony-face-large .tony-hand {
-  font-size: 1.8em;
+  font-size: 28px;
 }
 
 @keyframes wave-hand {
   0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(20deg); }
-  75% { transform: rotate(-10deg); }
+  25% { transform: rotate(25deg); }
+  75% { transform: rotate(-15deg); }
 }
 
 /* Ball rotation */
