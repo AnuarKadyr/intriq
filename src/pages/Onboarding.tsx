@@ -297,7 +297,14 @@ const Onboarding = () => {
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={() => {
+                    // Mock file upload for demo
+                    const mockFile = new File([""], "Engagement_Letter_ProjectAlpha.pdf", {
+                      type: "application/pdf",
+                    });
+                    Object.defineProperty(mockFile, "size", { value: 2457600 }); // 2.4 MB
+                    setUploadedFile(mockFile);
+                  }}
                 >
                   <input
                     ref={fileInputRef}
