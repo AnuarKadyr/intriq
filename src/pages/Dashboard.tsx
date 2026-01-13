@@ -19,7 +19,9 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { AiChatInput } from "@/components/AiChatInput";
 import { AiChatPanel } from "@/components/AiChatPanel";
 import { AgentQuickBar } from "@/components/AgentQuickBar";
+import { AgentSpotlightTour } from "@/components/AgentSpotlightTour";
 import { useAiChat } from "@/contexts/AiChatContext";
+import { useState, useEffect } from "react";
 import {
   AreaChart,
   Area,
@@ -176,9 +178,23 @@ const miniStats = [
 
 const Dashboard = () => {
   const { isAiChatOpen } = useAiChat();
+  const [showTour, setShowTour] = useState(false);
+
+  useEffect(() => {
+    const hasSeenTour = localStorage.getItem("agent-tour-completed");
+    if (!hasSeenTour) {
+      setShowTour(true);
+    }
+  }, []);
+
+  const handleTourComplete = () => {
+    localStorage.setItem("agent-tour-completed", "true");
+    setShowTour(false);
+  };
   
   return (
     <div className="min-h-screen flex w-full bg-gray-50">
+      {showTour && <AgentSpotlightTour onComplete={handleTourComplete} />}
       <AppSidebar />
       
       <main className="flex-1 flex flex-col overflow-hidden ml-72">
