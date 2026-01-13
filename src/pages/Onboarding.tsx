@@ -100,7 +100,7 @@ const Onboarding = () => {
                 </div>
                 <span
                   className={`
-                    mt-2 text-xs font-medium text-center max-w-[80px] leading-tight
+                    mt-2 text-xs font-medium whitespace-nowrap
                     transition-colors duration-300
                     ${
                       step.id === currentStep
