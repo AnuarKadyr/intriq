@@ -2,9 +2,9 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .spotlight-overlay.visible {
@@ -12,58 +12,54 @@
   pointer-events: auto;
 }
 
+/* Dark backdrop with cutout for agent bar */
 .spotlight-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.75);
+  /* Cutout effect using clip-path */
+  clip-path: polygon(
+    0% 0%,
+    0% 100%,
+    288px 100%,
+    288px 88px,
+    100% 88px,
+    100% 140px,
+    288px 140px,
+    288px 100%,
+    100% 100%,
+    100% 0%
+  );
 }
 
-/* Highlight the agent bar area */
+/* The highlighted agent bar area */
 .spotlight-highlight {
   position: absolute;
   top: 88px;
   left: 288px;
   right: 0;
   height: 52px;
-  background: transparent;
-  box-shadow: 
-    0 0 0 4px rgba(5, 211, 211, 0.4),
-    0 0 30px rgba(5, 211, 211, 0.2);
-  border-radius: 0;
-  animation: pulse-highlight 2s ease-in-out infinite;
-}
-
-@keyframes pulse-highlight {
-  0%, 100% {
-    box-shadow: 
-      0 0 0 4px rgba(5, 211, 211, 0.4),
-      0 0 30px rgba(5, 211, 211, 0.2);
-  }
-  50% {
-    box-shadow: 
-      0 0 0 6px rgba(5, 211, 211, 0.6),
-      0 0 40px rgba(5, 211, 211, 0.3);
-  }
+  background: white;
+  z-index: 1;
 }
 
 .spotlight-card {
   position: absolute;
-  top: 160px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  width: 380px;
+  top: 155px;
+  left: 288px;
+  margin-left: 24px;
   background: white;
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 20px 24px;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2;
+  max-width: 320px;
 }
 
 .spotlight-card.visible {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
