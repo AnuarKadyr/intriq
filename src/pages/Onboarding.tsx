@@ -14,9 +14,10 @@ import {
 import logoBlack from "@/assets/logo-black.svg";
 
 const steps = [
-  { id: 1, name: "New Engagement" },
-  { id: 2, name: "Upload Documents" },
-  { id: 3, name: "Review & Start" },
+  { id: 1, name: "Engagement Details" },
+  { id: 2, name: "Engagement Letter" },
+  { id: 3, name: "Client Data Upload" },
+  { id: 4, name: "Add Team" },
 ];
 
 const industries = [
@@ -72,53 +73,66 @@ const Onboarding = () => {
       </header>
 
       {/* Stepper */}
-      <div className="container mx-auto px-6 py-8">
-        <nav aria-label="Progress">
-          <ol className="flex items-center justify-center">
-            {steps.map((step, stepIdx) => (
-              <li
-                key={step.name}
-                className={`relative ${
-                  stepIdx !== steps.length - 1 ? "pr-20 sm:pr-32" : ""
-                }`}
-              >
-                <div className="flex items-center">
-                  <div
-                    className={`relative flex h-10 w-10 items-center justify-center rounded-full border-2 transition-colors ${
+      <div className="container mx-auto px-6 py-10">
+        <div className="flex items-center justify-center">
+          {steps.map((step, stepIdx) => (
+            <div key={step.id} className="flex items-center">
+              {/* Step Circle and Label */}
+              <div className="flex flex-col items-center">
+                <div
+                  className={`
+                    relative flex h-12 w-12 items-center justify-center rounded-full 
+                    transition-all duration-300 ease-out
+                    ${
                       step.id < currentStep
-                        ? "border-primary bg-primary text-primary-foreground"
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
                         : step.id === currentStep
-                        ? "border-primary bg-background text-primary"
-                        : "border-muted-foreground/30 bg-background text-muted-foreground"
-                    }`}
-                  >
-                    {step.id < currentStep ? (
-                      <Check className="h-5 w-5" />
-                    ) : (
-                      <span className="text-sm font-medium">{step.id}</span>
-                    )}
-                  </div>
-                  <span
-                    className={`ml-4 text-sm font-medium whitespace-nowrap ${
+                        ? "bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/40 ring-4 ring-primary/20"
+                        : "bg-muted text-muted-foreground"
+                    }
+                  `}
+                >
+                  {step.id < currentStep ? (
+                    <Check className="h-5 w-5" strokeWidth={3} />
+                  ) : (
+                    <span className="text-sm font-semibold">{step.id}</span>
+                  )}
+                </div>
+                <span
+                  className={`
+                    mt-3 text-sm font-medium text-center max-w-[100px] leading-tight
+                    transition-colors duration-300
+                    ${
                       step.id === currentStep
                         ? "text-foreground"
+                        : step.id < currentStep
+                        ? "text-primary"
                         : "text-muted-foreground"
-                    }`}
-                  >
-                    {step.name}
-                  </span>
-                </div>
-                {stepIdx !== steps.length - 1 && (
+                    }
+                  `}
+                >
+                  {step.name}
+                </span>
+              </div>
+
+              {/* Connector Line */}
+              {stepIdx !== steps.length - 1 && (
+                <div className="flex items-center mx-4 -mt-8">
                   <div
-                    className={`absolute top-5 left-10 -ml-px h-0.5 w-16 sm:w-28 ${
-                      step.id < currentStep ? "bg-primary" : "bg-muted"
-                    }`}
+                    className={`
+                      h-1 w-16 sm:w-24 md:w-32 rounded-full transition-all duration-500
+                      ${
+                        step.id < currentStep
+                          ? "bg-gradient-to-r from-primary to-primary"
+                          : "bg-muted"
+                      }
+                    `}
                   />
-                )}
-              </li>
-            ))}
-          </ol>
-        </nav>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Form Content */}
