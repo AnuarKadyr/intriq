@@ -177,7 +177,7 @@ const Dashboard = () => {
     <div className="min-h-screen flex w-full bg-gray-50">
       <AppSidebar />
       
-      <main className="flex-1 flex flex-col overflow-hidden">
+      <main className="flex-1 flex flex-col overflow-hidden ml-72">
         <header className="border-b border-gray-200 bg-white px-8 py-6 sticky top-0 z-10">
           <div className="flex items-center justify-between">
             <div>
