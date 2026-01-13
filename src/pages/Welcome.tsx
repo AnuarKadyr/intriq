@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import logoBlack from "@/assets/logo-black.svg";
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -22,12 +23,7 @@ const Welcome = () => {
 
       {/* Logo */}
       <header className="relative z-10 px-8 py-6">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">I</span>
-          </div>
-          <span className="font-semibold text-lg text-foreground tracking-tight">Intriq AI</span>
-        </div>
+        <img src={logoBlack} alt="Intriq AI" className="h-8" />
       </header>
 
       {/* Main content */}
