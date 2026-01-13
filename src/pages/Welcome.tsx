@@ -158,6 +158,10 @@ const Welcome = () => {
         turning unstructured data into deal-ready insights.
       </p>
 
+      <div className="cta-button">
+        <button onClick={handleBegin}>Let's Start</button>
+      </div>
+
       <div className="mountains">
         <div></div>
         <div></div>
