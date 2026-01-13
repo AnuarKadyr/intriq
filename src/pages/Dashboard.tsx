@@ -181,6 +181,9 @@ const Dashboard = () => {
   const [showTour, setShowTour] = useState(false);
 
   useEffect(() => {
+    // Reset for testing - remove this line later
+    localStorage.removeItem("agent-tour-completed");
+    
     const hasSeenTour = localStorage.getItem("agent-tour-completed");
     if (!hasSeenTour) {
       setShowTour(true);
