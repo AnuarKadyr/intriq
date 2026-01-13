@@ -17,7 +17,6 @@ const steps = [
   { id: 1, name: "Engagement Details" },
   { id: 2, name: "Engagement Letter" },
   { id: 3, name: "Client Data Upload" },
-  { id: 4, name: "Add Team" },
 ];
 
 const industries = [
@@ -431,21 +430,6 @@ const Onboarding = () => {
                     </>
                   )}
                 </div>
-              </div>
-            </>
-          )}
-
-          {/* Step 4: Add Team - Placeholder */}
-          {currentStep === 4 && (
-            <>
-              <h1 className="text-2xl font-semibold text-foreground mb-2">
-                Add Team Members
-              </h1>
-              <p className="text-muted-foreground mb-8">
-                Invite your team to collaborate on this engagement.
-              </p>
-              <div className="py-12 text-center text-muted-foreground">
-                Coming soon...
               </div>
             </>
           )}
