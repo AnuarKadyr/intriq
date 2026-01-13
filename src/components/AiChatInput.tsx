@@ -18,10 +18,10 @@ export function AiChatInput() {
       const deltaX = e.clientX - iconCenterX;
       const deltaY = e.clientY - iconCenterY;
       
-      // Normalize and limit the rotation (max ~15 degrees)
-      const maxRotation = 15;
-      const rotateY = Math.max(-maxRotation, Math.min(maxRotation, deltaX / 50));
-      const rotateX = Math.max(-maxRotation, Math.min(maxRotation, -deltaY / 50));
+      // Use viewport size to normalize - this gives fuller range across the page
+      const maxRotation = 20;
+      const rotateY = Math.max(-maxRotation, Math.min(maxRotation, (deltaX / window.innerWidth) * 60));
+      const rotateX = Math.max(-maxRotation, Math.min(maxRotation, (-deltaY / window.innerHeight) * 60));
       
       setRotation({ rotateX, rotateY });
     };
