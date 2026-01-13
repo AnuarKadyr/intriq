@@ -1,34 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./AiChatInput.css";
 
 export function AiChatInput() {
   const [isChecked, setIsChecked] = useState(false);
+  const [rotation, setRotation] = useState({ rotateX: 0, rotateY: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const iconCenterX = rect.left + rect.width / 2;
+      const iconCenterY = rect.top + rect.height / 2;
+      
+      // Calculate rotation based on cursor position relative to the icon
+      const deltaX = e.clientX - iconCenterX;
+      const deltaY = e.clientY - iconCenterY;
+      
+      // Normalize and limit the rotation (max ~15 degrees)
+      const maxRotation = 15;
+      const rotateY = Math.max(-maxRotation, Math.min(maxRotation, deltaX / 50));
+      const rotateX = Math.max(-maxRotation, Math.min(maxRotation, -deltaY / 50));
+      
+      setRotation({ rotateX, rotateY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const cardStyle = {
+    transform: `perspective(1000px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg) translateZ(25px)`,
+  };
+
+  const eyeStyle = {
+    transform: `perspective(1000px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg) translateZ(25px)`,
+  };
 
   return (
-    <div className="container-ai-input">
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-      <div className="area"></div>
-
+    <div className="container-ai-input" ref={containerRef}>
       <label className="container-wrap">
         <input 
           type="checkbox" 
           checked={isChecked}
           onChange={(e) => setIsChecked(e.target.checked)}
         />
-        <div className="card">
+        <div className="card" style={cardStyle}>
           <div className="background-blur-balls">
             <div className="balls">
               <span className="ball rosa"></span>
@@ -40,8 +58,8 @@ export function AiChatInput() {
           <div className="content-card">
             <div className="background-blur-card">
               <div className="eyes">
-                <span className="eye"></span>
-                <span className="eye"></span>
+                <span className="eye" style={eyeStyle}></span>
+                <span className="eye" style={eyeStyle}></span>
               </div>
               <div className="eyes happy">
                 <svg fill="none" viewBox="0 0 24 24">
