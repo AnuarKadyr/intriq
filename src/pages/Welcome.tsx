@@ -161,6 +161,11 @@ const Welcome = () => {
         powered by EclipxOS + React.
       </p>
 
+      <div className="mountains">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   );
 };
