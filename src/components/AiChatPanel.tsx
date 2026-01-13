@@ -109,12 +109,6 @@ function OnboardingStep1() {
           Nice to meet you!
           <ArrowRight className="h-4 w-4" />
         </Button>
-        <button 
-          onClick={skipOnboarding}
-          className="block mx-auto mt-4 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-        >
-          Skip intro
-        </button>
       </div>
 
       <div className="flex gap-2 mt-8">
@@ -187,12 +181,6 @@ function OnboardingStep2() {
         {currentAgent < agents.length - 1 ? 'Next' : 'Got it!'}
         <ArrowRight className="h-4 w-4" />
       </Button>
-      <button 
-        onClick={skipOnboarding}
-        className="block mx-auto mt-4 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-      >
-        Skip intro
-      </button>
 
       <div className="flex gap-2 mt-6">
         <div className="w-2 h-2 rounded-full bg-primary" />
@@ -252,12 +240,6 @@ function OnboardingStep3() {
         Makes sense!
         <ArrowRight className="h-4 w-4" />
       </Button>
-      <button 
-        onClick={skipOnboarding}
-        className="block mx-auto mt-4 text-sm text-gray-400 hover:text-gray-600 transition-colors"
-      >
-        Skip intro
-      </button>
 
       <div className="flex gap-2 mt-6">
         <div className="w-2 h-2 rounded-full bg-primary" />
