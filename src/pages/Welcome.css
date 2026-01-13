@@ -44,21 +44,12 @@
   animation: load 2s ease-in 2s forwards, up 1.4s ease-out 2s forwards;
 }
 
-.welcome-header > h2:first-child {
-  font-size: 1em;
+.welcome-logo {
   position: absolute;
-  left: 0;
-  right: 29em;
-  margin: 0.2em auto;
-  width: fit-content;
-  opacity: 0.5;
-  cursor: pointer;
-  transition: opacity 0.04s ease-in-out;
-}
-
-.welcome-header > h2:first-child:hover {
-  opacity: 1;
-  text-shadow: 0 2px 16px rgba(174, 207, 242, 0.6);
+  left: 2em;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 2em;
 }
 
 .mid-spot {
