@@ -203,10 +203,10 @@ function OnboardingStep3() {
             <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
               <Sparkles className="h-4 w-4 text-primary" />
             </div>
-            <span className="font-medium text-gray-900">Ask me anything</span>
+            <span className="font-medium text-gray-900">Chat with me</span>
           </div>
           <p className="text-sm text-gray-500 pl-11">
-            I'll route your question to the right specialist automatically
+            Ask me anything about what you see on screen — I'll help you right here
           </p>
         </div>
 
@@ -215,10 +215,10 @@ function OnboardingStep3() {
             <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
               <ClipboardList className="h-4 w-4 text-purple-600" />
             </div>
-            <span className="font-medium text-gray-900">Pick an agent</span>
+            <span className="font-medium text-gray-900">Use an agent</span>
           </div>
           <p className="text-sm text-gray-500 pl-11">
-            Select a specialist directly when you know what you need
+            Run specialized tasks like tracking requests or generating reports
           </p>
         </div>
       </div>
