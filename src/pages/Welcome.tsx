@@ -143,19 +143,19 @@ const Welcome = () => {
       </div>
 
       <div className="hero-sub-p">
-        <p>Introducing</p>
+        <p>Welcome to</p>
       </div>
 
       <div className="hero">
         <div className="hero-t">
-          <h2>Eclipx</h2>
-          <h2>Eclipx</h2>
+          <h2>Intriq AI</h2>
+          <h2>Intriq AI</h2>
         </div>
       </div>
 
       <p className="hero-p">
-        The world's best platform,<br />
-        powered by EclipxOS + React.
+        AI-powered due diligence<br />
+        for corporate finance.
       </p>
 
       <div className="mountains">

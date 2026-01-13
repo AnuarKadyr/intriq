@@ -393,7 +393,7 @@ button.contact-btn:hover .glow::before {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 22em;
+  top: 20em;
   height: fit-content;
   width: fit-content;
   text-align: center;
