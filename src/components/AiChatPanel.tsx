@@ -88,16 +88,13 @@ function OnboardingStep1() {
 
       <div className={`transition-all duration-500 ${showText ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          Hey! I'm Tony 👋
+          Hey! I'm Tony <span className="inline-block animate-wave">👋</span>
         </h2>
       </div>
       
       <div className={`transition-all duration-500 delay-100 ${showSubtext ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <p className="text-gray-600 mb-2 max-w-[280px]">
+        <p className="text-gray-600 max-w-[280px]">
           Your AI partner for due diligence.
-        </p>
-        <p className="text-gray-500 text-sm max-w-[280px]">
-          I'm here to help you analyze data, spot risks, and make better decisions — faster.
         </p>
       </div>
 
