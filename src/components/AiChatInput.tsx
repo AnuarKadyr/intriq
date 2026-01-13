@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { useAiChat } from "@/contexts/AiChatContext";
 import "./AiChatInput.css";
 
 export function AiChatInput() {
   const [rotation, setRotation] = useState({ rotateX: 0, rotateY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const { isAiChatOpen, openAiChat } = useAiChat();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -27,6 +29,9 @@ export function AiChatInput() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Don't render if AI chat is open
+  if (isAiChatOpen) return null;
+
   const cardStyle = {
     transform: `perspective(1000px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg) translateZ(25px)`,
   };
@@ -37,7 +42,7 @@ export function AiChatInput() {
 
   return (
     <div className="container-ai-input" ref={containerRef}>
-      <div className="container-wrap">
+      <div className="container-wrap" onClick={openAiChat}>
         <div className="card" style={cardStyle}>
           <div className="background-blur-balls">
             <div className="balls">

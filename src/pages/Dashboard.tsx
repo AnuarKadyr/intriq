@@ -17,7 +17,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/AppSidebar";
 import { AiChatInput } from "@/components/AiChatInput";
-import logoBlack from "@/assets/logo-black.svg";
+import { AiChatPanel } from "@/components/AiChatPanel";
+import { useAiChat } from "@/contexts/AiChatContext";
 import {
   AreaChart,
   Area,
@@ -173,12 +174,14 @@ const miniStats = [
 ];
 
 const Dashboard = () => {
+  const { isAiChatOpen } = useAiChat();
+  
   return (
     <div className="min-h-screen flex w-full bg-gray-50">
       <AppSidebar />
       
-      <main className="flex-1 flex flex-col overflow-hidden ml-72">
-        <header className="border-b border-gray-200 bg-white px-8 py-6 fixed top-0 right-0 left-72 z-10">
+      <main className={`flex-1 flex flex-col overflow-hidden ml-72 transition-all duration-300 ${isAiChatOpen ? 'mr-[380px]' : ''}`}>
+        <header className={`border-b border-gray-200 bg-white px-8 py-6 fixed top-0 left-72 z-10 transition-all duration-300 ${isAiChatOpen ? 'right-[380px]' : 'right-0'}`}>
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
@@ -445,6 +448,11 @@ const Dashboard = () => {
         </div>
         <AiChatInput />
       </main>
+      
+      {/* AI Chat Panel - Fixed on the right side */}
+      <div className="fixed top-0 right-0 h-full z-20">
+        <AiChatPanel />
+      </div>
     </div>
   );
 };
