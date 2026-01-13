@@ -16,7 +16,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AppSidebar } from "@/components/AppSidebar";
-import { AiChatInput } from "@/components/AiChatInput";
 import logoBlack from "@/assets/logo-black.svg";
 import {
   AreaChart,
@@ -185,7 +184,6 @@ const Dashboard = () => {
               <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
             </div>
             <div className="flex items-center gap-3">
-              <AiChatInput />
               <Button 
                 variant="outline" 
                 className="text-gray-600 border-gray-200 hover:bg-gray-50"
