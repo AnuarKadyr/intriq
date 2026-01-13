@@ -179,6 +179,7 @@ const miniStats = [
 const Dashboard = () => {
   const { isAiChatOpen } = useAiChat();
   const [showTour, setShowTour] = useState(false);
+  const [buttonPositions, setButtonPositions] = useState<{ left: number; width: number }[]>([]);
 
   useEffect(() => {
     // Reset for testing - remove this line later
@@ -197,7 +198,7 @@ const Dashboard = () => {
   
   return (
     <div className="min-h-screen flex w-full bg-gray-50">
-      {showTour && <AgentSpotlightTour onComplete={handleTourComplete} />}
+      {showTour && <AgentSpotlightTour onComplete={handleTourComplete} buttonPositions={buttonPositions} />}
       <AppSidebar />
       
       <main className="flex-1 flex flex-col overflow-hidden ml-72">
@@ -220,7 +221,7 @@ const Dashboard = () => {
         </header>
 
         {/* Agent Quick Bar */}
-        <AgentQuickBar />
+        <AgentQuickBar onButtonPositionsChange={setButtonPositions} />
 
         {/* Content */}
         <div className="flex-1 p-8 space-y-6 overflow-y-auto mt-[140px]">
