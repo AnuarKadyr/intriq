@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import logoWhite from "@/assets/logo-white.svg";
 import "./Welcome.css";
 
 const Welcome = () => {
@@ -114,12 +115,8 @@ const Welcome = () => {
   return (
     <div className="welcome-page">
       <header className="welcome-header">
-        <h2><a href="#">RAFA</a></h2>
+        <img src={logoWhite} alt="Intriq AI" className="welcome-logo" />
         <div className="mid-spot"></div>
-        <button className="contact-btn" onClick={handleBegin}>
-          <span className="glow"></span>
-          <span className="contact-btn-content">Contact Us</span>
-        </button>
         <div className="spotlight">
           <div></div>
           <div></div>
