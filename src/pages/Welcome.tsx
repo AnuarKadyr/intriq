@@ -1,8 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import logoBlack from "@/assets/logo-black.svg";
 import "./Welcome.css";
 
 const Welcome = () => {
@@ -72,7 +69,7 @@ const Welcome = () => {
       }
 
       draw() {
-        ctx!.fillStyle = `rgba(5, 211, 211, ${this.opacity * 0.6})`;
+        ctx!.fillStyle = `rgba(${255 - (Math.random() * 255/2)}, 255, 255, ${this.opacity})`;
         ctx!.fillRect(this.x, this.y, 0.4, Math.random() * 2 + 1);
       }
     }
@@ -117,18 +114,12 @@ const Welcome = () => {
   return (
     <div className="welcome-page">
       <header className="welcome-header">
-        <img src={logoBlack} alt="Intriq AI" className="welcome-logo" />
+        <h2><a href="#">RAFA</a></h2>
         <div className="mid-spot"></div>
-        <Button
-          variant="intriq"
-          size="lg"
-          onClick={handleBegin}
-          className="welcome-cta group"
-        >
+        <button className="contact-btn" onClick={handleBegin}>
           <span className="glow"></span>
-          Let's Begin
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </Button>
+          <span className="contact-btn-content">Contact Us</span>
+        </button>
         <div className="spotlight">
           <div></div>
           <div></div>
@@ -160,15 +151,14 @@ const Welcome = () => {
 
       <div className="hero">
         <div className="hero-t">
-          <h2>Intriq AI</h2>
-          <h2>Intriq AI</h2>
+          <h2>Eclipx</h2>
+          <h2>Eclipx</h2>
         </div>
       </div>
 
       <p className="hero-p">
-        Transform unstructured data into deal-ready insights
-        <br />
-        with AI-powered due diligence tools.
+        The world's best platform,<br />
+        powered by EclipxOS + React.
       </p>
 
       <div className="mountains">
@@ -178,6 +168,16 @@ const Welcome = () => {
       </div>
 
       <div className="hero-spacer"></div>
+
+      <div className="content-section">
+        <div className="content-acc">
+          <div></div>
+          <div></div>
+        </div>
+        <p className="subt">Revolutionary by design</p>
+        <h3 className="title">Harness. Empower.<br />Unmatched Versatility.</h3>
+        <p className="subp">At the core lies our revolutionary framework,<br />ensuring adaptability across all application architectures.</p>
+      </div>
     </div>
   );
 };
