@@ -442,9 +442,9 @@ const Onboarding = () => {
             <Button
               onClick={handleContinue}
               disabled={!canContinue()}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground min-w-[160px]"
             >
-              {currentStep === steps.length ? "Finish" : "Continue"}
+              {currentStep === steps.length ? "Submit & Finish" : "Continue"}
             </Button>
           </div>
         </div>
