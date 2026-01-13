@@ -34,10 +34,6 @@ export function AiChatInput() {
     transform: `perspective(1000px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg) translateZ(25px)`,
   };
 
-  const shadowStyle = {
-    transform: `perspective(1000px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg) translateZ(0px)`,
-  };
-
   const eyeStyle = {
     transform: `perspective(1000px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg) translateZ(25px)`,
   };
@@ -45,7 +41,6 @@ export function AiChatInput() {
   return (
     <div className="container-ai-input" ref={containerRef}>
       <label className="container-wrap">
-        <div className="card-shadow" style={shadowStyle}></div>
         <input 
           type="checkbox" 
           checked={isChecked}
