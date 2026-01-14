@@ -101,6 +101,7 @@ export function AgentSpotlightTour({ onComplete, buttonPositions }: AgentSpotlig
     <div className={`spotlight-overlay ${isVisible ? 'visible' : ''}`}>
       <div className="spotlight-backdrop" />
       <div className="spotlight-sidebar-cover" />
+      <div className="spotlight-agent-bar-area" />
       <div className="spotlight-glow" />
       
       <div 
