@@ -52,10 +52,12 @@
 /* Close button */
 .close-button {
   position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  width: 1.5rem;
-  height: 1.5rem;
+  top: 50%;
+  right: 50%;
+  margin-top: -3.5rem;
+  margin-right: -3.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.7);
   border: 2px solid white;
