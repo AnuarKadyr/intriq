@@ -1,4 +1,4 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, CheckCircle2 } from "lucide-react";
 import { InsightCard } from "@/types/insightsEngine";
 import { InsightCardWrapper } from "./InsightCardWrapper";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,7 @@ function MiniTrendChart({ trend, change }: { trend?: "up" | "down" | "neutral"; 
       </svg>
       {change && (
         <span className={cn(
-          "text-xs font-medium",
+          "text-xs font-semibold",
           isUp ? "text-emerald-600" : "text-red-500"
         )}>
           {change}
@@ -44,48 +44,67 @@ export function ExecutiveSummaryCard({ data }: ExecutiveSummaryCardProps) {
       icon={<Sparkles className="h-4 w-4 text-primary" />}
       suggestedQuestions={data.suggestedQuestions}
     >
-      {/* KPI Row */}
+      {/* KPI Row - Enhanced */}
       {data.kpis && (
-        <div className="grid grid-cols-5 gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 mb-6">
+        <div className="grid grid-cols-5 gap-1 p-1.5 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl border border-gray-100 mb-8 shadow-sm">
           {data.kpis.map((kpi, idx) => (
-            <div key={idx} className={cn(
-              "text-center",
-              idx !== data.kpis!.length - 1 && "border-r border-gray-200"
-            )}>
-              <p className="text-xs text-muted-foreground font-medium mb-1">{kpi.label}</p>
+            <div 
+              key={idx} 
+              className={cn(
+                "relative text-center py-5 px-3 rounded-xl transition-all duration-300",
+                "hover:bg-white hover:shadow-lg hover:shadow-gray-100/80 hover:-translate-y-0.5",
+                "group cursor-default"
+              )}
+            >
+              <p className="text-xs text-muted-foreground font-medium mb-2 uppercase tracking-wide">{kpi.label}</p>
               <div className="flex items-center justify-center gap-2">
-                <p className="text-2xl font-bold text-foreground">{kpi.value}</p>
+                <p className="text-2xl font-bold text-foreground tracking-tight group-hover:text-primary transition-colors">{kpi.value}</p>
                 {kpi.trend && kpi.change && (
                   <MiniTrendChart trend={kpi.trend} change={kpi.change} />
                 )}
               </div>
               {kpi.subLabel && (
-                <p className="text-xs text-muted-foreground mt-0.5">{kpi.subLabel}</p>
+                <p className="text-[11px] text-muted-foreground mt-1.5">{kpi.subLabel}</p>
+              )}
+              {/* Subtle separator */}
+              {idx !== data.kpis!.length - 1 && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-gray-200/60" />
               )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Summary Section */}
-      <div className="space-y-4">
-        <h4 className="font-semibold text-foreground">Summary</h4>
+      {/* Summary Section - Enhanced */}
+      <div className="space-y-4 mb-8">
+        <h4 className="font-bold text-foreground flex items-center gap-2">
+          <div className="w-1 h-5 bg-primary rounded-full" />
+          Summary
+        </h4>
         {data.summaryParagraphs?.map((paragraph, idx) => (
-          <p key={idx} className="text-sm text-muted-foreground leading-relaxed">
+          <p key={idx} className="text-sm text-muted-foreground leading-relaxed pl-3">
             {paragraph}
           </p>
         ))}
       </div>
 
-      {/* Recommended Actions */}
+      {/* Recommended Actions - Enhanced */}
       {data.recommendedActions && data.recommendedActions.length > 0 && (
-        <div className="mt-6">
-          <h4 className="font-semibold text-foreground mb-3">Recommended Actions</h4>
-          <ul className="space-y-2">
+        <div className="p-5 bg-gradient-to-br from-primary/[0.03] to-primary/[0.08] rounded-xl border border-primary/10">
+          <h4 className="font-bold text-foreground mb-4 flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-primary" />
+            Recommended Actions
+          </h4>
+          <ul className="space-y-3">
             {data.recommendedActions.map((action, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <span className="text-primary mt-0.5">•</span>
-                {action}
+              <li 
+                key={idx} 
+                className="flex items-start gap-3 text-sm text-muted-foreground group"
+              >
+                <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-xs font-bold text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                  {idx + 1}
+                </span>
+                <span className="pt-0.5">{action}</span>
               </li>
             ))}
           </ul>

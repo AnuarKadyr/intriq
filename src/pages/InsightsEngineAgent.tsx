@@ -49,29 +49,34 @@ const InsightsEngineAgent = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col h-full min-h-0 overflow-hidden">
-        {/* Header */}
-        <header className="border-b border-gray-200 bg-white px-8 py-6 flex-shrink-0">
+      <div className="flex flex-col h-full min-h-0 overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50/50">
+        {/* Header with glassmorphism */}
+        <header className="border-b border-gray-200/60 bg-white/70 backdrop-blur-md px-8 py-6 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" onClick={() => navigate("/dashboard")}>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => navigate("/dashboard")}
+                className="hover:bg-gray-100/80 transition-colors"
+              >
                 <ArrowLeft className="h-5 w-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center shadow-sm">
+                <div className="w-11 h-11 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-500/25 ring-2 ring-yellow-400/20">
                   <Lightbulb className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">Insights Engine</h1>
+                  <h1 className="text-xl font-bold text-gray-900 tracking-tight">Insights Engine</h1>
                   <p className="text-sm text-gray-500">AI-powered analytics and business intelligence</p>
                 </div>
               </div>
             </div>
             
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 rounded-lg border border-emerald-200">
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-medium text-emerald-700">Analysis Complete</span>
+              <div className="flex items-center gap-2 px-4 py-2 bg-emerald-50/80 backdrop-blur-sm rounded-full border border-emerald-200/60 shadow-sm">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
+                <span className="text-xs font-semibold text-emerald-700">Analysis Complete</span>
               </div>
             </div>
           </div>
@@ -80,38 +85,51 @@ const InsightsEngineAgent = () => {
         {/* Content */}
         <div className="flex-1 min-h-0 overflow-y-auto p-8">
           <div className="max-w-6xl mx-auto space-y-8">
-            {/* AI Welcome Banner */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-6">
+            {/* AI Welcome Banner - Enhanced */}
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-8 shadow-xl shadow-primary/5">
+              {/* Animated background orbs */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl animate-pulse-subtle" />
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse-subtle" style={{ animationDelay: '1s' }} />
+                <div className="absolute -top-20 -right-20 w-60 h-60 bg-primary/15 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-primary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-primary/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
               </div>
               
-              <div className="relative flex items-start gap-5">
+              <div className="relative flex items-start gap-6">
                 <div className="relative flex-shrink-0">
-                  <TonyFace size="medium" />
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-md">
-                    <Brain className="h-3 w-3 text-white" />
+                  <div className="relative">
+                    <TonyFace size="medium" />
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-lg shadow-primary/30 ring-2 ring-white">
+                      <Brain className="h-3.5 w-3.5 text-white" />
+                    </div>
                   </div>
                 </div>
                 
                 <div className="flex-1">
-                  <h2 className="text-lg font-bold text-foreground mb-2">Data Analysis Complete</h2>
-                  <p className="text-sm text-foreground/70 leading-relaxed">
-                    I've analyzed your data room and generated <span className="text-foreground font-semibold">comprehensive insights</span> across 
+                  <h2 className="text-xl font-bold text-foreground mb-2 tracking-tight">Data Analysis Complete</h2>
+                  <p className="text-sm text-foreground/70 leading-relaxed max-w-2xl">
+                    I've analyzed your data room and generated <span className="text-primary font-semibold">comprehensive insights</span> across 
                     financial performance, operational metrics, and risk indicators. Each card below represents a key analysis area with 
                     AI-powered summaries and actionable observations.
                   </p>
                   
-                  <div className="flex items-center gap-3 mt-4">
+                  <div className="flex items-center gap-3 mt-5">
                     {[
-                      { icon: FileSearch, label: '847 Documents', color: 'text-primary' },
-                      { icon: TrendingUp, label: '5 Insight Areas', color: 'text-primary' },
-                      { icon: Sparkles, label: 'AI Analyzed', color: 'text-emerald-500' },
+                      { icon: FileSearch, label: '847 Documents', color: 'text-primary', bg: 'bg-primary/10' },
+                      { icon: TrendingUp, label: '5 Insight Areas', color: 'text-primary', bg: 'bg-primary/10' },
+                      { icon: Sparkles, label: 'AI Analyzed', color: 'text-emerald-600', bg: 'bg-emerald-50' },
                     ].map((stat, i) => (
-                      <div key={i} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/60 backdrop-blur-sm border border-white/50">
-                        <stat.icon className={cn("h-3.5 w-3.5", stat.color)} />
-                        <span className="text-xs font-medium text-foreground/80">{stat.label}</span>
+                      <div 
+                        key={i} 
+                        className={cn(
+                          "flex items-center gap-2 px-4 py-2.5 rounded-xl",
+                          "bg-white/70 backdrop-blur-sm border border-white/60 shadow-sm",
+                          "hover:shadow-md hover:bg-white/90 transition-all duration-300"
+                        )}
+                      >
+                        <div className={cn("w-7 h-7 rounded-lg flex items-center justify-center", stat.bg)}>
+                          <stat.icon className={cn("h-4 w-4", stat.color)} />
+                        </div>
+                        <span className="text-sm font-medium text-foreground/80">{stat.label}</span>
                       </div>
                     ))}
                   </div>
@@ -119,31 +137,31 @@ const InsightsEngineAgent = () => {
               </div>
             </div>
 
-            {/* Tabs */}
-            <div className="border-b border-gray-200">
-              <div className="flex gap-6">
+            {/* Tabs - Enhanced */}
+            <div className="relative">
+              <div className="flex gap-1 p-1 bg-gray-100/80 rounded-xl backdrop-blur-sm">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={cn(
-                      "pb-3 text-sm font-medium transition-colors relative",
+                      "relative px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300",
                       activeTab === tab.id
-                        ? "text-primary"
-                        : "text-gray-500 hover:text-gray-700"
+                        ? "bg-white text-primary shadow-md"
+                        : "text-gray-500 hover:text-gray-700 hover:bg-white/50"
                     )}
                   >
                     {tab.label}
                     {activeTab === tab.id && (
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-primary rounded-full" />
                     )}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Active Card */}
-            <div>
+            {/* Active Card with animation */}
+            <div className="animate-fade-in" key={activeTab}>
               {renderActiveCard()}
             </div>
           </div>

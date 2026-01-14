@@ -27,7 +27,7 @@ function MiniTrendChart({ trend, change }: { trend?: "up" | "down" | "neutral"; 
       </svg>
       {change && (
         <span className={cn(
-          "text-xs font-medium",
+          "text-xs font-semibold",
           isUp ? "text-emerald-600" : "text-red-500"
         )}>
           {change}
@@ -44,33 +44,44 @@ export function BusinessOverviewCard({ data }: BusinessOverviewCardProps) {
       icon={<Building2 className="h-4 w-4 text-primary" />}
       suggestedQuestions={data.suggestedQuestions}
     >
-      {/* KPI Row */}
+      {/* KPI Row - Enhanced */}
       {data.kpis && (
-        <div className="grid grid-cols-5 gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100 mb-6">
+        <div className="grid grid-cols-5 gap-1 p-1.5 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl border border-gray-100 mb-8 shadow-sm">
           {data.kpis.map((kpi, idx) => (
-            <div key={idx} className={cn(
-              "text-center",
-              idx !== data.kpis!.length - 1 && "border-r border-gray-200"
-            )}>
-              <p className="text-xs text-muted-foreground font-medium mb-1">{kpi.label}</p>
+            <div 
+              key={idx} 
+              className={cn(
+                "relative text-center py-5 px-3 rounded-xl transition-all duration-300",
+                "hover:bg-white hover:shadow-lg hover:shadow-gray-100/80 hover:-translate-y-0.5",
+                "group cursor-default"
+              )}
+            >
+              <p className="text-xs text-muted-foreground font-medium mb-2 uppercase tracking-wide">{kpi.label}</p>
               <div className="flex items-center justify-center gap-2">
-                <p className="text-2xl font-bold text-foreground">{kpi.value}</p>
+                <p className="text-2xl font-bold text-foreground tracking-tight group-hover:text-primary transition-colors">{kpi.value}</p>
                 {kpi.trend && kpi.change && (
                   <MiniTrendChart trend={kpi.trend} change={kpi.change} />
                 )}
               </div>
               {kpi.subLabel && (
-                <p className="text-xs text-muted-foreground mt-0.5">{kpi.subLabel}</p>
+                <p className="text-[11px] text-muted-foreground mt-1.5">{kpi.subLabel}</p>
+              )}
+              {/* Subtle separator */}
+              {idx !== data.kpis!.length - 1 && (
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-gray-200/60" />
               )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Summary */}
+      {/* Summary - Enhanced */}
       {data.summary && (
-        <div>
-          <h4 className="font-semibold text-foreground mb-2">Summary</h4>
+        <div className="p-5 bg-gradient-to-r from-gray-50 to-transparent rounded-xl border border-gray-100">
+          <h4 className="font-bold text-foreground mb-3 flex items-center gap-2">
+            <div className="w-1 h-5 bg-primary rounded-full" />
+            Summary
+          </h4>
           <p className="text-sm text-muted-foreground leading-relaxed">
             {data.summary}
           </p>
