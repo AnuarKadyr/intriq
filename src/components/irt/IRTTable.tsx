@@ -238,7 +238,7 @@ export function IRTTable({ items, onBulkUpload, onDraftEmail, onUpdateStatus }: 
               </TableHead>
               <TableHead className="w-12"></TableHead>
               <TableHead className="w-16">#</TableHead>
-              <TableHead className="w-44">Category</TableHead>
+              <TableHead className="w-32">Category</TableHead>
               <TableHead>Request</TableHead>
               <TableHead className="w-32">Status</TableHead>
               <TableHead className="w-24">Ref.</TableHead>
@@ -287,7 +287,7 @@ export function IRTTable({ items, onBulkUpload, onDraftEmail, onUpdateStatus }: 
                       {item.number}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="secondary" className="font-normal whitespace-nowrap">
+                      <Badge variant="secondary" className="font-normal">
                         {item.subject}
                       </Badge>
                     </TableCell>
