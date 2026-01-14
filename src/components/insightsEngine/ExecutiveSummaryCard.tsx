@@ -10,20 +10,19 @@ interface ExecutiveSummaryCardProps {
 // Mini sparkline component for trend visualization
 function MiniTrendChart({ trend, change }: { trend?: "up" | "down" | "neutral"; change?: string }) {
   const isUp = trend === "up";
-  const points = isUp 
-    ? "0,16 4,14 8,12 12,10 16,6 20,8 24,4 28,2 32,0"
-    : "0,0 4,2 8,4 12,8 16,6 20,10 24,14 28,12 32,16";
   
   return (
-    <div className="flex items-center gap-1.5">
-      <svg width="32" height="16" viewBox="0 0 32 16" className="flex-shrink-0">
-        <polyline
-          points={points}
+    <div className="flex items-center gap-1">
+      <svg width="24" height="12" viewBox="0 0 24 12" className="flex-shrink-0">
+        <path
+          d={isUp 
+            ? "M2 10 Q6 8 8 6 T14 4 T22 2" 
+            : "M2 2 Q6 4 8 6 T14 8 T22 10"
+          }
           fill="none"
           stroke={isUp ? "#10b981" : "#ef4444"}
-          strokeWidth="2"
+          strokeWidth="1.5"
           strokeLinecap="round"
-          strokeLinejoin="round"
         />
       </svg>
       {change && (
