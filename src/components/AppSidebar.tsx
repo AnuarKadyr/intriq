@@ -42,7 +42,8 @@ export function AppSidebar() {
         <img 
           src={logoFull} 
           alt="Intriq AI" 
-          className="h-7"
+          className="h-7 cursor-pointer hover:opacity-80 transition-opacity"
+          onClick={() => navigate("/dashboard")}
         />
       </div>
 
