@@ -265,57 +265,83 @@ const DataIntegrityAgent = () => {
             <div className="h-full flex gap-6">
               {/* Left: Issue List */}
               <div className="w-[400px] flex-shrink-0 flex flex-col h-full overflow-hidden">
-                {/* Stats Row */}
-                <div className="flex items-center gap-2 mb-4 flex-shrink-0">
-                  {[
-                    { label: 'Total', value: stats.total, active: filterStatus === null, onClick: () => setFilterStatus(null), color: 'text-gray-900' },
-                    { label: 'Open', value: stats.open, active: filterStatus === 'open', onClick: () => setFilterStatus(filterStatus === 'open' ? null : 'open'), color: 'text-red-600' },
-                    { label: 'Assumed', value: stats.assumptionApplied, active: filterStatus === 'assumption-applied', onClick: () => setFilterStatus(filterStatus === 'assumption-applied' ? null : 'assumption-applied'), color: 'text-amber-600' },
-                    { label: 'Resolved', value: stats.resolved, active: filterStatus === 'resolved', onClick: () => setFilterStatus(filterStatus === 'resolved' ? null : 'resolved'), color: 'text-emerald-600' },
-                  ].map((stat, i) => (
-                    <button
-                      key={i}
-                      onClick={stat.onClick}
+                {/* Compact Stats + Filter Bar */}
+                <div className="mb-4 flex-shrink-0 space-y-3">
+                  {/* Inline stats */}
+                  <div className="flex items-center gap-4 text-sm">
+                    <button 
+                      onClick={() => setFilterStatus(null)}
                       className={cn(
-                        "flex-1 p-3 rounded-xl border transition-all text-center",
-                        stat.active 
-                          ? "bg-white border-primary/30 shadow-sm ring-1 ring-primary/20" 
-                          : "bg-gray-50 border-gray-200 hover:bg-white hover:border-gray-300"
+                        "flex items-center gap-1.5 transition-colors",
+                        filterStatus === null ? "text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
                       )}
                     >
-                      <p className={cn("text-lg font-bold", stat.color)}>{stat.value}</p>
-                      <p className="text-[10px] text-gray-500">{stat.label}</p>
+                      <span className="font-bold">{stats.total}</span>
+                      <span>Total</span>
                     </button>
-                  ))}
-                </div>
+                    <span className="text-gray-300">•</span>
+                    <button 
+                      onClick={() => setFilterStatus(filterStatus === 'open' ? null : 'open')}
+                      className={cn(
+                        "flex items-center gap-1.5 transition-colors",
+                        filterStatus === 'open' ? "text-red-600 font-semibold" : "text-muted-foreground hover:text-red-600"
+                      )}
+                    >
+                      <span className="font-bold">{stats.open}</span>
+                      <span>Open</span>
+                    </button>
+                    <span className="text-gray-300">•</span>
+                    <button 
+                      onClick={() => setFilterStatus(filterStatus === 'assumption-applied' ? null : 'assumption-applied')}
+                      className={cn(
+                        "flex items-center gap-1.5 transition-colors",
+                        filterStatus === 'assumption-applied' ? "text-amber-600 font-semibold" : "text-muted-foreground hover:text-amber-600"
+                      )}
+                    >
+                      <span className="font-bold">{stats.assumptionApplied}</span>
+                      <span>Assumed</span>
+                    </button>
+                    <span className="text-gray-300">•</span>
+                    <button 
+                      onClick={() => setFilterStatus(filterStatus === 'resolved' ? null : 'resolved')}
+                      className={cn(
+                        "flex items-center gap-1.5 transition-colors",
+                        filterStatus === 'resolved' ? "text-emerald-600 font-semibold" : "text-muted-foreground hover:text-emerald-600"
+                      )}
+                    >
+                      <span className="font-bold">{stats.resolved}</span>
+                      <span>Resolved</span>
+                    </button>
+                  </div>
 
-                {/* Category Filter */}
-                <div className="flex flex-wrap gap-1.5 mb-4 flex-shrink-0">
-                  <button
-                    onClick={() => setFilterCategory(null)}
-                    className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                      filterCategory === null 
-                        ? "bg-primary text-white" 
-                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                    )}
-                  >
-                    All
-                  </button>
-                  {Object.entries(issueCategoryLabels).map(([key, { label }]) => (
+                  {/* Category filter - subtle inline pills */}
+                  <div className="flex flex-wrap gap-1.5">
                     <button
-                      key={key}
-                      onClick={() => setFilterCategory(filterCategory === key ? null : key)}
+                      onClick={() => setFilterCategory(null)}
                       className={cn(
-                        "px-3 py-1.5 rounded-lg text-xs font-medium transition-all",
-                        filterCategory === key 
-                          ? "bg-primary text-white" 
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        "px-2.5 py-1 rounded-md text-xs font-medium transition-all border",
+                        filterCategory === null 
+                          ? "bg-foreground text-background border-foreground" 
+                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
                       )}
                     >
-                      {label}
+                      All
                     </button>
-                  ))}
+                    {Object.entries(issueCategoryLabels).map(([key, { label }]) => (
+                      <button
+                        key={key}
+                        onClick={() => setFilterCategory(filterCategory === key ? null : key)}
+                        className={cn(
+                          "px-2.5 py-1 rounded-md text-xs font-medium transition-all border",
+                          filterCategory === key 
+                            ? "bg-foreground text-background border-foreground" 
+                            : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
+                        )}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Issue List */}
