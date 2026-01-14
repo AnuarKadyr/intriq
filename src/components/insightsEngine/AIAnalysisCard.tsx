@@ -49,17 +49,12 @@ export function AIAnalysisCard({ data }: AIAnalysisCardProps) {
             <div className="flex-1 flex gap-0.5">
               {Array.from({ length: 50 }).map((_, idx) => {
                 const isFilled = idx < Math.floor(data.riskScore! / 2);
-                const fillColor = data.riskScore! >= 70 
-                  ? "bg-red-400" 
-                  : data.riskScore! >= 40 
-                    ? "bg-amber-400" 
-                    : "bg-emerald-400";
                 return (
                   <div
                     key={idx}
                     className={cn(
                       "h-6 w-1 rounded-sm",
-                      isFilled ? fillColor : "bg-gray-200"
+                      isFilled ? "bg-primary" : "bg-gray-200"
                     )}
                   />
                 );
@@ -77,10 +72,7 @@ export function AIAnalysisCard({ data }: AIAnalysisCardProps) {
           <ul className="space-y-2">
             {data.riskFactors.map((factor) => (
               <li key={factor.id} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <span className={cn(
-                  "w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0",
-                  data.riskScore! >= 70 ? "bg-red-400" : data.riskScore! >= 40 ? "bg-amber-400" : "bg-emerald-400"
-                )} />
+                <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 bg-primary" />
                 {factor.description}
               </li>
             ))}
