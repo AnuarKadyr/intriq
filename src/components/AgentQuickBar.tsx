@@ -2,6 +2,7 @@ import { ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText }
 import { Button } from "@/components/ui/button";
 import { useAiChat } from "@/contexts/AiChatContext";
 import { useRef, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const agents = [
   {
@@ -48,6 +49,7 @@ interface AgentQuickBarProps {
 
 export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
   const { openAiChat } = useAiChat();
+  const navigate = useNavigate();
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const updatePositions = useCallback(() => {
@@ -70,8 +72,12 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
   }, [updatePositions]);
 
   const handleAgentClick = (agentId: string) => {
-    openAiChat();
-    console.log(`Starting agent: ${agentId}`);
+    if (agentId === "irt") {
+      navigate("/agent/irt");
+    } else {
+      openAiChat();
+      console.log(`Starting agent: ${agentId}`);
+    }
   };
 
   return (
