@@ -17,7 +17,7 @@ export function SlidePreview({
 }: SlidePreviewProps) {
   const baseClasses = cn(
     "bg-white rounded-lg shadow-md border overflow-hidden transition-all duration-200",
-    isSelected && "ring-2 ring-primary border-transparent shadow-lg",
+    isSelected && "ring-2 ring-inset ring-primary border-transparent shadow-lg",
     isThumbnail && "cursor-pointer hover:shadow-lg hover:scale-[1.02]"
   );
 
