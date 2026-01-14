@@ -7,6 +7,36 @@ interface BusinessOverviewCardProps {
   data: InsightCard;
 }
 
+// Mini sparkline component for trend visualization
+function MiniTrendChart({ trend, change }: { trend?: "up" | "down" | "neutral"; change?: string }) {
+  const isUp = trend === "up";
+  
+  return (
+    <div className="flex items-center gap-1">
+      <svg width="24" height="12" viewBox="0 0 24 12" className="flex-shrink-0">
+        <path
+          d={isUp 
+            ? "M2 10 Q6 8 8 6 T14 4 T22 2" 
+            : "M2 2 Q6 4 8 6 T14 8 T22 10"
+          }
+          fill="none"
+          stroke={isUp ? "#10b981" : "#ef4444"}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+      {change && (
+        <span className={cn(
+          "text-xs font-medium",
+          isUp ? "text-emerald-600" : "text-red-500"
+        )}>
+          {change}
+        </span>
+      )}
+    </div>
+  );
+}
+
 export function BusinessOverviewCard({ data }: BusinessOverviewCardProps) {
   return (
     <InsightCardWrapper
@@ -22,8 +52,13 @@ export function BusinessOverviewCard({ data }: BusinessOverviewCardProps) {
               "text-center",
               idx !== data.kpis!.length - 1 && "border-r border-gray-200"
             )}>
-              <p className="text-xs text-primary font-medium mb-1">{kpi.label}</p>
-              <p className="text-2xl font-bold text-foreground">{kpi.value}</p>
+              <p className="text-xs text-muted-foreground font-medium mb-1">{kpi.label}</p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-2xl font-bold text-foreground">{kpi.value}</p>
+                {kpi.trend && kpi.change && (
+                  <MiniTrendChart trend={kpi.trend} change={kpi.change} />
+                )}
+              </div>
               {kpi.subLabel && (
                 <p className="text-xs text-muted-foreground mt-0.5">{kpi.subLabel}</p>
               )}
