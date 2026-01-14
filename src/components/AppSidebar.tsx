@@ -13,7 +13,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import logoFull from "@/assets/logo-full.svg";
+import logoTiffany from "@/assets/logo-tiffany.svg";
 
 // Mock data for engagements
 const engagements = [
@@ -40,7 +40,7 @@ export function AppSidebar() {
       {/* Header */}
       <div className="p-6 flex items-center">
         <img 
-          src={logoFull} 
+          src={logoTiffany} 
           alt="Intriq AI" 
           className="h-7 cursor-pointer hover:opacity-80 transition-opacity"
           onClick={() => navigate("/dashboard")}
