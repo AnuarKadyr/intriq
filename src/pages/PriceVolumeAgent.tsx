@@ -46,7 +46,7 @@ export default function PriceVolumeAgent() {
   if (agentState === "upload") {
     return (
       <MainLayout>
-        <div className="h-full flex flex-col bg-background">
+        <div className="h-full overflow-y-auto flex flex-col bg-background">
           {/* Header */}
           <div className="border-b bg-card/50 backdrop-blur-sm">
             <div className="px-6 py-4">
@@ -84,7 +84,7 @@ export default function PriceVolumeAgent() {
   if (agentState === "processing") {
     return (
       <MainLayout>
-        <div className="h-full flex flex-col">
+        <div className="h-full overflow-y-auto flex flex-col">
           <PriceVolumeProcessing onComplete={handleProcessingComplete} />
         </div>
       </MainLayout>
