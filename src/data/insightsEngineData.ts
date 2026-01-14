@@ -67,11 +67,11 @@ export const insightCards: InsightCard[] = [
     title: "Business Overview",
     icon: "Building2",
     kpis: [
-      { label: "Total Cash Position", value: ">£12B", subLabel: "All Accounts" },
-      { label: "Trust Accounts", value: "£98.4K", subLabel: "Client Escrow, Trust" },
-      { label: "Trade Receivables", value: "£5.42M", subLabel: "All Accounts" },
-      { label: "Projected Revenue", value: "~£7.8M", subLabel: "All Regions" },
-      { label: "Provision Rate", value: "9%", subLabel: "All Regions" },
+      { label: "FY2025", value: ">£12B", subLabel: "compared to 2024", change: "+18.2%", trend: "up" },
+      { label: "Q4 2024", value: "£98.4K", subLabel: "compared to Q3", change: "+5.1%", trend: "up" },
+      { label: "YTD 2025", value: "£5.42M", subLabel: "compared to 2024", change: "+11.3%", trend: "up" },
+      { label: "FY2025", value: "~£7.8M", subLabel: "compared to 2024", change: "+9.7%", trend: "up" },
+      { label: "Current", value: "9%", subLabel: "compared to last year", change: "-2.1%", trend: "down" },
     ],
     summary: "The organization demonstrates robust financial health with consolidated cash reserves exceeding £12 billion across all banking relationships. Client trust account holdings (escrow, trust, and reserve) totaled £98.4 thousand, reflecting active fiduciary management responsibilities.",
     suggestedQuestions: [
