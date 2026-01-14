@@ -179,12 +179,13 @@ const Dashboard = () => {
   const [showTour, setShowTour] = useState(false);
 
   useEffect(() => {
-    // Reset for testing - remove this line later
-    localStorage.removeItem("agent-tour-completed");
-    
+    // Only show tour if user just completed onboarding (flag set) and hasn't seen tour yet
+    const justCompletedOnboarding = sessionStorage.getItem("just-completed-onboarding");
     const hasSeenTour = localStorage.getItem("agent-tour-completed");
-    if (!hasSeenTour) {
+    
+    if (justCompletedOnboarding && !hasSeenTour) {
       setShowTour(true);
+      sessionStorage.removeItem("just-completed-onboarding");
     }
   }, []);
 
