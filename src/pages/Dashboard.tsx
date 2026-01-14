@@ -190,27 +190,28 @@ const Dashboard = () => {
   
   return (
     <MainLayout showTour={showTour} onTourComplete={handleTourComplete}>
-      {/* Header */}
-      <header className="border-b border-gray-200 bg-white px-8 py-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
-            <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
+      <div className="h-full flex flex-col overflow-hidden">
+        {/* Header */}
+        <header className="border-b border-gray-200 bg-white px-8 py-6 flex-shrink-0">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
+              <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <Button 
+                variant="outline" 
+                className="text-gray-600 border-gray-200 hover:bg-gray-50"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              className="text-gray-600 border-gray-200 hover:bg-gray-50"
-            >
-              <Download className="h-4 w-4 mr-2" />
-              Export
-            </Button>
-          </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Content */}
-      <div className="flex-1 p-8 space-y-6 overflow-y-auto">
+        {/* Content */}
+        <div className="flex-1 p-8 space-y-6 overflow-y-auto min-h-0">
           
           {/* KPI Cards Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -456,6 +457,7 @@ const Dashboard = () => {
           </Card>
 
         </div>
+      </div>
     </MainLayout>
   );
 };
