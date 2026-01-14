@@ -21,7 +21,7 @@ export function MainLayout({ children, showTour = false, onTourComplete }: MainL
       )}
       <AppSidebar />
       
-      <main className="flex-1 flex flex-col overflow-hidden ml-60">
+      <main className="flex-1 flex flex-col overflow-hidden ml-[252px]">
         {/* Agent Quick Bar - Always visible */}
         <AgentQuickBar onButtonPositionsChange={setButtonPositions} />
         

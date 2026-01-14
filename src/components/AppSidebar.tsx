@@ -36,7 +36,7 @@ export function AppSidebar() {
   const [activeItem, setActiveItem] = useState<{ type: string; id: number } | null>({ type: 'engagement', id: 2 });
 
   return (
-    <aside className="w-60 h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-20">
+    <aside className="w-[252px] h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-20">
       {/* Header */}
       <div className="p-6 flex items-center">
         <img 
@@ -98,7 +98,7 @@ export function AppSidebar() {
           <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors group">
             <div className="flex items-center gap-3">
               <Building2 className="h-5 w-5 text-gray-500" />
-              <span className="font-medium text-gray-700">Researched Companies</span>
+              <span className="font-medium text-gray-700">Companies</span>
             </div>
             <ChevronDown 
               className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
