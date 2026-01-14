@@ -15,18 +15,18 @@ export function MainLayout({ children, showTour = false, onTourComplete }: MainL
   const [buttonPositions, setButtonPositions] = useState<{ left: number; width: number }[]>([]);
 
   return (
-    <div className="min-h-screen flex w-full bg-gray-50">
+    <div className="h-screen overflow-hidden flex w-full bg-gray-50">
       {showTour && onTourComplete && (
         <AgentSpotlightTour onComplete={onTourComplete} buttonPositions={buttonPositions} />
       )}
       <AppSidebar />
       
-      <main className="flex-1 flex flex-col overflow-hidden ml-[252px]">
+      <main className="flex-1 flex flex-col overflow-hidden min-h-0 ml-[252px]">
         {/* Agent Quick Bar - Always visible */}
         <AgentQuickBar onButtonPositionsChange={setButtonPositions} />
         
         {/* Page Content */}
-        <div className="flex-1 pt-[52px] overflow-hidden">
+        <div className="flex-1 pt-[52px] overflow-hidden min-h-0">
           {children}
         </div>
       </main>
