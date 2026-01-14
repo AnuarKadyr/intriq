@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowLeft, HelpCircle, Upload, FileText, ChevronRight, ChevronDown, CheckCircle2, Clock, AlertCircle, Sparkles } from "lucide-react";
+import { ArrowLeft, HelpCircle, Upload, FileText, ChevronRight, ChevronDown, CheckCircle2, Clock, AlertCircle, Sparkles, Zap, Eye, Lightbulb } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -11,6 +11,7 @@ import { QuestionTracker } from "@/components/managementQuestions/QuestionTracke
 import { TranscriptUploadArea } from "@/components/managementQuestions/TranscriptUploadArea";
 import { ThemeAnalysis } from "@/components/managementQuestions/ThemeAnalysis";
 import { GeneratedQuestionsPanel } from "@/components/managementQuestions/GeneratedQuestionsPanel";
+import { TonyFace } from "@/components/TonyFace";
 
 type ViewState = "initial" | "tracker";
 
@@ -125,58 +126,106 @@ const ManagementQuestionsAgent = () => {
         <div className="flex-1 p-8 overflow-y-auto">
           {view === "initial" && (
             <div className="max-w-4xl mx-auto space-y-8">
-              {/* Welcome Card */}
-              <Card className="p-8 bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <HelpCircle className="h-8 w-8 text-white" />
+              {/* AI-Powered Welcome Card */}
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-purple-500/10 border border-primary/20 p-8">
+                {/* Animated background orbs */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl animate-pulse-subtle" />
+                  <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse-subtle" style={{ animationDelay: '1s' }} />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float" />
+                </div>
+
+                <div className="relative flex items-start gap-6">
+                  <div className="relative flex-shrink-0">
+                    <TonyFace size="large" />
+                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-md">
+                      <Sparkles className="h-3.5 w-3.5 text-white" />
+                    </div>
                   </div>
+                  
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Management Questions Tracker</h2>
-                    <p className="text-gray-600 mb-4">
-                      Track {initialManagementQuestions.length} pre-loaded due diligence questions across {managementQuestionCategories.length} categories. 
+                    <div className="flex items-center gap-3 mb-2">
+                      <h2 className="text-2xl font-bold text-foreground">Management Questions Tracker</h2>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                        <Zap className="h-3 w-3" />
+                        AI-Powered
+                      </span>
+                    </div>
+                    
+                    <p className="text-foreground/70 mb-5 leading-relaxed">
+                      Track <span className="text-foreground font-semibold">{initialManagementQuestions.length} pre-loaded</span> due diligence questions across <span className="text-foreground font-semibold">{managementQuestionCategories.length} categories</span>. 
                       Upload management meeting transcripts to automatically extract answers and generate follow-up questions.
                     </p>
+
+                    {/* Compact Stats Row */}
+                    <div className="flex items-center gap-3 mb-5">
+                      {[
+                        { icon: FileText, label: 'Questions', value: String(initialManagementQuestions.length), color: 'text-primary' },
+                        { icon: Eye, label: 'Categories', value: String(managementQuestionCategories.length), color: 'text-amber-500' },
+                        { icon: Lightbulb, label: 'AI Insights', value: 'Ready', color: 'text-purple-500' },
+                        { icon: CheckCircle2, label: 'Accuracy', value: '94%', color: 'text-emerald-500' }
+                      ].map((stat, i) => (
+                        <div key={i} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/50 backdrop-blur-sm border border-white/30">
+                          <stat.icon className={cn("h-3.5 w-3.5", stat.color)} />
+                          <span className="text-xs text-muted-foreground">{stat.label}:</span>
+                          <span className={cn("text-xs font-bold", stat.color)}>{stat.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                    
                     <div className="flex flex-wrap gap-2 mb-6">
                       {managementQuestionCategories.map(cat => (
                         <span 
                           key={cat.id}
-                          className="px-3 py-1 rounded-full text-xs font-medium text-white"
+                          className="px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-sm"
                           style={{ backgroundColor: cat.color }}
                         >
                           {cat.name}
                         </span>
                       ))}
                     </div>
-                    <Button onClick={handleStartTracker} className="gap-2">
+                    
+                    <Button onClick={handleStartTracker} size="lg" className="gap-2 shadow-lg hover:shadow-xl transition-shadow">
                       <Sparkles className="h-4 w-4" />
                       Start Question Tracker
                     </Button>
                   </div>
                 </div>
-              </Card>
+
+                {/* AI Attribution */}
+                <div className="relative mt-6 pt-5 border-t border-primary/10">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: '0.2s' }} />
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                    </div>
+                    <span className="text-xs text-muted-foreground">Powered by Intriq AI • Ready to analyze your transcripts</span>
+                  </div>
+                </div>
+              </div>
 
               {/* Features Preview */}
               <div className="grid grid-cols-3 gap-4">
-                <Card className="p-5 hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
-                    <FileText className="h-5 w-5 text-blue-600" />
+                <Card className="p-5 hover:shadow-md transition-shadow border-primary/10 hover:border-primary/20">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-3 shadow-sm">
+                    <FileText className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">Track Questions</h3>
                   <p className="text-sm text-gray-500">Monitor status of all management questions across categories</p>
                 </Card>
                 
-                <Card className="p-5 hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
-                    <Upload className="h-5 w-5 text-emerald-600" />
+                <Card className="p-5 hover:shadow-md transition-shadow border-primary/10 hover:border-primary/20">
+                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mb-3 shadow-sm">
+                    <Upload className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">Upload Transcripts</h3>
                   <p className="text-sm text-gray-500">AI extracts answers from management meeting transcripts</p>
                 </Card>
                 
-                <Card className="p-5 hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
-                    <Sparkles className="h-5 w-5 text-purple-600" />
+                <Card className="p-5 hover:shadow-md transition-shadow border-primary/10 hover:border-primary/20">
+                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-3 shadow-sm">
+                    <Sparkles className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">Generate Insights</h3>
                   <p className="text-sm text-gray-500">Identify themes and generate follow-up questions</p>
