@@ -287,7 +287,7 @@ export function IRTTable({ items, onBulkUpload, onDraftEmail, onUpdateStatus }: 
                       {item.number}
                     </TableCell>
                     <TableCell>
-                      <Badge variant="secondary" className="font-normal">
+                      <Badge variant="secondary" className="font-normal whitespace-nowrap">
                         {item.subject}
                       </Badge>
                     </TableCell>
