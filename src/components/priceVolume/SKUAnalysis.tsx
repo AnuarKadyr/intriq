@@ -5,6 +5,7 @@ import { Barcode, TrendingUp, TrendingDown, Info, Sparkles } from "lucide-react"
 import { SKUData } from "@/types/priceVolume";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useState } from "react";
+import { Sparkline } from "./Sparkline";
 
 interface SKUAnalysisProps {
   skus: SKUData[];
@@ -60,6 +61,7 @@ export function SKUAnalysis({ skus }: SKUAnalysisProps) {
                 <TableHead className="font-semibold">Category</TableHead>
                 <TableHead className="font-semibold">Geography</TableHead>
                 <TableHead className="font-semibold text-right">Revenue</TableHead>
+                <TableHead className="font-semibold text-center">Trend</TableHead>
                 <TableHead className="font-semibold text-right">Change</TableHead>
                 <TableHead className="font-semibold">Price/Volume/Mix</TableHead>
                 <TableHead className="font-semibold text-center">Insight</TableHead>
@@ -87,6 +89,16 @@ export function SKUAnalysis({ skus }: SKUAnalysisProps) {
                     </TableCell>
                     <TableCell className="text-sm font-medium">{sku.geography}</TableCell>
                     <TableCell className="text-right font-bold">{formatCurrency(sku.currentRevenue)}</TableCell>
+                    <TableCell className="text-center">
+                      <div className="flex justify-center">
+                        <Sparkline 
+                          previousValue={sku.previousRevenue} 
+                          currentValue={sku.currentRevenue}
+                          width={60}
+                          height={24}
+                        />
+                      </div>
+                    </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">
                         <div className={`p-1 rounded ${isPositive ? 'bg-emerald-500/10' : 'bg-red-500/10'}`}>

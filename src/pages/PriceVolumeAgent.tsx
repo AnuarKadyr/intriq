@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MainLayout } from "@/components/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +6,7 @@ import { ArrowLeft, RefreshCw, TrendingUp, FileSpreadsheet, Calendar, Sparkles }
 import { useNavigate } from "react-router-dom";
 import { priceVolumeData } from "@/data/priceVolumeData";
 import { RevenueSummaryCard } from "@/components/priceVolume/RevenueSummaryCard";
+import { WaterfallChart } from "@/components/priceVolume/WaterfallChart";
 import { GeographyBreakdown } from "@/components/priceVolume/GeographyBreakdown";
 import { ProductGroupBreakdown } from "@/components/priceVolume/ProductGroupBreakdown";
 import { SKUAnalysis } from "@/components/priceVolume/SKUAnalysis";
@@ -13,6 +14,7 @@ import { KeyInsightsPanel } from "@/components/priceVolume/KeyInsightsPanel";
 import { PriceVolumeUploadScreen } from "@/components/priceVolume/PriceVolumeUploadScreen";
 import PriceVolumeLoadingAnimation from "@/components/priceVolume/PriceVolumeLoadingAnimation";
 import { PriceVolumeChatPanel } from "@/components/priceVolume/PriceVolumeChatPanel";
+import { ExportButton } from "@/components/priceVolume/ExportButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Confetti from "@/components/Confetti";
 
@@ -156,6 +158,7 @@ export default function PriceVolumeAgent() {
                   <FileSpreadsheet className="h-3.5 w-3.5" />
                   {priceVolumeData.skus.length} SKUs Analyzed
                 </Badge>
+                <ExportButton data={priceVolumeData} />
                 <Button variant="outline" size="sm" className="gap-2 hover:bg-muted" onClick={handleReset}>
                   <RefreshCw className="h-4 w-4" />
                   New Analysis
@@ -177,6 +180,9 @@ export default function PriceVolumeAgent() {
         <div className={`p-6 space-y-6 transition-all duration-300 ${isChatOpen ? 'mr-[400px]' : ''}`}>
           {/* Summary Card */}
           <RevenueSummaryCard summary={priceVolumeData.summary} />
+
+          {/* Waterfall Chart */}
+          <WaterfallChart summary={priceVolumeData.summary} />
 
           {/* Key Insights */}
           <KeyInsightsPanel insights={priceVolumeData.keyInsights} />

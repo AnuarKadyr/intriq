@@ -1,12 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, TrendingDown, DollarSign, BarChart3, Sparkles } from "lucide-react";
 import { RevenueSummary } from "@/types/priceVolume";
+import { AnimatedNumber } from "@/hooks/useAnimatedCounter";
 
 interface RevenueSummaryCardProps {
   summary: RevenueSummary;
 }
 
 function formatCurrency(value: number): string {
+  if (value >= 1000000) {
+    return `£${(value / 1000000).toFixed(1)}M`;
+  }
+  return `£${(value / 1000).toFixed(0)}K`;
+}
+
+function formatAnimatedCurrency(value: number): string {
   if (value >= 1000000) {
     return `£${(value / 1000000).toFixed(1)}M`;
   }
@@ -84,12 +92,25 @@ export function RevenueSummaryCard({ summary }: RevenueSummaryCardProps) {
         <div className="grid grid-cols-3 gap-8">
           <div className="p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
             <p className="text-sm text-slate-400 mb-2">{summary.period}</p>
-            <p className="text-4xl font-bold tracking-tight">{formatCurrency(summary.totalCurrentRevenue)}</p>
+            <p className="text-4xl font-bold tracking-tight">
+              <AnimatedNumber 
+                value={summary.totalCurrentRevenue} 
+                formatter={formatAnimatedCurrency}
+                duration={2000}
+              />
+            </p>
             <p className="text-xs text-slate-500 mt-1">Current Period</p>
           </div>
           <div className="p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
             <p className="text-sm text-slate-400 mb-2">{summary.previousPeriod}</p>
-            <p className="text-3xl font-semibold text-slate-300">{formatCurrency(summary.totalPreviousRevenue)}</p>
+            <p className="text-3xl font-semibold text-slate-300">
+              <AnimatedNumber 
+                value={summary.totalPreviousRevenue} 
+                formatter={formatAnimatedCurrency}
+                duration={2000}
+                delay={200}
+              />
+            </p>
             <p className="text-xs text-slate-500 mt-1">Previous Period</p>
           </div>
           <div className="p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
@@ -104,7 +125,13 @@ export function RevenueSummaryCard({ summary }: RevenueSummaryCardProps) {
               </div>
               <div>
                 <span className={`text-3xl font-bold ${isPositive ? 'text-emerald-400' : 'text-red-400'}`}>
-                  {isPositive ? '+' : ''}{summary.totalChangePercent.toFixed(1)}%
+                  {isPositive ? '+' : ''}
+                  <AnimatedNumber 
+                    value={Math.round(summary.totalChangePercent * 10)} 
+                    formatter={(v) => `${(v / 10).toFixed(1)}%`}
+                    duration={2000}
+                    delay={400}
+                  />
                 </span>
                 <p className="text-sm text-slate-400">
                   {formatCurrency(summary.totalChange)}
