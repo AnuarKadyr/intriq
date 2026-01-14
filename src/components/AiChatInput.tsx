@@ -49,14 +49,14 @@ export function AiChatInput() {
 
   return (
     <div className="container-ai-input" ref={containerRef}>
+      <button 
+        className="close-button"
+        onClick={handleClose}
+        aria-label="Close AI assistant"
+      >
+        <X className="h-3 w-3" />
+      </button>
       <div className="container-wrap" onClick={openAiChat}>
-        <button 
-          className="close-button"
-          onClick={handleClose}
-          aria-label="Close AI assistant"
-        >
-          <X className="h-3 w-3" />
-        </button>
         <div className="card" style={cardStyle}>
           <div className="background-blur-balls">
             <div className="balls">
