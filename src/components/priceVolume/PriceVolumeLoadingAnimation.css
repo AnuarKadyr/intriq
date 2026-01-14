@@ -1,0 +1,44 @@
+.pv-loading-page {
+  align-items: center;
+  background: linear-gradient(
+    to top right,
+    hsl(180, 95%, 20%) 10%,
+    hsl(180, 95%, 30%) 50%,
+    hsl(180, 95%, 38%) 100%
+  );
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  z-index: 50;
+}
+
+.pv-loading-page.pv-loading-fade-out {
+  opacity: 0;
+}
+
+.pv-loading-phrase-box {
+  display: flex;
+  flex-flow: column;
+  height: 150px;
+  overflow: hidden;
+  width: 420px;
+}
+
+.pv-loading-footer {
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+}
+
+.pv-loading-logo {
+  height: 32px;
+}
