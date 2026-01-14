@@ -13,6 +13,7 @@ import DataInventoryAgent from "./pages/DataInventoryAgent";
 import ManagementQuestionsAgent from "./pages/ManagementQuestionsAgent";
 import DataIntegrityAgent from "./pages/DataIntegrityAgent";
 import ReportGeneratorAgent from "./pages/ReportGeneratorAgent";
+import InsightsEngineAgent from "./pages/InsightsEngineAgent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/agent/mgmt-questions" element={<ManagementQuestionsAgent />} />
             <Route path="/agent/data-integrity" element={<DataIntegrityAgent />} />
             <Route path="/agent/report" element={<ReportGeneratorAgent />} />
+            <Route path="/agent/insights" element={<InsightsEngineAgent />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
