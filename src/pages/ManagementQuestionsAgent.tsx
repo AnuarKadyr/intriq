@@ -144,13 +144,7 @@ const ManagementQuestionsAgent = () => {
                   </div>
                   
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h2 className="text-2xl font-bold text-foreground">Management Questions Tracker</h2>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                        <Zap className="h-3 w-3" />
-                        AI-Powered
-                      </span>
-                    </div>
+                    <h2 className="text-2xl font-bold text-foreground mb-3">Management Questions Tracker</h2>
                     
                     <p className="text-foreground/70 mb-5 leading-relaxed">
                       Track <span className="text-foreground font-semibold">{initialManagementQuestions.length} pre-loaded</span> due diligence questions across <span className="text-foreground font-semibold">{managementQuestionCategories.length} categories</span>. 
@@ -173,16 +167,19 @@ const ManagementQuestionsAgent = () => {
                       ))}
                     </div>
                     
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {managementQuestionCategories.map(cat => (
-                        <span 
-                          key={cat.id}
-                          className="px-3 py-1.5 rounded-full text-xs font-medium text-white shadow-sm"
-                          style={{ backgroundColor: cat.color }}
-                        >
-                          {cat.name}
-                        </span>
-                      ))}
+                    {/* Categories Section - Subtle style */}
+                    <div className="mb-6">
+                      <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2 block">Question Categories</span>
+                      <div className="flex flex-wrap gap-2">
+                        {managementQuestionCategories.map(cat => (
+                          <span 
+                            key={cat.id}
+                            className="px-3 py-1.5 rounded-lg text-xs font-medium text-foreground/80 bg-white/60 backdrop-blur-sm border border-gray-200/50 hover:bg-white/80 transition-colors"
+                          >
+                            {cat.name}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                     
                     <Button onClick={handleStartTracker} size="lg" className="gap-2 shadow-lg hover:shadow-xl transition-shadow">
