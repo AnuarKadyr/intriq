@@ -1,0 +1,153 @@
+import { InsightCard, MonthlyData } from "@/types/insightsEngine";
+
+export const monthlyChartData: MonthlyData[] = [
+  { month: "Jan", income: 18500, expenses: 4200, scheduled: 2100 },
+  { month: "Feb", income: 21200, expenses: 3800, scheduled: 1900 },
+  { month: "Mar", income: 19800, expenses: 4500, scheduled: 2300 },
+  { month: "Apr", income: 22400, expenses: 3900, scheduled: 2000 },
+  { month: "May", income: 20100, expenses: 5200, scheduled: 2400 },
+  { month: "Jun", income: 23500, expenses: 4100, scheduled: 1800 },
+  { month: "Jul", income: 21800, expenses: 3700, scheduled: 2200 },
+  { month: "Aug", income: 24200, expenses: 4300, scheduled: 2100 },
+  { month: "Sep", income: 22900, expenses: 4000, scheduled: 1950 },
+  { month: "Oct", income: 25100, expenses: 4600, scheduled: 2350 },
+  { month: "Nov", income: 23400, expenses: 4200, scheduled: 2000 },
+  { month: "Dec", income: 26800, expenses: 4800, scheduled: 2500 },
+];
+
+export const insightCards: InsightCard[] = [
+  {
+    id: "executive-summary",
+    type: "executive-summary",
+    title: "Executive Summary",
+    icon: "Sparkles",
+    kpis: [
+      { label: "Total Revenue", value: "£87.3M", subLabel: "Verified Annual" },
+      { label: "Operating Costs", value: "£2.41M", subLabel: "Monthly Average" },
+      { label: "Outstanding Balance", value: "£142.8M", subLabel: "Accounts Receivable" },
+      { label: "Hours Logged", value: "892K", subLabel: "52% Billable Rate" },
+      { label: "Active Staff", value: "184", subLabel: "Including 38 Partners" },
+    ],
+    summaryParagraphs: [
+      "Meridian Advisory Partners (\"the Firm\") operates as a comprehensive professional services firm across four core practice areas: Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring. The Firm maintains offices across major financial centers with multi-currency banking capabilities in GBP, EUR, and USD.",
+      "As of March 2025, the Firm's consolidated operating accounts across all entities totaled £14.2 billion (aggregated across operating, client trust, and escrow accounts).",
+      "Achieved high-confidence data extraction for: Employee records (96%) Revenue recognition (94%)",
+    ],
+    recommendedActions: [
+      "Complete IRL generation for Q4 financial reconciliation",
+      "Re-run accounts payable analysis with enhanced validation rules",
+    ],
+    suggestedQuestions: [
+      "Why is billing variance elevated?",
+      "What drives the AR balance?",
+      "Which data needs verification?",
+      "What are the key risks?",
+    ],
+  },
+  {
+    id: "revenue-analysis",
+    type: "revenue-analysis",
+    title: "Revenue Growth Analysis",
+    icon: "TrendingUp",
+    kpis: [
+      { label: "REVENUE", value: "£78,400", change: "+8%", trend: "up" },
+      { label: "COSTS", value: "£19,200", change: "-5%", trend: "down" },
+      { label: "FORECAST", value: "£11,500" },
+    ],
+    chartData: monthlyChartData,
+    suggestedQuestions: [
+      "Why did costs spike in May?",
+      "What is Q3 revenue summary?",
+      "What's the annual forecast?",
+    ],
+  },
+  {
+    id: "business-overview",
+    type: "business-overview",
+    title: "Business Overview",
+    icon: "Building2",
+    kpis: [
+      { label: "Total Cash Position", value: ">£12B", subLabel: "All Accounts" },
+      { label: "Trust Accounts", value: "£98.4K", subLabel: "Client Escrow, Trust" },
+      { label: "Trade Receivables", value: "£5.42M", subLabel: "All Accounts" },
+      { label: "Projected Revenue", value: "~£7.8M", subLabel: "All Regions" },
+      { label: "Provision Rate", value: "9%", subLabel: "All Regions" },
+    ],
+    summary: "The organization demonstrates robust financial health with consolidated cash reserves exceeding £12 billion across all banking relationships. Client trust account holdings (escrow, trust, and reserve) totaled £98.4 thousand, reflecting active fiduciary management responsibilities.",
+    suggestedQuestions: [
+      "Why are costs elevated in Q2?",
+      "What is revenue for H2?",
+      "What's the projected variance?",
+    ],
+  },
+  {
+    id: "key-observations",
+    type: "key-observations",
+    title: "Key Observations",
+    icon: "Eye",
+    summary: "The organization demonstrates robust financial health with consolidated cash reserves exceeding £12 billion across all banking relationships. Client trust account holdings totaled £98.4 thousand, reflecting active fiduciary management responsibilities.",
+    observations: [
+      {
+        id: "obs-1",
+        title: "Robust Cash Position",
+        description: "Diversified banking infrastructure and substantial operating reserves provide strong financial flexibility.",
+        status: "critical",
+      },
+      {
+        id: "obs-2",
+        title: "Revenue Diversification",
+        description: "Multi-practice structure with significant billing across Advisory, Disputes, and Transaction Support.",
+        status: "positive",
+      },
+      {
+        id: "obs-3",
+        title: "WIP Management",
+        description: "Outstanding work-in-progress balance (£118.5 million net) requires focused billing and collections effort.",
+        status: "opportunity",
+      },
+      {
+        id: "obs-4",
+        title: "Collection Challenges",
+        description: "Elevated provisions and aged disbursements indicate collection risks in specific client segments.",
+        status: "opportunity",
+      },
+      {
+        id: "obs-5",
+        title: "Operational Capacity",
+        description: "1.89 million tracked hours and multi-location presence demonstrate substantial service delivery capability.",
+        status: "positive",
+      },
+    ],
+    reportDate: "March 2025",
+    dataCurrency: "March 2025 (most recent period)",
+    suggestedQuestions: [
+      "How were risks identified?",
+      "Why is cash position critical?",
+      "Explain WIP management?",
+      "How is capacity calculated?",
+    ],
+  },
+  {
+    id: "ai-analysis",
+    type: "ai-analysis",
+    title: "AI Analysis Summary",
+    icon: "Sparkles",
+    summary: "The organization demonstrates robust financial health with consolidated cash reserves exceeding £12 billion across all banking relationships. Client trust account holdings totaled £98.4 thousand, reflecting active fiduciary management responsibilities.",
+    riskScore: 64,
+    riskLevel: "medium",
+    riskFactors: [
+      { id: "rf-1", description: "42.3% of WIP unallocated to specific matter codes (£68.2M)" },
+      { id: "rf-2", description: "Limited visibility into audited financial statements and consolidated reporting" },
+      { id: "rf-3", description: "No debtor aging segmentation despite £142.8M receivables balance" },
+      { id: "rf-4", description: "Unusual billing patterns detected (Q1 spikes, irregular accruals)" },
+      { id: "rf-5", description: "24.7% of hours categorized as 'Unassigned' indicating tracking gaps" },
+      { id: "rf-6", description: "52% billable utilization below 65-75% industry benchmark" },
+    ],
+    suggestedQuestions: [
+      "Explain the main risk factors",
+      "How is risk score calculated?",
+      "How to mitigate these risks?",
+      "What does 'Unassigned' mean?",
+    ],
+  },
+];
