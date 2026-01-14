@@ -82,7 +82,9 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
 
   return (
     <div className="bg-white border-b border-gray-200 px-8 py-3 fixed top-0 left-72 right-0 z-30">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
+        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Your AI Team</span>
+        <div className="w-px h-6 bg-gray-200" />
         {agents.map((agent, index) => {
           const IconComponent = agent.icon;
           return (
