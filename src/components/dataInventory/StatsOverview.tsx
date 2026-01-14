@@ -10,11 +10,9 @@ import {
   TrendingUp, 
   Scale, 
   ChevronRight,
-  Sparkles,
-  FileText,
-  FileSpreadsheet,
-  File
+  Sparkles
 } from "lucide-react";
+import { getFileTypeIcon } from "./FileTypeIcons";
 import { cn } from "@/lib/utils";
 
 interface CriticalDocument {
@@ -224,8 +222,8 @@ export function StatsOverview({
           {/* Category Distribution */}
           <Card className="p-4">
             <h4 className="text-xs font-medium text-gray-500 mb-3">By Category</h4>
-            <div className="flex items-center gap-4">
-              <div className="w-28 h-28 flex-shrink-0">
+            <div className="flex items-start gap-3">
+              <div className="w-36 h-36 flex-shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -234,8 +232,8 @@ export function StatsOverview({
                       data={categoryStats}
                       cx="50%"
                       cy="50%"
-                      innerRadius={28}
-                      outerRadius={48}
+                      innerRadius={35}
+                      outerRadius={60}
                       paddingAngle={2}
                       dataKey="count"
                       nameKey="category"
@@ -251,7 +249,7 @@ export function StatsOverview({
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex-1 space-y-1.5">
+              <div className="flex-1 space-y-1 pt-1">
                 {categoryStats.map((cat, index) => (
                   <div 
                     key={cat.category} 
@@ -263,11 +261,11 @@ export function StatsOverview({
                     onMouseLeave={() => setActiveCategoryIndex(undefined)}
                   >
                     <div 
-                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                       style={{ backgroundColor: cat.color }}
                     />
-                    <span className="text-xs text-gray-600 flex-1">{cat.category}</span>
-                    <span className="text-xs font-medium text-gray-500">{cat.count}</span>
+                    <span className="text-xs text-gray-600">{cat.category}</span>
+                    <span className="text-xs font-semibold text-gray-900 ml-auto">{cat.count}</span>
                   </div>
                 ))}
               </div>
@@ -277,8 +275,8 @@ export function StatsOverview({
           {/* File Type Distribution */}
           <Card className="p-4">
             <h4 className="text-xs font-medium text-gray-500 mb-3">By File Type</h4>
-            <div className="flex items-center gap-4">
-              <div className="w-28 h-28 flex-shrink-0">
+            <div className="flex items-start gap-3">
+              <div className="w-36 h-36 flex-shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -287,8 +285,8 @@ export function StatsOverview({
                       data={fileTypeStats}
                       cx="50%"
                       cy="50%"
-                      innerRadius={28}
-                      outerRadius={48}
+                      innerRadius={35}
+                      outerRadius={60}
                       paddingAngle={2}
                       dataKey="count"
                       nameKey="type"
@@ -304,7 +302,7 @@ export function StatsOverview({
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="flex-1 space-y-1.5">
+              <div className="flex-1 space-y-1 pt-1">
                 {fileTypeStats.map((type, index) => (
                   <div 
                     key={type.type} 
@@ -315,17 +313,11 @@ export function StatsOverview({
                     onMouseEnter={() => setActiveTypeIndex(index)}
                     onMouseLeave={() => setActiveTypeIndex(undefined)}
                   >
-                    <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${type.color}20` }}>
-                      {type.type === "PDF" ? (
-                        <FileText className="h-3 w-3" style={{ color: type.color }} />
-                      ) : type.type === "Excel" || type.type.includes("Excel") ? (
-                        <FileSpreadsheet className="h-3 w-3" style={{ color: type.color }} />
-                      ) : (
-                        <File className="h-3 w-3" style={{ color: type.color }} />
-                      )}
+                    <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+                      {getFileTypeIcon(type.type, "h-4 w-4")}
                     </div>
-                    <span className="text-xs text-gray-600 flex-1">{type.type}</span>
-                    <span className="text-xs font-medium text-gray-500">{type.count}</span>
+                    <span className="text-xs text-gray-600">{type.type}</span>
+                    <span className="text-xs font-semibold text-gray-900 ml-auto">{type.count}</span>
                   </div>
                 ))}
               </div>

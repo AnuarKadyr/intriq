@@ -391,21 +391,21 @@ export const dataRoomFolders: DataRoomFolder[] = [
 ];
 
 export const categoryStats: CategoryStats[] = [
-  { category: "Financial", count: 36, priority: "HIGH", color: "#7c9eb8" },
-  { category: "Legal", count: 16, priority: "MEDIUM", color: "#a89080" },
-  { category: "Commercial", count: 11, priority: "LOW", color: "#7ba896" },
-  { category: "HR", count: 10, priority: "LOW", color: "#9e8cbc" },
-  { category: "Tax", count: 4, priority: "MEDIUM", color: "#c4a67a" },
-  { category: "Other", count: 77, priority: "LOW", color: "#a0a8b0" },
+  { category: "Financial", count: 36, priority: "HIGH", color: "#05D3D3" },
+  { category: "Legal", count: 16, priority: "MEDIUM", color: "#F59E0B" },
+  { category: "Commercial", count: 11, priority: "LOW", color: "#10B981" },
+  { category: "HR", count: 10, priority: "LOW", color: "#3B82F6" },
+  { category: "Tax", count: 4, priority: "MEDIUM", color: "#8B5CF6" },
+  { category: "Other", count: 77, priority: "LOW", color: "#E5E7EB" },
 ];
 
 export const fileTypeStats: FileTypeStats[] = [
-  { type: "PDF", count: 81, color: "#c88a8a" },
-  { type: "Excel", count: 56, color: "#7eb88e" },
-  { type: "Word", count: 7, color: "#7a9cc4" },
-  { type: "Excel (Old)", count: 4, color: "#9eb87e" },
-  { type: "Excel Macro", count: 4, color: "#8eb8b0" },
-  { type: "Other", count: 2, color: "#a0a8b0" },
+  { type: "PDF", count: 81, color: "#E53935" },
+  { type: "Excel", count: 56, color: "#1D6F42" },
+  { type: "Word", count: 7, color: "#2B579A" },
+  { type: "Excel (Old)", count: 4, color: "#217346" },
+  { type: "Excel Macro", count: 4, color: "#185C37" },
+  { type: "Other", count: 2, color: "#6B7280" },
 ];
 
 // Helper function to get all files from folders recursively
