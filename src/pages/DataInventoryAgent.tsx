@@ -201,7 +201,7 @@ const DataInventoryAgent = () => {
                         <h3 className="text-sm font-semibold text-gray-900 mb-3">Folder Contents Summary</h3>
                         <p className="text-sm text-gray-600 leading-relaxed">
                           The <strong>Project Aurora</strong> data room contains comprehensive due diligence 
-                          materials for the acquisition of Greenwoods Legal LLP. The structure follows 
+                          materials for the acquisition of Target Co. The structure follows 
                           a hierarchical organization with primary categories including background 
                           documentation, VDR downloads organized by date, and specialized folders for 
                           P&L analysis, balance sheet items, and statutory accounts. Notable coded 
