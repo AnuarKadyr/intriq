@@ -264,7 +264,7 @@ const DataIntegrityAgent = () => {
           )}
 
           {view === "tracker" && (
-            <div className="flex-1 min-h-0 p-8 flex gap-6 overflow-hidden">
+            <div className="h-full min-h-0 p-8 flex gap-6 overflow-hidden">
               {/* Left: Issue List */}
               <div className="w-[400px] flex-shrink-0 flex flex-col min-h-0">
                 {/* Compact Stats + Filter Bar */}
