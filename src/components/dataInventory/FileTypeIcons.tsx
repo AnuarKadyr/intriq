@@ -1,8 +1,8 @@
 // Real file type icons using actual brand logos
 
-import pdfIcon from "@/assets/icon-pdf.png";
-import excelIcon from "@/assets/icon-excel.png";
-import wordIcon from "@/assets/icon-word.png";
+import pdfIcon from "@/assets/icon-pdf.svg";
+import excelIcon from "@/assets/icon-excel.svg";
+import wordIcon from "@/assets/icon-word.svg";
 import { File } from "lucide-react";
 
 interface IconProps {
