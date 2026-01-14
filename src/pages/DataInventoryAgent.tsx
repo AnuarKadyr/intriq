@@ -8,6 +8,7 @@ import { FolderSidebar } from "@/components/dataInventory/FolderSidebar";
 import { FileList } from "@/components/dataInventory/FileList";
 import { StatsOverview } from "@/components/dataInventory/StatsOverview";
 import { FolderDetails } from "@/components/dataInventory/FolderDetails";
+import { AIInsightsPanel } from "@/components/dataInventory/AIInsightsPanel";
 import { 
   dataRoomFolders, 
   categoryStats, 
@@ -140,70 +141,7 @@ const DataInventoryAgent = () => {
                   </TabsContent>
 
                   <TabsContent value="insights" className="m-0">
-                    <div className="space-y-4">
-                      {selectedFolder && <FolderDetails folder={selectedFolder} />}
-                      
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-white rounded-xl border border-gray-200 p-5">
-                          <h3 className="text-sm font-semibold text-gray-900 mb-3">Key Observations</h3>
-                          <ul className="space-y-2 text-sm text-gray-600">
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
-                              <span>36 financial documents require priority review including P&L, balance sheet, and statutory accounts</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0" />
-                              <span>16 legal documents identified covering Heads of Terms, SLAs, and IP registrations</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
-                              <span>10 HR documents include detailed staff analysis and payroll information</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-1.5 flex-shrink-0" />
-                              <span>4 tax documents covering VAT returns for 2022-2025</span>
-                            </li>
-                          </ul>
-                        </div>
-                        
-                        <div className="bg-white rounded-xl border border-gray-200 p-5">
-                          <h3 className="text-sm font-semibold text-gray-900 mb-3">Data Quality Notes</h3>
-                          <ul className="space-y-2 text-sm text-gray-600">
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
-                              <span>3 files flagged with integrity issues requiring re-upload</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0" />
-                              <span>Password-protected payroll files may need credentials for analysis</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
-                              <span>Financial models are up-to-date (v95 through March 2025)</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5 flex-shrink-0" />
-                              <span>Bank reconciliations complete through February 2025</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div className="bg-white rounded-xl border border-gray-200 p-5">
-                        <h3 className="text-sm font-semibold text-gray-900 mb-3">Folder Contents Summary</h3>
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                          The <strong>Project Aurora</strong> data room contains comprehensive due diligence 
-                          materials for the acquisition of Target Co. The structure follows 
-                          a hierarchical organization with primary categories including background 
-                          documentation, VDR downloads organized by date, and specialized folders for 
-                          P&L analysis, balance sheet items, and statutory accounts. Notable coded 
-                          folder names like "140425" represent dates (April 14, 2025) for VDR 
-                          snapshot downloads. The IP Supporting Documents folder contains European 
-                          and international patent/trademark office correspondence essential for 
-                          the legal IP due diligence workstream.
-                        </p>
-                      </div>
-                    </div>
+                    <AIInsightsPanel selectedFolder={selectedFolder} />
                   </TabsContent>
                 </div>
               </ScrollArea>
