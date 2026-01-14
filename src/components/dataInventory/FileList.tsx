@@ -68,10 +68,7 @@ export function FileList({ files, title }: FileListProps) {
                   
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
-                      <h4 className={cn(
-                        "text-sm font-medium truncate transition-colors",
-                        isExpanded ? "text-primary" : "text-gray-900"
-                      )}>
+                      <h4 className="text-sm font-medium truncate text-gray-900">
                         {file.name}
                       </h4>
                       <div className="flex items-center gap-1 flex-shrink-0">
