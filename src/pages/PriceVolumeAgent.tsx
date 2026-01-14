@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, RefreshCw, TrendingUp, FileSpreadsheet, Calendar, MessageCircle, Sparkles } from "lucide-react";
+import { ArrowLeft, RefreshCw, TrendingUp, FileSpreadsheet, Calendar, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { priceVolumeData } from "@/data/priceVolumeData";
 import { RevenueSummaryCard } from "@/components/priceVolume/RevenueSummaryCard";
@@ -14,6 +14,7 @@ import { PriceVolumeUploadScreen } from "@/components/priceVolume/PriceVolumeUpl
 import PriceVolumeLoadingAnimation from "@/components/priceVolume/PriceVolumeLoadingAnimation";
 import { PriceVolumeChatPanel } from "@/components/priceVolume/PriceVolumeChatPanel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Confetti from "@/components/Confetti";
 
 type AgentState = "upload" | "processing" | "results";
 
@@ -22,6 +23,8 @@ export default function PriceVolumeAgent() {
   const [agentState, setAgentState] = useState<AgentState>("upload");
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [initialQuestion, setInitialQuestion] = useState<string | undefined>();
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [confettiFading, setConfettiFading] = useState(false);
 
   const handleUpload = () => {
     setAgentState("processing");
@@ -29,6 +32,21 @@ export default function PriceVolumeAgent() {
 
   const handleProcessingComplete = () => {
     setAgentState("results");
+    // Show confetti celebration
+    setShowConfetti(true);
+    setConfettiFading(false);
+    
+    // Start fading out after 4 seconds
+    setTimeout(() => {
+      setConfettiFading(true);
+    }, 4000);
+    
+    // Remove confetti after fade completes
+    setTimeout(() => {
+      setShowConfetti(false);
+      setConfettiFading(false);
+    }, 5000);
+    
     // Automatically open chat with the initial question
     setTimeout(() => {
       setInitialQuestion("update data for 2025 - how did the numbers change from 2024");
@@ -89,6 +107,16 @@ export default function PriceVolumeAgent() {
   return (
     <MainLayout>
       <div className="h-full overflow-y-auto bg-gradient-to-br from-background via-background to-primary/5 relative">
+        {/* Confetti celebration */}
+        {showConfetti && (
+          <div 
+            className="fixed inset-0 z-50 pointer-events-none transition-opacity duration-1000"
+            style={{ opacity: confettiFading ? 0 : 1 }}
+          >
+            <Confetti />
+          </div>
+        )}
+        
         {/* Decorative background */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
         
