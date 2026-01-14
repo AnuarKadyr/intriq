@@ -2,8 +2,54 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { CategoryStats, FileTypeStats } from "@/types/dataInventory";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Sector } from "recharts";
-import { Files, FolderTree, HardDrive } from "lucide-react";
+import { Files, FolderTree, HardDrive, AlertTriangle, FileText, TrendingUp, Scale, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+interface CriticalDocument {
+  id: string;
+  name: string;
+  category: string;
+  insight: string;
+  impact: "deal-critical" | "high-value" | "risk-flag";
+}
+
+const criticalDocuments: CriticalDocument[] = [
+  {
+    id: "f5",
+    name: "Financial Model v86 (to Feb'25)",
+    category: "Financial",
+    insight: "Master valuation model - forms basis of £47M deal price. Contains 48 worksheets with full P&L projections through 2028.",
+    impact: "deal-critical"
+  },
+  {
+    id: "f2",
+    name: "Project Aurora IM (FINAL)",
+    category: "Financial", 
+    insight: "Final investment memorandum with deal thesis. Key for understanding valuation rationale and synergy assumptions.",
+    impact: "deal-critical"
+  },
+  {
+    id: "f16",
+    name: "2025-02-28 Aged Debt.xlsm",
+    category: "Financial",
+    insight: "Shows £2.3M aged >90 days. Potential working capital adjustment of £400K flagged. Requires attention.",
+    impact: "risk-flag"
+  },
+  {
+    id: "f12",
+    name: "Detailed Staff Analysis v3",
+    category: "HR",
+    insight: "22 worksheets covering all 127 staff. Identifies 8 key fee-earners generating 43% of revenue.",
+    impact: "high-value"
+  },
+  {
+    id: "f3",
+    name: "Target Co - GH HoT vSHARED",
+    category: "Legal",
+    insight: "Heads of Terms document. Contains exclusivity period ending June 30, 2025 and break fee provisions.",
+    impact: "deal-critical"
+  }
+];
 
 interface StatsOverviewProps {
   categoryStats: CategoryStats[];
@@ -65,7 +111,63 @@ export function StatsOverview({
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
               <Files className="h-5 w-5 text-white" />
+      </div>
+
+      {/* Critical Documents */}
+      <Card className="p-4 border-amber-200 bg-gradient-to-br from-amber-50/50 to-orange-50/30">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
+            <AlertTriangle className="h-4 w-4 text-white" />
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900">Critical Documents</h3>
+            <p className="text-xs text-gray-500">Key files requiring attention for this transaction</p>
+          </div>
+        </div>
+        <div className="space-y-3">
+          {criticalDocuments.map((doc) => (
+            <div
+              key={doc.id}
+              className={cn(
+                "p-3 rounded-lg border cursor-pointer transition-all hover:shadow-md group",
+                doc.impact === "deal-critical" && "bg-red-50/50 border-red-200 hover:border-red-300",
+                doc.impact === "high-value" && "bg-blue-50/50 border-blue-200 hover:border-blue-300",
+                doc.impact === "risk-flag" && "bg-amber-50/50 border-amber-200 hover:border-amber-300"
+              )}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-3 flex-1">
+                  <div className={cn(
+                    "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5",
+                    doc.impact === "deal-critical" && "bg-red-100",
+                    doc.impact === "high-value" && "bg-blue-100",
+                    doc.impact === "risk-flag" && "bg-amber-100"
+                  )}>
+                    {doc.impact === "deal-critical" && <Scale className="h-4 w-4 text-red-600" />}
+                    {doc.impact === "high-value" && <TrendingUp className="h-4 w-4 text-blue-600" />}
+                    {doc.impact === "risk-flag" && <AlertTriangle className="h-4 w-4 text-amber-600" />}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-sm font-medium text-gray-900 truncate">{doc.name}</span>
+                      <span className={cn(
+                        "text-[10px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide",
+                        doc.impact === "deal-critical" && "bg-red-100 text-red-700",
+                        doc.impact === "high-value" && "bg-blue-100 text-blue-700",
+                        doc.impact === "risk-flag" && "bg-amber-100 text-amber-700"
+                      )}>
+                        {doc.impact.replace("-", " ")}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-600 leading-relaxed">{doc.insight}</p>
+                  </div>
+                </div>
+                <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600 transition-colors flex-shrink-0 mt-2" />
+              </div>
             </div>
+          ))}
+        </div>
+      </Card>
             <div>
               <p className="text-2xl font-bold text-blue-900">{totalFiles}</p>
               <p className="text-xs text-blue-600">Total Files</p>
