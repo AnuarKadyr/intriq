@@ -19,22 +19,11 @@
   pointer-events: auto;
 }
 
-/* Top section - above agent bar */
-.spotlight-backdrop::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 88px;
-  background: rgba(0, 0, 0, 0.7);
-}
-
 /* Bottom section - below agent bar */
 .spotlight-backdrop::after {
   content: '';
   position: absolute;
-  top: 140px;
+  top: 52px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -44,7 +33,7 @@
 /* Left side - sidebar area */
 .spotlight-sidebar-cover {
   position: absolute;
-  top: 88px;
+  top: 0;
   left: 0;
   width: 288px;
   height: 52px;
@@ -54,7 +43,7 @@
 /* Beautiful glow highlight around the agent bar */
 .spotlight-glow {
   position: absolute;
-  top: 86px;
+  top: -2px;
   left: 286px;
   right: -2px;
   height: 56px;
@@ -85,7 +74,7 @@
 
 .spotlight-card {
   position: absolute;
-  top: 155px;
+  top: 65px;
   background: white;
   border-radius: 16px;
   padding: 20px 24px;
