@@ -142,8 +142,8 @@ export function SlideEditor({
           </div>
         </div>
         
-        <ScrollArea className="flex-1 min-h-0 -m-1 p-1">
-          <div className="space-y-3 pr-2">
+        <ScrollArea className="flex-1 min-h-0">
+          <div className="space-y-3 p-1 -m-1">
             {slides.map((slide, idx) => (
               <div 
                 key={slide.id} 
