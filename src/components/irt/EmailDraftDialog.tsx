@@ -40,16 +40,24 @@ export function EmailDraftDialog({
     }, {} as Record<string, IRTItem[]>);
 
     let body = `Dear Team,\n\nI hope this email finds you well.\n\n`;
-    body += `As part of our ongoing due diligence process for ${projectName}, we would like to follow up on the following outstanding information requests:\n\n`;
+    body += `As part of our ongoing due diligence process for ${projectName}, we would like to follow up on the following ${outstandingItems.length} outstanding information requests:\n\n`;
+    body += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
     
     Object.entries(groupedBySubject).forEach(([subject, subjectItems]) => {
-      body += `**${subject}**\n`;
-      subjectItems.forEach(item => {
-        body += `• Item ${item.number}: ${item.request}\n`;
+      body += `▸ ${subject.toUpperCase()}\n`;
+      body += `─────────────────────────────\n`;
+      subjectItems.forEach((item, idx) => {
+        body += `  ${item.number}. ${item.request}\n`;
+        if (item.dataroomRef) {
+          body += `     └ Data Room Ref: ${item.dataroomRef}\n`;
+        }
+        if (idx < subjectItems.length - 1) body += `\n`;
       });
       body += `\n`;
     });
 
+    body += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    body += `SUMMARY: ${outstandingItems.length} items outstanding across ${Object.keys(groupedBySubject).length} categories.\n\n`;
     body += `Could you please provide the above items at your earliest convenience? If any items are not available or require clarification, please let us know.\n\n`;
     body += `We appreciate your cooperation and look forward to your response.\n\n`;
     body += `Best regards`;
