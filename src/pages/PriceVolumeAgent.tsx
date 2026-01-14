@@ -96,7 +96,7 @@ export default function PriceVolumeAgent() {
     <MainLayout>
       <div className="h-full overflow-y-auto bg-background">
         {/* Header */}
-        <div className="border-b bg-card/50 backdrop-blur-sm sticky top-[57px] z-20">
+        <div className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-20">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
