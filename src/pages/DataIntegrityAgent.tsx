@@ -153,7 +153,7 @@ const DataIntegrityAgent = () => {
         </header>
 
         {/* Content */}
-        <div className="flex-1 p-8 overflow-y-auto">
+        <div className="flex-1 p-8 overflow-hidden">
           {view === "initial" && (
             <div className="max-w-4xl mx-auto space-y-8">
               {/* AI-Powered Welcome Card */}
@@ -262,9 +262,9 @@ const DataIntegrityAgent = () => {
           )}
 
           {view === "tracker" && (
-            <div className="h-full flex gap-6">
+            <div className="h-full flex gap-6 overflow-hidden">
               {/* Left: Issue List */}
-              <div className="w-[400px] flex-shrink-0 flex flex-col h-full overflow-hidden">
+              <div className="w-[400px] flex-shrink-0 flex flex-col h-full min-h-0">
                 {/* Compact Stats + Filter Bar */}
                 <div className="mb-4 flex-shrink-0 space-y-2">
                   {/* Status filter row */}
@@ -352,7 +352,7 @@ const DataIntegrityAgent = () => {
                 </div>
 
                 {/* Issue List */}
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1 min-h-0 overflow-y-auto">
                   <IssueList 
                     issues={filteredIssues}
                     selectedIssue={selectedIssue}
@@ -362,7 +362,7 @@ const DataIntegrityAgent = () => {
               </div>
 
               {/* Right: Issue Detail - Always show selected issue */}
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 min-h-0 overflow-y-auto">
                 {selectedIssue && (
                   <IssueDetailPanel 
                     issue={selectedIssue}
