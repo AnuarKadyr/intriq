@@ -106,16 +106,14 @@ const DataInventoryAgent = () => {
               <ScrollArea className="flex-1">
                 <div className="p-6">
                   <TabsContent value="overview" className="m-0">
-                    <div className="space-y-6">
-                      {selectedFolder && <FolderDetails folder={selectedFolder} />}
-                      <StatsOverview
-                        categoryStats={categoryStats}
-                        fileTypeStats={fileTypeStats}
-                        totalFiles={dataRoomStats.totalFiles}
-                        totalSize={dataRoomStats.totalSize}
-                        totalFolders={dataRoomStats.totalFolders}
-                      />
-                    </div>
+                    <StatsOverview
+                      categoryStats={categoryStats}
+                      fileTypeStats={fileTypeStats}
+                      totalFiles={dataRoomStats.totalFiles}
+                      totalSize={dataRoomStats.totalSize}
+                      totalFolders={dataRoomStats.totalFolders}
+                      selectedFolder={selectedFolder}
+                    />
                   </TabsContent>
 
                   <TabsContent value="files" className="m-0">
