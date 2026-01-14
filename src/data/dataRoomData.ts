@@ -7,7 +7,7 @@ export const dataRoomFolders: DataRoomFolder[] = [
     name: "Project Aurora",
     path: "Project Aurora copy",
     priority: "HIGH",
-    description: "Root data room containing all due diligence materials for the acquisition of Greenwoods Legal LLP",
+    description: "Root data room containing all due diligence materials for the acquisition of Target Co",
     fileCount: 154,
     children: [
       {
@@ -56,18 +56,18 @@ export const dataRoomFolders: DataRoomFolder[] = [
                 size: "2.9 MB",
                 category: "Financial",
                 priority: "HIGH",
-                summary: "Final investment memorandum for Project Aurora acquisition of Greenwoods Legal LLP containing deal thesis, valuation, and investment highlights."
+                summary: "Final investment memorandum for Project Aurora acquisition of Target Co containing deal thesis, valuation, and investment highlights."
               },
               {
                 id: "f3",
-                name: "Greenwoods - GH HoT vSHARED CLARITAS.docx",
-                path: "Project Aurora copy/Aurora_Data/Background docs/Greenwoods - GH HoT vSHARED CLARITAS.docx",
+                name: "Target Co - GH HoT vSHARED.docx",
+                path: "Project Aurora copy/Aurora_Data/Background docs/Target Co - GH HoT vSHARED.docx",
                 type: "Word Document",
                 size: "135.8 KB",
                 pages: 127,
                 category: "Legal",
                 priority: "MEDIUM",
-                summary: "Confidential investment committee document for Greenwoods Legal LLP acquisition containing Heads of Terms and transaction structure details."
+                summary: "Confidential investment committee document for Target Co acquisition containing Heads of Terms and transaction structure details."
               },
               {
                 id: "f4",
@@ -93,8 +93,8 @@ export const dataRoomFolders: DataRoomFolder[] = [
               },
               {
                 id: "f6",
-                name: "Greenwoods - Q&A 12.03.xlsx",
-                path: "Project Aurora copy/Aurora_Data/Background docs/Greenwoods - Q&A 12.03.xlsx",
+                name: "Target Co - Q&A 12.03.xlsx",
+                path: "Project Aurora copy/Aurora_Data/Background docs/Target Co - Q&A 12.03.xlsx",
                 type: "Excel Workbook",
                 size: "176.7 KB",
                 pages: 6,
