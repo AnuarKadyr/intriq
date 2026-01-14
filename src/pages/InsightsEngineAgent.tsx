@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowLeft, Lightbulb, Sparkles, Brain, TrendingUp, FileSearch } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,14 +12,40 @@ import { KeyObservationsCard } from "@/components/insightsEngine/KeyObservations
 import { AIAnalysisCard } from "@/components/insightsEngine/AIAnalysisCard";
 import { cn } from "@/lib/utils";
 
+const tabs = [
+  { id: "executive-summary", label: "Executive Summary" },
+  { id: "revenue-analysis", label: "Revenue Growth Analysis" },
+  { id: "business-overview", label: "Business Overview" },
+  { id: "key-observations", label: "Key Observation" },
+  { id: "ai-analysis", label: "AI Analysis Summary" },
+];
+
 const InsightsEngineAgent = () => {
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("executive-summary");
 
   const executiveSummary = insightCards.find(c => c.type === "executive-summary");
   const revenueAnalysis = insightCards.find(c => c.type === "revenue-analysis");
   const businessOverview = insightCards.find(c => c.type === "business-overview");
   const keyObservations = insightCards.find(c => c.type === "key-observations");
   const aiAnalysis = insightCards.find(c => c.type === "ai-analysis");
+
+  const renderActiveCard = () => {
+    switch (activeTab) {
+      case "executive-summary":
+        return executiveSummary && <ExecutiveSummaryCard data={executiveSummary} />;
+      case "revenue-analysis":
+        return revenueAnalysis && <RevenueAnalysisCard data={revenueAnalysis} />;
+      case "business-overview":
+        return businessOverview && <BusinessOverviewCard data={businessOverview} />;
+      case "key-observations":
+        return keyObservations && <KeyObservationsCard data={keyObservations} />;
+      case "ai-analysis":
+        return aiAnalysis && <AIAnalysisCard data={aiAnalysis} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <MainLayout>
@@ -31,7 +58,7 @@ const InsightsEngineAgent = () => {
                 <ArrowLeft className="h-5 w-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center shadow-sm">
+                <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center shadow-sm">
                   <Lightbulb className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -54,16 +81,16 @@ const InsightsEngineAgent = () => {
         <div className="flex-1 min-h-0 overflow-y-auto p-8">
           <div className="max-w-6xl mx-auto space-y-8">
             {/* AI Welcome Banner */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-500/5 via-purple-500/10 to-indigo-500/5 border border-indigo-200/50 p-6">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/20 p-6">
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl animate-pulse-subtle" />
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl animate-pulse-subtle" style={{ animationDelay: '1s' }} />
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl animate-pulse-subtle" />
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse-subtle" style={{ animationDelay: '1s' }} />
               </div>
               
               <div className="relative flex items-start gap-5">
                 <div className="relative flex-shrink-0">
                   <TonyFace size="medium" />
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center shadow-md">
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-md">
                     <Brain className="h-3 w-3 text-white" />
                   </div>
                 </div>
@@ -78,8 +105,8 @@ const InsightsEngineAgent = () => {
                   
                   <div className="flex items-center gap-3 mt-4">
                     {[
-                      { icon: FileSearch, label: '847 Documents', color: 'text-indigo-500' },
-                      { icon: TrendingUp, label: '5 Insight Areas', color: 'text-purple-500' },
+                      { icon: FileSearch, label: '847 Documents', color: 'text-primary' },
+                      { icon: TrendingUp, label: '5 Insight Areas', color: 'text-primary' },
                       { icon: Sparkles, label: 'AI Analyzed', color: 'text-emerald-500' },
                     ].map((stat, i) => (
                       <div key={i} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/60 backdrop-blur-sm border border-white/50">
@@ -92,13 +119,32 @@ const InsightsEngineAgent = () => {
               </div>
             </div>
 
-            {/* Insight Cards */}
-            <div className="space-y-6">
-              {executiveSummary && <ExecutiveSummaryCard data={executiveSummary} />}
-              {revenueAnalysis && <RevenueAnalysisCard data={revenueAnalysis} />}
-              {businessOverview && <BusinessOverviewCard data={businessOverview} />}
-              {keyObservations && <KeyObservationsCard data={keyObservations} />}
-              {aiAnalysis && <AIAnalysisCard data={aiAnalysis} />}
+            {/* Tabs */}
+            <div className="border-b border-gray-200">
+              <div className="flex gap-6">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={cn(
+                      "pb-3 text-sm font-medium transition-colors relative",
+                      activeTab === tab.id
+                        ? "text-primary"
+                        : "text-gray-500 hover:text-gray-700"
+                    )}
+                  >
+                    {tab.label}
+                    {activeTab === tab.id && (
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Active Card */}
+            <div>
+              {renderActiveCard()}
             </div>
           </div>
         </div>
