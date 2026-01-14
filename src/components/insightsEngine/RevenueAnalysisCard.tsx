@@ -18,6 +18,7 @@ export function RevenueAnalysisCard({ data }: RevenueAnalysisCardProps) {
       title={data.title}
       icon={<TrendingUp className="h-4 w-4 text-primary" />}
       suggestedQuestions={data.suggestedQuestions}
+      sources={data.sources}
     >
       {/* KPI Row - Enhanced */}
       {data.kpis && (

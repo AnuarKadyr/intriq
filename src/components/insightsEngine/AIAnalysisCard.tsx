@@ -1,6 +1,6 @@
 import { Sparkles, AlertCircle } from "lucide-react";
 import { InsightCard } from "@/types/insightsEngine";
-import { InsightCardWrapper } from "./InsightCardWrapper";
+import { InsightCardWrapper, useHighlight } from "./InsightCardWrapper";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,31 @@ const riskLevelConfig = {
   high: { label: "High Risk", className: "bg-red-50 text-red-600 border-red-200", color: "red" },
 };
 
+// Helper to highlight text
+function HighlightedText({ text, className }: { text: string; className?: string }) {
+  const { highlightText } = useHighlight();
+  
+  if (!highlightText || !text.includes(highlightText)) {
+    return <span className={className}>{text}</span>;
+  }
+  
+  const parts = text.split(highlightText);
+  return (
+    <span className={className}>
+      {parts.map((part, idx) => (
+        <span key={idx}>
+          {part}
+          {idx < parts.length - 1 && (
+            <mark className="bg-primary/20 text-foreground px-0.5 rounded transition-all duration-300 ring-2 ring-primary/30">
+              {highlightText}
+            </mark>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export function AIAnalysisCard({ data }: AIAnalysisCardProps) {
   const riskLevel = data.riskLevel || "medium";
   const riskConfig = riskLevelConfig[riskLevel];
@@ -23,7 +48,16 @@ export function AIAnalysisCard({ data }: AIAnalysisCardProps) {
       title={data.title}
       icon={<Sparkles className="h-4 w-4 text-primary" />}
       suggestedQuestions={data.suggestedQuestions}
+      sources={data.sources}
     >
+      <AIAnalysisContent data={data} riskConfig={riskConfig} />
+    </InsightCardWrapper>
+  );
+}
+
+function AIAnalysisContent({ data, riskConfig }: AIAnalysisCardProps & { riskConfig: typeof riskLevelConfig.medium }) {
+  return (
+    <>
       {/* Summary - Enhanced */}
       {data.summary && (
         <div className="mb-8 p-5 bg-gradient-to-r from-gray-50 to-transparent rounded-xl border border-gray-100">
@@ -32,7 +66,7 @@ export function AIAnalysisCard({ data }: AIAnalysisCardProps) {
             Summary
           </h4>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            {data.summary}
+            <HighlightedText text={data.summary} />
           </p>
         </div>
       )}
@@ -107,13 +141,13 @@ export function AIAnalysisCard({ data }: AIAnalysisCardProps) {
                   {idx + 1}
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed pt-0.5">
-                  {factor.description}
+                  <HighlightedText text={factor.description} />
                 </p>
               </div>
             ))}
           </div>
         </div>
       )}
-    </InsightCardWrapper>
+    </>
   );
 }

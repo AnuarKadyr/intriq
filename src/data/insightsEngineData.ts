@@ -43,6 +43,12 @@ export const insightCards: InsightCard[] = [
       "Which data needs verification?",
       "What are the key risks?",
     ],
+    sources: [
+      { id: "src-1", name: "Annual_Report_FY2025.pdf", type: "pdf", highlightText: "Meridian Advisory Partners (\"the Firm\") operates as a comprehensive professional services firm across four core practice areas: Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring. The Firm maintains offices across major financial centers with multi-currency banking capabilities in GBP, EUR, and USD." },
+      { id: "src-2", name: "Q4_Financial_Statements.xlsx", type: "excel", highlightText: "As of March 2025, the Firm's consolidated operating accounts across all entities totaled £14.2 billion (aggregated across operating, client trust, and escrow accounts)." },
+      { id: "src-3", name: "Data_Extraction_Summary.pdf", type: "pdf", highlightText: "Achieved high-confidence data extraction for: Employee records (96%) Revenue recognition (94%)" },
+      { id: "src-4", name: "Corporate_Structure_Overview.docx", type: "word", highlightText: "Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring" },
+    ],
   },
   {
     id: "revenue-analysis",
@@ -59,6 +65,11 @@ export const insightCards: InsightCard[] = [
       "Why did costs spike in May?",
       "What is Q3 revenue summary?",
       "What's the annual forecast?",
+    ],
+    sources: [
+      { id: "src-5", name: "Monthly_Revenue_Report.xlsx", type: "excel", highlightText: "£78,400" },
+      { id: "src-6", name: "Cost_Analysis_2025.pdf", type: "pdf", highlightText: "£19,200" },
+      { id: "src-7", name: "Financial_Forecast_Model.xlsx", type: "excel", highlightText: "£11,500" },
     ],
   },
   {
@@ -78,6 +89,11 @@ export const insightCards: InsightCard[] = [
       "Why are costs elevated in Q2?",
       "What is revenue for H2?",
       "What's the projected variance?",
+    ],
+    sources: [
+      { id: "src-8", name: "Cash_Position_Summary.xlsx", type: "excel", highlightText: "consolidated cash reserves exceeding £12 billion across all banking relationships" },
+      { id: "src-9", name: "Trust_Account_Audit.pdf", type: "pdf", highlightText: "Client trust account holdings (escrow, trust, and reserve) totaled £98.4 thousand" },
+      { id: "src-10", name: "Fiduciary_Report_2025.docx", type: "word", highlightText: "reflecting active fiduciary management responsibilities" },
     ],
   },
   {
@@ -126,6 +142,12 @@ export const insightCards: InsightCard[] = [
       "Explain WIP management?",
       "How is capacity calculated?",
     ],
+    sources: [
+      { id: "src-11", name: "Banking_Infrastructure_Report.pdf", type: "pdf", highlightText: "Diversified banking infrastructure and substantial operating reserves provide strong financial flexibility." },
+      { id: "src-12", name: "Practice_Revenue_Breakdown.xlsx", type: "excel", highlightText: "Multi-practice structure with significant billing across Advisory, Disputes, and Transaction Support." },
+      { id: "src-13", name: "WIP_Analysis_Q1.xlsx", type: "excel", highlightText: "Outstanding work-in-progress balance (£118.5 million net) requires focused billing and collections effort." },
+      { id: "src-14", name: "Collections_Risk_Assessment.pdf", type: "pdf", highlightText: "Elevated provisions and aged disbursements indicate collection risks in specific client segments." },
+    ],
   },
   {
     id: "ai-analysis",
@@ -148,6 +170,12 @@ export const insightCards: InsightCard[] = [
       "How is risk score calculated?",
       "How to mitigate these risks?",
       "What does 'Unassigned' mean?",
+    ],
+    sources: [
+      { id: "src-15", name: "WIP_Allocation_Report.xlsx", type: "excel", highlightText: "42.3% of WIP unallocated to specific matter codes (£68.2M)" },
+      { id: "src-16", name: "Audit_Visibility_Analysis.pdf", type: "pdf", highlightText: "Limited visibility into audited financial statements and consolidated reporting" },
+      { id: "src-17", name: "Receivables_Aging_Gap.xlsx", type: "excel", highlightText: "No debtor aging segmentation despite £142.8M receivables balance" },
+      { id: "src-18", name: "Billing_Pattern_Analysis.pdf", type: "pdf", highlightText: "Unusual billing patterns detected (Q1 spikes, irregular accruals)" },
     ],
   },
 ];
