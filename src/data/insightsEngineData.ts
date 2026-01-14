@@ -22,11 +22,11 @@ export const insightCards: InsightCard[] = [
     title: "Executive Summary",
     icon: "Sparkles",
     kpis: [
-      { label: "Total Revenue", value: "£87.3M", subLabel: "Verified Annual" },
-      { label: "Operating Costs", value: "£2.41M", subLabel: "Monthly Average" },
-      { label: "Outstanding Balance", value: "£142.8M", subLabel: "Accounts Receivable" },
-      { label: "Hours Logged", value: "892K", subLabel: "52% Billable Rate" },
-      { label: "Active Staff", value: "184", subLabel: "Including 38 Partners" },
+      { label: "FY2025", value: "£87.3M", subLabel: "compared to 2024", change: "+12.4%", trend: "up" },
+      { label: "Q4 2024", value: "£2.41M", subLabel: "compared to Q3", change: "-3.2%", trend: "down" },
+      { label: "YTD 2025", value: "£142.8M", subLabel: "compared to 2024", change: "+8.7%", trend: "up" },
+      { label: "FY2025", value: "892K", subLabel: "compared to 2024", change: "+15.3%", trend: "up" },
+      { label: "Current", value: "184", subLabel: "compared to last year", change: "+6.9%", trend: "up" },
     ],
     summaryParagraphs: [
       "Meridian Advisory Partners (\"the Firm\") operates as a comprehensive professional services firm across four core practice areas: Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring. The Firm maintains offices across major financial centers with multi-currency banking capabilities in GBP, EUR, and USD.",
