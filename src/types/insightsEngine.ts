@@ -1,3 +1,10 @@
+export interface SourceDocument {
+  id: string;
+  name: string;
+  type: "pdf" | "excel" | "word";
+  highlightText?: string; // Text to highlight when this source is selected
+}
+
 export interface InsightKPI {
   label: string;
   value: string;
@@ -35,6 +42,7 @@ export interface InsightCard {
   chartData?: MonthlyData[];
   reportDate?: string;
   dataCurrency?: string;
+  sources?: SourceDocument[];
 }
 
 export interface MonthlyData {

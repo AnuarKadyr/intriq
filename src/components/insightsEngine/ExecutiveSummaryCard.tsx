@@ -1,6 +1,6 @@
 import { Sparkles, CheckCircle2 } from "lucide-react";
 import { InsightCard } from "@/types/insightsEngine";
-import { InsightCardWrapper } from "./InsightCardWrapper";
+import { InsightCardWrapper, useHighlight } from "./InsightCardWrapper";
 import { cn } from "@/lib/utils";
 
 interface ExecutiveSummaryCardProps {
@@ -37,13 +37,47 @@ function MiniTrendChart({ trend, change }: { trend?: "up" | "down" | "neutral"; 
   );
 }
 
+// Helper to highlight text
+function HighlightedText({ text, className }: { text: string; className?: string }) {
+  const { highlightText } = useHighlight();
+  
+  if (!highlightText || !text.includes(highlightText)) {
+    return <span className={className}>{text}</span>;
+  }
+  
+  const parts = text.split(highlightText);
+  return (
+    <span className={className}>
+      {parts.map((part, idx) => (
+        <span key={idx}>
+          {part}
+          {idx < parts.length - 1 && (
+            <mark className="bg-primary/20 text-foreground px-0.5 rounded transition-all duration-300 ring-2 ring-primary/30">
+              {highlightText}
+            </mark>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export function ExecutiveSummaryCard({ data }: ExecutiveSummaryCardProps) {
   return (
     <InsightCardWrapper
       title={data.title}
       icon={<Sparkles className="h-4 w-4 text-primary" />}
       suggestedQuestions={data.suggestedQuestions}
+      sources={data.sources}
     >
+      <ExecutiveSummaryContent data={data} />
+    </InsightCardWrapper>
+  );
+}
+
+function ExecutiveSummaryContent({ data }: ExecutiveSummaryCardProps) {
+  return (
+    <>
       {/* KPI Row - Enhanced */}
       {data.kpis && (
         <div className="grid grid-cols-5 gap-1 p-1.5 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl border border-gray-100 mb-8 shadow-sm">
@@ -83,7 +117,7 @@ export function ExecutiveSummaryCard({ data }: ExecutiveSummaryCardProps) {
         </h4>
         {data.summaryParagraphs?.map((paragraph, idx) => (
           <p key={idx} className="text-sm text-muted-foreground leading-relaxed pl-3">
-            {paragraph}
+            <HighlightedText text={paragraph} />
           </p>
         ))}
       </div>
@@ -110,6 +144,6 @@ export function ExecutiveSummaryCard({ data }: ExecutiveSummaryCardProps) {
           </ul>
         </div>
       )}
-    </InsightCardWrapper>
+    </>
   );
 }
