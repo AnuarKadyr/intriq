@@ -27,19 +27,19 @@ const tourSteps = [
     agentIndex: 1,
   },
   {
+    id: "mgmt-questions",
+    title: "Management Questions",
+    description: "Tracks questions for management interviews and extracts answers from transcripts.",
+    icon: HelpCircle,
+    color: "bg-amber-500",
+    agentIndex: 2,
+  },
+  {
     id: "data-integrity",
     title: "Data Integrity",
     description: "Reconciles data and detects anomalies.",
     icon: GitCompare,
     color: "bg-purple-500",
-    agentIndex: 2,
-  },
-  {
-    id: "mgmt-questions",
-    title: "Management Questions",
-    description: "Generates questions for management interviews.",
-    icon: HelpCircle,
-    color: "bg-amber-500",
     agentIndex: 3,
   },
   {
