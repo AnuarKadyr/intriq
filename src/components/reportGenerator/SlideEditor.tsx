@@ -164,6 +164,8 @@ export function SlideEditor({
                   isSelected={slide.id === selectedSlideId}
                   onClick={() => onSelectSlide(slide.id)}
                   isThumbnail
+                  slideNumber={idx + 1}
+                  totalSlides={slides.length}
                 />
               </div>
             ))}
@@ -225,6 +227,8 @@ export function SlideEditor({
                   slide={selectedSlide}
                   isSelected={false}
                   onClick={() => {}}
+                  slideNumber={currentSlideIndex + 1}
+                  totalSlides={slides.length}
                 />
               </div>
             </div>
