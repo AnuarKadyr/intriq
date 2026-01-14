@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useAiChat } from "@/contexts/AiChatContext";
+import { X } from "lucide-react";
 import "./AiChatInput.css";
 
 export function AiChatInput() {
   const [rotation, setRotation] = useState({ rotateX: 0, rotateY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
-  const { isAiChatOpen, showAssistant, openAiChat } = useAiChat();
+  const { isAiChatOpen, showAssistant, openAiChat, toggleShowAssistant } = useAiChat();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -32,6 +33,11 @@ export function AiChatInput() {
   // Don't render if AI chat is open or assistant is hidden
   if (isAiChatOpen || !showAssistant) return null;
 
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleShowAssistant();
+  };
+
   const cardStyle = {
     transform: `perspective(1000px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg) translateZ(25px)`,
   };
@@ -42,6 +48,13 @@ export function AiChatInput() {
 
   return (
     <div className="container-ai-input" ref={containerRef}>
+      <button 
+        className="close-button"
+        onClick={handleClose}
+        aria-label="Hide AI assistant"
+      >
+        <X className="h-3 w-3" />
+      </button>
       <div className="container-wrap" onClick={openAiChat}>
         <div className="card" style={cardStyle}>
           <div className="background-blur-balls">
