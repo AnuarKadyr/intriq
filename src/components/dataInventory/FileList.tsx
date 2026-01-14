@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { FileText, FileSpreadsheet, File, FileWarning, Download, Eye, ChevronDown, ChevronUp } from "lucide-react";
+import { File, Download, Eye, ChevronDown, ChevronUp } from "lucide-react";
 import { DataRoomFile } from "@/types/dataInventory";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { getFileTypeIcon } from "./FileTypeIcons";
 
 interface FileListProps {
   files: DataRoomFile[];
@@ -12,21 +13,6 @@ interface FileListProps {
 
 export function FileList({ files, title }: FileListProps) {
   const [expandedFile, setExpandedFile] = useState<string | null>(null);
-
-  const getFileIcon = (type: string) => {
-    switch (type) {
-      case "PDF Document":
-        return <FileText className="h-5 w-5 text-red-500" />;
-      case "Excel Workbook":
-      case "Excel Spreadsheet (Legacy)":
-      case "Excel Macro-Enabled":
-        return <FileSpreadsheet className="h-5 w-5 text-green-600" />;
-      case "Word Document":
-        return <FileText className="h-5 w-5 text-blue-600" />;
-      default:
-        return <FileWarning className="h-5 w-5 text-gray-400" />;
-    }
-  };
 
   const categoryColors: Record<string, string> = {
     Financial: "bg-red-50 text-red-600 border-red-200 hover:bg-red-100",
@@ -77,7 +63,7 @@ export function FileList({ files, title }: FileListProps) {
                     "flex-shrink-0 mt-0.5 p-2 rounded-lg transition-colors",
                     isExpanded ? "bg-gray-100" : "bg-gray-50"
                   )}>
-                    {getFileIcon(file.type)}
+                    {getFileTypeIcon(file.type, "h-5 w-5")}
                   </div>
                   
                   <div className="flex-1 min-w-0">
