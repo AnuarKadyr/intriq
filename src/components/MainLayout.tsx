@@ -26,7 +26,7 @@ export function MainLayout({ children, showTour = false, onTourComplete }: MainL
         <AgentQuickBar onButtonPositionsChange={setButtonPositions} />
         
         {/* Page Content */}
-        <div className="flex-1 pt-[52px]">
+        <div className="flex-1 pt-[52px] overflow-hidden">
           {children}
         </div>
       </main>
