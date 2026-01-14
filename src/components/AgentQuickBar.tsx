@@ -18,16 +18,16 @@ export const agents = [
     color: "bg-emerald-500",
   },
   {
-    id: "data-integrity",
-    name: "Data Integrity",
-    icon: GitCompare,
-    color: "bg-purple-500",
-  },
-  {
     id: "mgmt-questions",
     name: "Management Questions",
     icon: HelpCircle,
     color: "bg-amber-500",
+  },
+  {
+    id: "data-integrity",
+    name: "Data Integrity",
+    icon: GitCompare,
+    color: "bg-purple-500",
   },
   {
     id: "insights",
@@ -76,6 +76,8 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
       navigate("/agent/irt");
     } else if (agentId === "data-inventory") {
       navigate("/agent/data-inventory");
+    } else if (agentId === "mgmt-questions") {
+      navigate("/agent/mgmt-questions");
     } else {
       openAiChat();
       console.log(`Starting agent: ${agentId}`);
