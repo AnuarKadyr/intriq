@@ -361,20 +361,14 @@ function FolderTreeNode({
       </div>
 
       {isExpanded && hasChildren && (
-        <div className="relative">
-          <div 
-            className="absolute left-0 top-0 bottom-0 w-px bg-gray-200"
-            style={{ marginLeft: `${level * 12 + 18}px` }}
-          />
-          <FolderTreeView
-            folders={folder.children}
-            selectedFolder={selectedFolder}
-            onSelectFolder={onSelectFolder}
-            expandedFolders={expandedFolders}
-            onToggleExpand={onToggleExpand}
-            level={level + 1}
-          />
-        </div>
+        <FolderTreeView
+          folders={folder.children}
+          selectedFolder={selectedFolder}
+          onSelectFolder={onSelectFolder}
+          expandedFolders={expandedFolders}
+          onToggleExpand={onToggleExpand}
+          level={level + 1}
+        />
       )}
     </div>
   );
