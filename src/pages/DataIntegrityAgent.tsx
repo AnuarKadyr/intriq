@@ -266,82 +266,88 @@ const DataIntegrityAgent = () => {
               {/* Left: Issue List */}
               <div className="w-[400px] flex-shrink-0 flex flex-col h-full overflow-hidden">
                 {/* Compact Stats + Filter Bar */}
-                <div className="mb-4 flex-shrink-0 space-y-3">
-                  {/* Status filter tabs */}
-                  <div className="flex items-center gap-1.5">
-                    <button 
-                      onClick={() => setFilterStatus(null)}
-                      className={cn(
-                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
-                        filterStatus === null 
-                          ? "bg-foreground text-background border-foreground" 
-                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
-                      )}
-                    >
-                      All ({stats.total})
-                    </button>
-                    <button 
-                      onClick={() => setFilterStatus(filterStatus === 'open' ? null : 'open')}
-                      className={cn(
-                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
-                        filterStatus === 'open' 
-                          ? "bg-red-600 text-white border-red-600" 
-                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-red-300 hover:text-red-600"
-                      )}
-                    >
-                      Open ({stats.open})
-                    </button>
-                    <button 
-                      onClick={() => setFilterStatus(filterStatus === 'assumption-applied' ? null : 'assumption-applied')}
-                      className={cn(
-                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
-                        filterStatus === 'assumption-applied' 
-                          ? "bg-amber-600 text-white border-amber-600" 
-                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-amber-300 hover:text-amber-600"
-                      )}
-                    >
-                      Assumed ({stats.assumptionApplied})
-                    </button>
-                    <button 
-                      onClick={() => setFilterStatus(filterStatus === 'resolved' ? null : 'resolved')}
-                      className={cn(
-                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
-                        filterStatus === 'resolved' 
-                          ? "bg-emerald-600 text-white border-emerald-600" 
-                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-emerald-300 hover:text-emerald-600"
-                      )}
-                    >
-                      Resolved ({stats.resolved})
-                    </button>
-                  </div>
-
-                  {/* Category filter - subtle inline pills */}
-                  <div className="flex flex-wrap gap-1.5">
-                    <button
-                      onClick={() => setFilterCategory(null)}
-                      className={cn(
-                        "px-2.5 py-1 rounded-md text-xs font-medium transition-all border",
-                        filterCategory === null 
-                          ? "bg-foreground text-background border-foreground" 
-                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
-                      )}
-                    >
-                      All
-                    </button>
-                    {Object.entries(issueCategoryLabels).map(([key, { label }]) => (
-                      <button
-                        key={key}
-                        onClick={() => setFilterCategory(filterCategory === key ? null : key)}
+                <div className="mb-4 flex-shrink-0 space-y-2">
+                  {/* Status filter row */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">Status:</span>
+                    <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+                      <button 
+                        onClick={() => setFilterStatus(null)}
                         className={cn(
-                          "px-2.5 py-1 rounded-md text-xs font-medium transition-all border",
-                          filterCategory === key 
+                          "px-3 py-1.5 rounded-md text-xs font-medium transition-all border whitespace-nowrap flex-shrink-0",
+                          filterStatus === null 
                             ? "bg-foreground text-background border-foreground" 
                             : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
                         )}
                       >
-                        {label}
+                        All ({stats.total})
                       </button>
-                    ))}
+                      <button 
+                        onClick={() => setFilterStatus(filterStatus === 'open' ? null : 'open')}
+                        className={cn(
+                          "px-3 py-1.5 rounded-md text-xs font-medium transition-all border whitespace-nowrap flex-shrink-0",
+                          filterStatus === 'open' 
+                            ? "bg-red-600 text-white border-red-600" 
+                            : "bg-transparent text-muted-foreground border-gray-200 hover:border-red-300 hover:text-red-600"
+                        )}
+                      >
+                        Open ({stats.open})
+                      </button>
+                      <button 
+                        onClick={() => setFilterStatus(filterStatus === 'assumption-applied' ? null : 'assumption-applied')}
+                        className={cn(
+                          "px-3 py-1.5 rounded-md text-xs font-medium transition-all border whitespace-nowrap flex-shrink-0",
+                          filterStatus === 'assumption-applied' 
+                            ? "bg-amber-600 text-white border-amber-600" 
+                            : "bg-transparent text-muted-foreground border-gray-200 hover:border-amber-300 hover:text-amber-600"
+                        )}
+                      >
+                        Assumed ({stats.assumptionApplied})
+                      </button>
+                      <button 
+                        onClick={() => setFilterStatus(filterStatus === 'resolved' ? null : 'resolved')}
+                        className={cn(
+                          "px-3 py-1.5 rounded-md text-xs font-medium transition-all border whitespace-nowrap flex-shrink-0",
+                          filterStatus === 'resolved' 
+                            ? "bg-emerald-600 text-white border-emerald-600" 
+                            : "bg-transparent text-muted-foreground border-gray-200 hover:border-emerald-300 hover:text-emerald-600"
+                        )}
+                      >
+                        Resolved ({stats.resolved})
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Category filter row */}
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">Category:</span>
+                    <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+                      <button
+                        onClick={() => setFilterCategory(null)}
+                        className={cn(
+                          "px-2.5 py-1 rounded-md text-xs font-medium transition-all border whitespace-nowrap flex-shrink-0",
+                          filterCategory === null 
+                            ? "bg-foreground text-background border-foreground" 
+                            : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
+                        )}
+                      >
+                        All
+                      </button>
+                      {Object.entries(issueCategoryLabels).map(([key, { label }]) => (
+                        <button
+                          key={key}
+                          onClick={() => setFilterCategory(filterCategory === key ? null : key)}
+                          className={cn(
+                            "px-2.5 py-1 rounded-md text-xs font-medium transition-all border whitespace-nowrap flex-shrink-0",
+                            filterCategory === key 
+                              ? "bg-foreground text-background border-foreground" 
+                              : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
+                          )}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
