@@ -154,7 +154,7 @@ const Welcome = () => {
       </div>
 
       <p className="hero-p">
-        AI-powered due diligence platform<br />
+        AI-powered corporate finance platform<br />
         turning unstructured data into deal-ready insights.
       </p>
 
