@@ -36,7 +36,7 @@ export function AppSidebar() {
   const [activeItem, setActiveItem] = useState<{ type: string; id: number } | null>({ type: 'engagement', id: 2 });
 
   return (
-    <aside className="w-72 h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-20">
+    <aside className="w-60 h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-20">
       {/* Header */}
       <div className="p-6 flex items-center">
         <img 
