@@ -15,11 +15,9 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { AppSidebar } from "@/components/AppSidebar";
+import { MainLayout } from "@/components/MainLayout";
 import { AiChatInput } from "@/components/AiChatInput";
 import { AiChatPanel } from "@/components/AiChatPanel";
-import { AgentQuickBar } from "@/components/AgentQuickBar";
-import { AgentSpotlightTour } from "@/components/AgentSpotlightTour";
 import { useAiChat } from "@/contexts/AiChatContext";
 import { useState, useEffect } from "react";
 import {
@@ -179,7 +177,6 @@ const miniStats = [
 const Dashboard = () => {
   const { isAiChatOpen } = useAiChat();
   const [showTour, setShowTour] = useState(false);
-  const [buttonPositions, setButtonPositions] = useState<{ left: number; width: number }[]>([]);
 
   useEffect(() => {
     // Reset for testing - remove this line later
@@ -197,34 +194,28 @@ const Dashboard = () => {
   };
   
   return (
-    <div className="min-h-screen flex w-full bg-gray-50">
-      {showTour && <AgentSpotlightTour onComplete={handleTourComplete} buttonPositions={buttonPositions} />}
-      <AppSidebar />
-      
-      <main className="flex-1 flex flex-col overflow-hidden ml-72">
-        <header className="border-b border-gray-200 bg-white px-8 py-6 fixed top-0 left-72 right-0 z-10">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
-              <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Button 
-                variant="outline" 
-                className="text-gray-600 border-gray-200 hover:bg-gray-50"
-              >
-                <Download className="h-4 w-4 mr-2" />
-                Export
-              </Button>
-            </div>
+    <MainLayout showTour={showTour} onTourComplete={handleTourComplete}>
+      {/* Header */}
+      <header className="border-b border-gray-200 bg-white px-8 py-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
+            <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
           </div>
-        </header>
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="outline" 
+              className="text-gray-600 border-gray-200 hover:bg-gray-50"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Export
+            </Button>
+          </div>
+        </div>
+      </header>
 
-        {/* Agent Quick Bar */}
-        <AgentQuickBar onButtonPositionsChange={setButtonPositions} />
-
-        {/* Content */}
-        <div className="flex-1 p-8 space-y-6 overflow-y-auto mt-[140px]">
+      {/* Content */}
+      <div className="flex-1 p-8 space-y-6 overflow-y-auto">
           
           {/* KPI Cards Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -471,13 +462,12 @@ const Dashboard = () => {
 
         </div>
         <AiChatInput />
-      </main>
       
-      {/* AI Chat Panel - Fixed on the right side */}
-      <div className="fixed top-0 right-0 h-full z-20">
-        <AiChatPanel />
-      </div>
-    </div>
+        {/* AI Chat Panel - Fixed on the right side */}
+        <div className="fixed top-0 right-0 h-full z-20">
+          <AiChatPanel />
+        </div>
+    </MainLayout>
   );
 };
 
