@@ -8,7 +8,7 @@ interface PriceVolumeUploadScreenProps {
 
 export function PriceVolumeUploadScreen({ onUpload }: PriceVolumeUploadScreenProps) {
   return (
-    <div className="flex-1 flex items-center justify-center p-8">
+    <div className="flex-1 overflow-y-auto flex items-center justify-center p-8">
       <Card className="max-w-lg w-full p-8 text-center border-2 border-dashed border-muted-foreground/25 bg-card/50">
         <div className="flex justify-center mb-6">
           <div className="relative">
