@@ -59,7 +59,9 @@ export function IssueList({ issues, selectedIssue, onSelectIssue }: IssueListPro
             onClick={() => onSelectIssue(issue)}
             className={cn(
               "p-3 cursor-pointer transition-all hover:shadow-md",
-              isSelected ? "ring-2 ring-primary bg-primary/5" : "hover:bg-gray-50",
+              isSelected 
+                ? "ring-2 ring-primary border-transparent bg-primary/5" 
+                : "hover:bg-gray-50",
               issue.status === "resolved" && "opacity-60",
               issue.status === "ignored" && "opacity-40"
             )}
