@@ -25,6 +25,10 @@ const DataIntegrityAgent = () => {
 
   const handleStartAnalysis = () => {
     setView("tracker");
+    // Auto-select first issue when entering tracker view
+    if (issues.length > 0) {
+      setSelectedIssue(issues[0]);
+    }
   };
 
   const handleApplyAssumption = (issueId: string, assumption: Assumption) => {
@@ -40,21 +44,41 @@ const DataIntegrityAgent = () => {
   };
 
   const handleResolveIssue = (issueId: string) => {
-    setIssues(prev => prev.map(issue => 
-      issue.id === issueId 
-        ? { ...issue, status: "resolved" as const, resolvedAt: new Date() }
-        : issue
-    ));
-    setSelectedIssue(null);
+    setIssues(prev => {
+      const updatedIssues = prev.map(issue => 
+        issue.id === issueId 
+          ? { ...issue, status: "resolved" as const, resolvedAt: new Date() }
+          : issue
+      );
+      
+      // Auto-advance to next open issue
+      const currentIndex = updatedIssues.findIndex(i => i.id === issueId);
+      const nextOpenIssue = updatedIssues.slice(currentIndex + 1).find(i => i.status === "open") 
+        || updatedIssues.slice(0, currentIndex).find(i => i.status === "open");
+      
+      setSelectedIssue(nextOpenIssue || updatedIssues[0] || null);
+      
+      return updatedIssues;
+    });
   };
 
   const handleIgnoreIssue = (issueId: string) => {
-    setIssues(prev => prev.map(issue => 
-      issue.id === issueId 
-        ? { ...issue, status: "ignored" as const }
-        : issue
-    ));
-    setSelectedIssue(null);
+    setIssues(prev => {
+      const updatedIssues = prev.map(issue => 
+        issue.id === issueId 
+          ? { ...issue, status: "ignored" as const }
+          : issue
+      );
+      
+      // Auto-advance to next open issue
+      const currentIndex = updatedIssues.findIndex(i => i.id === issueId);
+      const nextOpenIssue = updatedIssues.slice(currentIndex + 1).find(i => i.status === "open") 
+        || updatedIssues.slice(0, currentIndex).find(i => i.status === "open");
+      
+      setSelectedIssue(nextOpenIssue || updatedIssues[0] || null);
+      
+      return updatedIssues;
+    });
   };
 
   const filteredIssues = issues.filter(issue => {
@@ -304,29 +328,15 @@ const DataIntegrityAgent = () => {
                 </div>
               </div>
 
-              {/* Right: Issue Detail */}
+              {/* Right: Issue Detail - Always show selected issue */}
               <div className="flex-1 overflow-y-auto">
-                {selectedIssue ? (
+                {selectedIssue && (
                   <IssueDetailPanel 
                     issue={selectedIssue}
                     onApplyAssumption={handleApplyAssumption}
                     onResolve={handleResolveIssue}
                     onIgnore={handleIgnoreIssue}
                   />
-                ) : (
-                  <div className="h-full flex items-center justify-center">
-                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 p-12 text-center max-w-md">
-                      <div className="relative">
-                        <TonyFace size="large" />
-                        <div className="mt-4">
-                          <h3 className="font-semibold text-gray-900 mb-2">Select an Issue</h3>
-                          <p className="text-sm text-gray-500">
-                            Click on an issue from the list to view details, see AI suggestions, and apply resolutions
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 )}
               </div>
             </div>
