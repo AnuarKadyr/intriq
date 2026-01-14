@@ -7,7 +7,7 @@ const tourSteps = [
   {
     id: "intro",
     title: "Your AI Agents",
-    description: "These agents help you with different aspects of due diligence. Click through to learn what each one does.",
+    description: "These agents help you with different aspects of engagements. Click through to learn what each one does.",
     agentIndex: 0,
   },
   {
