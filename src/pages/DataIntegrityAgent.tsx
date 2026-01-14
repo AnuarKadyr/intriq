@@ -97,7 +97,7 @@ const DataIntegrityAgent = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex flex-col h-full min-h-0 overflow-hidden">
         {/* Header */}
         <header className="border-b border-gray-200 bg-white px-8 py-6">
           <div className="flex items-center justify-between">
@@ -264,7 +264,7 @@ const DataIntegrityAgent = () => {
           )}
 
           {view === "tracker" && (
-            <div className="h-full p-8 flex gap-6 overflow-hidden">
+            <div className="flex-1 min-h-0 p-8 flex gap-6 overflow-hidden">
               {/* Left: Issue List */}
               <div className="w-[400px] flex-shrink-0 flex flex-col min-h-0">
                 {/* Compact Stats + Filter Bar */}
