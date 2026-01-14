@@ -80,6 +80,8 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
       navigate("/agent/mgmt-questions");
     } else if (agentId === "data-integrity") {
       navigate("/agent/data-integrity");
+    } else if (agentId === "report") {
+      navigate("/agent/report");
     } else {
       openAiChat();
       console.log(`Starting agent: ${agentId}`);
