@@ -1,8 +1,20 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
-import { CategoryStats, FileTypeStats } from "@/types/dataInventory";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Sector } from "recharts";
-import { Files, FolderTree, HardDrive, AlertTriangle, FileText, TrendingUp, Scale, ChevronRight } from "lucide-react";
+import { CategoryStats, FileTypeStats, DataRoomFolder } from "@/types/dataInventory";
+import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from "recharts";
+import { 
+  Files, 
+  FolderTree, 
+  HardDrive, 
+  AlertTriangle, 
+  TrendingUp, 
+  Scale, 
+  ChevronRight,
+  Sparkles,
+  FileText,
+  FileSpreadsheet,
+  File
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CriticalDocument {
@@ -57,6 +69,7 @@ interface StatsOverviewProps {
   totalFiles: number;
   totalSize: string;
   totalFolders: number;
+  selectedFolder: DataRoomFolder | null;
 }
 
 const renderActiveShape = (props: any) => {
@@ -74,18 +87,9 @@ const renderActiveShape = (props: any) => {
         cx={cx}
         cy={cy}
         innerRadius={innerRadius}
-        outerRadius={outerRadius + 8}
+        outerRadius={outerRadius + 6}
         startAngle={startAngle}
         endAngle={endAngle}
-        fill={fill}
-      />
-      <Sector
-        cx={cx}
-        cy={cy}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        innerRadius={outerRadius + 12}
-        outerRadius={outerRadius + 16}
         fill={fill}
       />
     </g>
@@ -97,225 +101,229 @@ export function StatsOverview({
   fileTypeStats, 
   totalFiles, 
   totalSize, 
-  totalFolders 
+  totalFolders,
+  selectedFolder
 }: StatsOverviewProps) {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number | undefined>(undefined);
   const [activeTypeIndex, setActiveTypeIndex] = useState<number | undefined>(undefined);
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   return (
     <div className="space-y-6">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-4">
-        <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/50 border-blue-200 hover:shadow-md transition-all cursor-pointer hover:scale-[1.02]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center shadow-sm">
-              <Files className="h-5 w-5 text-white" />
-      </div>
-
-      {/* Critical Documents */}
-      <Card className="p-4 border-amber-200 bg-gradient-to-br from-amber-50/50 to-orange-50/30">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
-            <AlertTriangle className="h-4 w-4 text-white" />
+      {/* Folder Header with Stats */}
+      {selectedFolder && (
+        <div className="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-200">
+          <div className="w-12 h-12 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center flex-shrink-0">
+            <FolderTree className="h-6 w-6 text-amber-600" />
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900">Critical Documents</h3>
-            <p className="text-xs text-gray-500">Key files requiring attention for this transaction</p>
+          
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900">{selectedFolder.name}</h2>
+                <p className="text-xs text-gray-400 font-mono mt-0.5">{selectedFolder.path}</p>
+              </div>
+              
+              {/* Compact Stats */}
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 rounded-lg">
+                  <Files className="h-4 w-4 text-blue-500" />
+                  <span className="text-sm font-semibold text-blue-700">{totalFiles}</span>
+                  <span className="text-xs text-blue-500">files</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 rounded-lg">
+                  <FolderTree className="h-4 w-4 text-emerald-500" />
+                  <span className="text-sm font-semibold text-emerald-700">{totalFolders}</span>
+                  <span className="text-xs text-emerald-500">folders</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 rounded-lg">
+                  <HardDrive className="h-4 w-4 text-purple-500" />
+                  <span className="text-sm font-semibold text-purple-700">{totalSize}</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* AI Analysis */}
+            <div className="mt-3 flex items-start gap-2 p-3 bg-gradient-to-r from-primary/5 to-transparent rounded-lg">
+              <Sparkles className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+              <p className="text-sm text-gray-600">{selectedFolder.description}</p>
+            </div>
           </div>
         </div>
-        <div className="space-y-3">
-          {criticalDocuments.map((doc) => (
-            <div
-              key={doc.id}
-              className={cn(
-                "p-3 rounded-lg border cursor-pointer transition-all hover:shadow-md group",
-                doc.impact === "deal-critical" && "bg-red-50/50 border-red-200 hover:border-red-300",
-                doc.impact === "high-value" && "bg-blue-50/50 border-blue-200 hover:border-blue-300",
-                doc.impact === "risk-flag" && "bg-amber-50/50 border-amber-200 hover:border-amber-300"
-              )}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-start gap-3 flex-1">
-                  <div className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5",
-                    doc.impact === "deal-critical" && "bg-red-100",
-                    doc.impact === "high-value" && "bg-blue-100",
-                    doc.impact === "risk-flag" && "bg-amber-100"
-                  )}>
-                    {doc.impact === "deal-critical" && <Scale className="h-4 w-4 text-red-600" />}
-                    {doc.impact === "high-value" && <TrendingUp className="h-4 w-4 text-blue-600" />}
-                    {doc.impact === "risk-flag" && <AlertTriangle className="h-4 w-4 text-amber-600" />}
+      )}
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-12 gap-4">
+        {/* Critical Documents - Takes 7 columns */}
+        <div className="col-span-7">
+          <Card className="p-4 h-full">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                <AlertTriangle className="h-4 w-4 text-amber-600" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold text-gray-900">Critical Documents</h3>
+                <p className="text-xs text-gray-500">Key files requiring attention</p>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              {criticalDocuments.map((doc) => (
+                <div
+                  key={doc.id}
+                  className={cn(
+                    "p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm group",
+                    doc.impact === "deal-critical" && "bg-red-50/50 border-red-100 hover:border-red-200",
+                    doc.impact === "high-value" && "bg-blue-50/50 border-blue-100 hover:border-blue-200",
+                    doc.impact === "risk-flag" && "bg-amber-50/50 border-amber-100 hover:border-amber-200"
+                  )}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className={cn(
+                      "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
+                      doc.impact === "deal-critical" && "bg-red-100",
+                      doc.impact === "high-value" && "bg-blue-100",
+                      doc.impact === "risk-flag" && "bg-amber-100"
+                    )}>
+                      {doc.impact === "deal-critical" && <Scale className="h-4 w-4 text-red-600" />}
+                      {doc.impact === "high-value" && <TrendingUp className="h-4 w-4 text-blue-600" />}
+                      {doc.impact === "risk-flag" && <AlertTriangle className="h-4 w-4 text-amber-600" />}
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-sm font-medium text-gray-900 truncate">{doc.name}</span>
+                        <span className={cn(
+                          "text-[10px] px-1.5 py-0.5 rounded font-medium uppercase flex-shrink-0",
+                          doc.impact === "deal-critical" && "bg-red-100 text-red-700",
+                          doc.impact === "high-value" && "bg-blue-100 text-blue-700",
+                          doc.impact === "risk-flag" && "bg-amber-100 text-amber-700"
+                        )}>
+                          {doc.impact.replace("-", " ")}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 line-clamp-2">{doc.insight}</p>
+                    </div>
+                    
+                    <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0 mt-2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+
+        {/* Right Column - Charts & Breakdown - Takes 5 columns */}
+        <div className="col-span-5 space-y-4">
+          {/* Distribution Charts */}
+          <div className="grid grid-cols-2 gap-4">
+            <Card className="p-3">
+              <h4 className="text-xs font-medium text-gray-500 mb-2">By Category</h4>
+              <div className="h-32">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      activeIndex={activeCategoryIndex}
+                      activeShape={renderActiveShape}
+                      data={categoryStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={30}
+                      outerRadius={48}
+                      paddingAngle={2}
+                      dataKey="count"
+                      nameKey="category"
+                      onMouseEnter={(_, index) => setActiveCategoryIndex(index)}
+                      onMouseLeave={() => setActiveCategoryIndex(undefined)}
+                    >
+                      {categoryStats.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} style={{ cursor: 'pointer' }} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </Card>
+
+            <Card className="p-3">
+              <h4 className="text-xs font-medium text-gray-500 mb-2">By File Type</h4>
+              <div className="h-32">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      activeIndex={activeTypeIndex}
+                      activeShape={renderActiveShape}
+                      data={fileTypeStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={30}
+                      outerRadius={48}
+                      paddingAngle={2}
+                      dataKey="count"
+                      nameKey="type"
+                      onMouseEnter={(_, index) => setActiveTypeIndex(index)}
+                      onMouseLeave={() => setActiveTypeIndex(undefined)}
+                    >
+                      {fileTypeStats.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} style={{ cursor: 'pointer' }} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </Card>
+          </div>
+
+          {/* Category Breakdown */}
+          <Card className="p-3">
+            <h4 className="text-xs font-medium text-gray-500 mb-3">Category Breakdown</h4>
+            <div className="space-y-2">
+              {categoryStats.map((cat) => (
+                <div key={cat.category} className="flex items-center gap-2">
+                  <div 
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: cat.color }}
+                  />
+                  <span className="text-xs text-gray-600 flex-1">{cat.category}</span>
+                  <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full rounded-full"
+                      style={{ 
+                        backgroundColor: cat.color,
+                        width: `${(cat.count / totalFiles) * 100}%`
+                      }}
+                    />
+                  </div>
+                  <span className="text-xs font-medium text-gray-500 w-8 text-right">{cat.count}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* File Types */}
+          <Card className="p-3">
+            <h4 className="text-xs font-medium text-gray-500 mb-3">File Types</h4>
+            <div className="grid grid-cols-2 gap-2">
+              {fileTypeStats.map((type) => (
+                <div key={type.type} className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
+                  <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: `${type.color}20` }}>
+                    {type.type === "PDF" ? (
+                      <FileText className="h-3.5 w-3.5" style={{ color: type.color }} />
+                    ) : type.type === "Excel" ? (
+                      <FileSpreadsheet className="h-3.5 w-3.5" style={{ color: type.color }} />
+                    ) : (
+                      <File className="h-3.5 w-3.5" style={{ color: type.color }} />
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-medium text-gray-900 truncate">{doc.name}</span>
-                      <span className={cn(
-                        "text-[10px] px-1.5 py-0.5 rounded-full font-medium uppercase tracking-wide",
-                        doc.impact === "deal-critical" && "bg-red-100 text-red-700",
-                        doc.impact === "high-value" && "bg-blue-100 text-blue-700",
-                        doc.impact === "risk-flag" && "bg-amber-100 text-amber-700"
-                      )}>
-                        {doc.impact.replace("-", " ")}
-                      </span>
-                    </div>
-                    <p className="text-xs text-gray-600 leading-relaxed">{doc.insight}</p>
+                    <p className="text-xs font-medium text-gray-700">{type.type}</p>
+                    <p className="text-[10px] text-gray-400">{type.count} files</p>
                   </div>
                 </div>
-                <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600 transition-colors flex-shrink-0 mt-2" />
-              </div>
+              ))}
             </div>
-          ))}
+          </Card>
         </div>
-      </Card>
-            <div>
-              <p className="text-2xl font-bold text-blue-900">{totalFiles}</p>
-              <p className="text-xs text-blue-600">Total Files</p>
-            </div>
-          </div>
-        </Card>
-        
-        <Card className="p-4 bg-gradient-to-br from-emerald-50 to-emerald-100/50 border-emerald-200 hover:shadow-md transition-all cursor-pointer hover:scale-[1.02]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center shadow-sm">
-              <FolderTree className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-emerald-900">{totalFolders}</p>
-              <p className="text-xs text-emerald-600">Folders</p>
-            </div>
-          </div>
-        </Card>
-        
-        <Card className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/50 border-purple-200 hover:shadow-md transition-all cursor-pointer hover:scale-[1.02]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center shadow-sm">
-              <HardDrive className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-purple-900">{totalSize}</p>
-              <p className="text-xs text-purple-600">Total Size</p>
-            </div>
-          </div>
-        </Card>
       </div>
-
-      {/* Charts */}
-      <div className="grid grid-cols-2 gap-4">
-        {/* Category Distribution */}
-        <Card className="p-4 hover:shadow-md transition-shadow">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">By Category</h3>
-          <div className="h-52">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  activeIndex={activeCategoryIndex}
-                  activeShape={renderActiveShape}
-                  data={categoryStats}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={45}
-                  outerRadius={70}
-                  paddingAngle={2}
-                  dataKey="count"
-                  nameKey="category"
-                  onMouseEnter={(_, index) => setActiveCategoryIndex(index)}
-                  onMouseLeave={() => setActiveCategoryIndex(undefined)}
-                >
-                  {categoryStats.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
-                      fill={entry.color} 
-                      style={{ cursor: 'pointer' }}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
-
-        {/* File Type Distribution */}
-        <Card className="p-4 hover:shadow-md transition-shadow">
-          <h3 className="text-sm font-semibold text-gray-900 mb-3">By File Type</h3>
-          <div className="h-52">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  activeIndex={activeTypeIndex}
-                  activeShape={renderActiveShape}
-                  data={fileTypeStats}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={45}
-                  outerRadius={70}
-                  paddingAngle={2}
-                  dataKey="count"
-                  nameKey="type"
-                  onMouseEnter={(_, index) => setActiveTypeIndex(index)}
-                  onMouseLeave={() => setActiveTypeIndex(undefined)}
-                >
-                  {fileTypeStats.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
-                      fill={entry.color}
-                      style={{ cursor: 'pointer' }}
-                    />
-                  ))}
-                </Pie>
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
-      </div>
-
-      {/* Category Breakdown List */}
-      <Card className="p-4 hover:shadow-md transition-shadow">
-        <h3 className="text-sm font-semibold text-gray-900 mb-3">Category Breakdown</h3>
-        <div className="space-y-2">
-          {categoryStats.map((cat) => (
-            <div 
-              key={cat.category} 
-              className={cn(
-                "flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-all",
-                hoveredCategory === cat.category 
-                  ? "bg-gray-100 shadow-sm" 
-                  : "hover:bg-gray-50"
-              )}
-              onMouseEnter={() => setHoveredCategory(cat.category)}
-              onMouseLeave={() => setHoveredCategory(null)}
-            >
-              <div 
-                className={cn(
-                  "w-4 h-4 rounded-full flex-shrink-0 transition-transform",
-                  hoveredCategory === cat.category && "scale-125"
-                )}
-                style={{ backgroundColor: cat.color }}
-              />
-              <span className="text-sm text-gray-700 flex-1">{cat.category}</span>
-              <div className="flex items-center gap-2">
-                <div 
-                  className="h-2 rounded-full bg-gray-200 w-24 overflow-hidden"
-                >
-                  <div 
-                    className="h-full rounded-full transition-all duration-500"
-                    style={{ 
-                      backgroundColor: cat.color,
-                      width: `${(cat.count / 154) * 100}%`
-                    }}
-                  />
-                </div>
-                <span className={cn(
-                  "text-sm font-medium min-w-[60px] text-right transition-colors",
-                  hoveredCategory === cat.category ? "text-gray-900" : "text-gray-600"
-                )}>
-                  {cat.count} files
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Card>
     </div>
   );
 }
