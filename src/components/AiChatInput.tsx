@@ -1,12 +1,20 @@
 import { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { useAiChat } from "@/contexts/AiChatContext";
 import { X } from "lucide-react";
 import "./AiChatInput.css";
 
+// Routes where the AI assistant blob should be hidden by default
+const HIDDEN_ROUTES = ["/agent/report"];
+
 export function AiChatInput() {
   const [rotation, setRotation] = useState({ rotateX: 0, rotateY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
   const { isAiChatOpen, showAssistant, openAiChat, toggleShowAssistant } = useAiChat();
+
+  // Check if current route should hide the assistant
+  const shouldHideOnRoute = HIDDEN_ROUTES.some(route => location.pathname.startsWith(route));
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -30,8 +38,8 @@ export function AiChatInput() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Don't render if AI chat is open or assistant is hidden
-  if (isAiChatOpen || !showAssistant) return null;
+  // Don't render if AI chat is open, assistant is hidden, or on a hidden route
+  if (isAiChatOpen || !showAssistant || shouldHideOnRoute) return null;
 
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
