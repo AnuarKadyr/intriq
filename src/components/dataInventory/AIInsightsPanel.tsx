@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { 
   Sparkles, 
-  Brain, 
   AlertTriangle, 
   CheckCircle2, 
   FileWarning,
@@ -66,24 +65,60 @@ const dataQualityItems = [
   { status: 'success', text: 'Bank reconciliations complete', action: 'Through Feb 2025' }
 ];
 
+const summaryText = `The Project Aurora data room contains comprehensive due diligence materials for the acquisition of Target Co. My analysis shows a well-structured repository with 154 files organized across hierarchical categories including background documentation, VDR snapshots, and specialized financial folders.`;
+
 export function AIInsightsPanel({ selectedFolder }: AIInsightsPanelProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [visibleInsights, setVisibleInsights] = useState<string[]>([]);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_tonyExpression, setTonyExpression] = useState<'thinking' | 'happy' | 'excited'>('thinking');
+  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Reset and start typing animation on mount/folder change
   useEffect(() => {
-    // Simulate AI analysis
+    setIsAnalyzing(true);
+    setDisplayedText("");
+    setIsTyping(false);
+    setVisibleInsights([]);
+    
+    // Clear any existing typing interval
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current);
+    }
+
     const timer = setTimeout(() => {
       setIsAnalyzing(false);
       setTonyExpression('excited');
     }, 1500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (typingIntervalRef.current) {
+        clearInterval(typingIntervalRef.current);
+      }
+    };
   }, [selectedFolder]);
 
+  // Start typing animation after analysis completes
   useEffect(() => {
-    if (!isAnalyzing) {
+    if (!isAnalyzing && !isTyping && displayedText === "") {
+      setIsTyping(true);
+      let currentIndex = 0;
+      
+      typingIntervalRef.current = setInterval(() => {
+        if (currentIndex < summaryText.length) {
+          setDisplayedText(summaryText.slice(0, currentIndex + 1));
+          currentIndex++;
+        } else {
+          setIsTyping(false);
+          if (typingIntervalRef.current) {
+            clearInterval(typingIntervalRef.current);
+          }
+        }
+      }, 15);
+
       // Stagger reveal of insights
       insights.forEach((insight, index) => {
         setTimeout(() => {
@@ -93,7 +128,7 @@ export function AIInsightsPanel({ selectedFolder }: AIInsightsPanelProps) {
 
       setTimeout(() => setTonyExpression('happy'), 800);
     }
-  }, [isAnalyzing]);
+  }, [isAnalyzing, isTyping, displayedText]);
 
   const getTypeStyles = (type: InsightItem['type']) => {
     switch (type) {
@@ -135,12 +170,13 @@ export function AIInsightsPanel({ selectedFolder }: AIInsightsPanelProps) {
         <div className="relative flex items-start justify-between">
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg shadow-primary/25">
-                <Brain className="h-7 w-7 text-white" />
-              </div>
+              <TonyFace size="medium" />
               <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-md">
                 <Sparkles className="h-3 w-3 text-white" />
               </div>
+              {isAnalyzing && (
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full animate-ping" />
+              )}
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -174,26 +210,18 @@ export function AIInsightsPanel({ selectedFolder }: AIInsightsPanelProps) {
               </div>
             </div>
           </div>
-
-          {/* Tony Face */}
-          <div className="flex-shrink-0">
-            <div className="relative">
-              <TonyFace size="medium" />
-              {isAnalyzing && (
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full animate-ping" />
-              )}
-            </div>
-          </div>
         </div>
 
-        {/* Summary Text */}
+        {/* Summary Text with Typing Animation */}
         <div className="relative mt-5 pt-5 border-t border-primary/10">
-          <p className="text-sm text-foreground/80 leading-relaxed">
-            The <span className="text-primary font-semibold">Project Aurora</span> data room contains comprehensive 
-            due diligence materials for the acquisition of Target Co. My analysis shows a well-structured 
-            repository with <span className="text-primary font-medium">154 files</span> organized across 
-            hierarchical categories including background documentation, VDR snapshots, and specialized 
-            financial folders.
+          <p className="text-sm text-foreground/80 leading-relaxed min-h-[60px]">
+            {displayedText.split(/(Project Aurora|154 files)/).map((part, index) => {
+              if (part === "Project Aurora" || part === "154 files") {
+                return <span key={index} className="text-foreground font-semibold">{part}</span>;
+              }
+              return part;
+            })}
+            {isTyping && <span className="inline-block w-0.5 h-4 bg-primary ml-0.5 animate-pulse" />}
           </p>
 
           <div className="flex items-center gap-2 mt-3">
