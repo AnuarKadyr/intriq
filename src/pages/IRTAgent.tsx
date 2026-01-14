@@ -22,7 +22,6 @@ const IRTAgent = () => {
   const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [emailItems, setEmailItems] = useState<IRTItem[]>([]);
   const [fileDialogOpen, setFileDialogOpen] = useState(false);
-  const [uploadTargetItem, setUploadTargetItem] = useState<IRTItem | undefined>();
   const [templateUploadOpen, setTemplateUploadOpen] = useState(false);
 
   const handleSelectTemplate = (template: IRTTemplate) => {
@@ -41,9 +40,7 @@ const IRTAgent = () => {
     setView("tracker");
   };
 
-  const handleUploadFiles = (itemId: string) => {
-    const item = items.find(i => i.id === itemId);
-    setUploadTargetItem(item);
+  const handleBulkUpload = () => {
     setFileDialogOpen(true);
   };
 
@@ -117,7 +114,7 @@ const IRTAgent = () => {
           {view === "tracker" && (
             <IRTTable
               items={items}
-              onUploadFiles={handleUploadFiles}
+              onBulkUpload={handleBulkUpload}
               onDraftEmail={handleDraftEmail}
               onUpdateStatus={handleUpdateStatus}
             />
@@ -135,7 +132,6 @@ const IRTAgent = () => {
       <FileUploadDialog
         open={fileDialogOpen}
         onOpenChange={setFileDialogOpen}
-        targetItem={uploadTargetItem}
         allItems={items}
         onFilesProcessed={handleFilesProcessed}
       />

@@ -1,4 +1,4 @@
-import { Upload, FileSpreadsheet, ChevronRight } from "lucide-react";
+import { Upload, FileSpreadsheet, ChevronRight, DollarSign, TrendingUp, ShoppingBag, Settings, LucideIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { irtTemplates } from "@/data/irtTemplates";
@@ -8,6 +8,20 @@ interface TemplateSelectorProps {
   onSelectTemplate: (template: IRTTemplate) => void;
   onUploadTemplate: () => void;
 }
+
+const iconMap: Record<string, LucideIcon> = {
+  DollarSign,
+  TrendingUp,
+  ShoppingBag,
+  Settings,
+};
+
+const iconColorMap: Record<string, string> = {
+  DollarSign: "bg-emerald-100 text-emerald-600",
+  TrendingUp: "bg-blue-100 text-blue-600",
+  ShoppingBag: "bg-purple-100 text-purple-600",
+  Settings: "bg-amber-100 text-amber-600",
+};
 
 export function TemplateSelector({ onSelectTemplate, onUploadTemplate }: TemplateSelectorProps) {
   return (
@@ -23,31 +37,38 @@ export function TemplateSelector({ onSelectTemplate, onUploadTemplate }: Templat
 
       {/* Template Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {irtTemplates.map((template) => (
-          <Card
-            key={template.id}
-            className="cursor-pointer border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-200 group"
-            onClick={() => onSelectTemplate(template)}
-          >
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl">{template.icon}</div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
-                      {template.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 mt-1">{template.description}</p>
-                    <p className="text-xs text-gray-400 mt-2">
-                      {template.items.length} items
-                    </p>
+        {irtTemplates.map((template) => {
+          const IconComponent = iconMap[template.icon] || Settings;
+          const iconColorClass = iconColorMap[template.icon] || "bg-gray-100 text-gray-600";
+          
+          return (
+            <Card
+              key={template.id}
+              className="cursor-pointer border-gray-200 hover:border-primary hover:shadow-lg transition-all duration-200 group"
+              onClick={() => onSelectTemplate(template)}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${iconColorClass}`}>
+                      <IconComponent className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                        {template.name}
+                      </h3>
+                      <p className="text-sm text-gray-500 mt-1">{template.description}</p>
+                      <p className="text-xs text-gray-400 mt-2">
+                        {template.items.length} items
+                      </p>
+                    </div>
                   </div>
+                  <ChevronRight className="h-5 w-5 text-gray-300 group-hover:text-primary transition-colors" />
                 </div>
-                <ChevronRight className="h-5 w-5 text-gray-300 group-hover:text-primary transition-colors" />
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Upload Section */}
