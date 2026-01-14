@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { CategoryStats, FileTypeStats, DataRoomFolder } from "@/types/dataInventory";
-import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Sector, Tooltip } from "recharts";
 import { 
   Files, 
   FolderTree, 
@@ -79,14 +80,27 @@ const renderActiveShape = (props: any) => {
       <Sector
         cx={cx}
         cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius + 4}
+        innerRadius={innerRadius - 2}
+        outerRadius={outerRadius + 6}
         startAngle={startAngle}
         endAngle={endAngle}
         fill={fill}
       />
     </g>
   );
+};
+
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    const data = payload[0].payload;
+    return (
+      <div className="bg-white px-3 py-2 rounded-lg shadow-lg border border-gray-100">
+        <p className="text-sm font-medium text-gray-900">{data.category || data.type}</p>
+        <p className="text-xs text-gray-500">{data.count} files</p>
+      </div>
+    );
+  }
+  return null;
 };
 
 export function StatsOverview({ 
@@ -97,6 +111,8 @@ export function StatsOverview({
   totalFolders,
   selectedFolder
 }: StatsOverviewProps) {
+  const [activeCategoryIndex, setActiveCategoryIndex] = useState<number | undefined>(undefined);
+  const [activeTypeIndex, setActiveTypeIndex] = useState<number | undefined>(undefined);
 
   return (
     <div className="space-y-6">
@@ -205,124 +221,114 @@ export function StatsOverview({
 
         {/* Right Column - Charts & Breakdown - Takes 5 columns */}
         <div className="col-span-5 space-y-4">
-          {/* Compact Stats Row */}
+          {/* Category Distribution */}
           <Card className="p-4">
-            <div className="flex items-center justify-between gap-6">
-              {/* Category Mini Chart */}
-              <div className="flex items-center gap-3">
-                <div className="w-16 h-16">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={categoryStats}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={18}
-                        outerRadius={28}
-                        paddingAngle={2}
-                        dataKey="count"
-                        stroke="none"
-                      >
-                        {categoryStats.map((entry, index) => (
-                          <Cell key={`cat-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Categories</p>
-                  <p className="text-lg font-semibold text-gray-900">{categoryStats.length}</p>
-                </div>
+            <h4 className="text-xs font-medium text-gray-500 mb-3">By Category</h4>
+            <div className="flex items-center gap-4">
+              <div className="w-28 h-28 flex-shrink-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      activeIndex={activeCategoryIndex}
+                      activeShape={renderActiveShape}
+                      data={categoryStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={28}
+                      outerRadius={48}
+                      paddingAngle={2}
+                      dataKey="count"
+                      nameKey="category"
+                      onMouseEnter={(_, index) => setActiveCategoryIndex(index)}
+                      onMouseLeave={() => setActiveCategoryIndex(undefined)}
+                      stroke="none"
+                    >
+                      {categoryStats.map((entry, index) => (
+                        <Cell key={`cat-${index}`} fill={entry.color} style={{ cursor: 'pointer' }} />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                  </PieChart>
+                </ResponsiveContainer>
               </div>
-
-              <div className="w-px h-10 bg-gray-100" />
-
-              {/* File Types Mini Chart */}
-              <div className="flex items-center gap-3">
-                <div className="w-16 h-16">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={fileTypeStats}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={18}
-                        outerRadius={28}
-                        paddingAngle={2}
-                        dataKey="count"
-                        stroke="none"
-                      >
-                        {fileTypeStats.map((entry, index) => (
-                          <Cell key={`type-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">File Types</p>
-                  <p className="text-lg font-semibold text-gray-900">{fileTypeStats.length}</p>
-                </div>
-              </div>
-
-              <div className="w-px h-10 bg-gray-100" />
-
-              {/* Total Files */}
-              <div className="text-center">
-                <p className="text-xs text-gray-500 mb-1">Total Files</p>
-                <p className="text-lg font-semibold text-gray-900">{totalFiles}</p>
-              </div>
-            </div>
-          </Card>
-
-          {/* Category Breakdown */}
-          <Card className="p-3">
-            <h4 className="text-xs font-medium text-gray-500 mb-3">Category Breakdown</h4>
-            <div className="space-y-2">
-              {categoryStats.map((cat) => (
-                <div key={cat.category} className="flex items-center gap-2">
+              <div className="flex-1 space-y-1.5">
+                {categoryStats.map((cat, index) => (
                   <div 
-                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: cat.color }}
-                  />
-                  <span className="text-xs text-gray-600 flex-1">{cat.category}</span>
-                  <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    key={cat.category} 
+                    className={cn(
+                      "flex items-center gap-2 px-2 py-1 rounded transition-colors cursor-pointer",
+                      activeCategoryIndex === index && "bg-gray-50"
+                    )}
+                    onMouseEnter={() => setActiveCategoryIndex(index)}
+                    onMouseLeave={() => setActiveCategoryIndex(undefined)}
+                  >
                     <div 
-                      className="h-full rounded-full"
-                      style={{ 
-                        backgroundColor: cat.color,
-                        width: `${(cat.count / totalFiles) * 100}%`
-                      }}
+                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: cat.color }}
                     />
+                    <span className="text-xs text-gray-600 flex-1">{cat.category}</span>
+                    <span className="text-xs font-medium text-gray-500">{cat.count}</span>
                   </div>
-                  <span className="text-xs font-medium text-gray-500 w-8 text-right">{cat.count}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </Card>
 
-          {/* File Types */}
-          <Card className="p-3">
-            <h4 className="text-xs font-medium text-gray-500 mb-3">File Types</h4>
-            <div className="grid grid-cols-2 gap-2">
-              {fileTypeStats.map((type) => (
-                <div key={type.type} className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
-                  <div className="w-6 h-6 rounded flex items-center justify-center" style={{ backgroundColor: `${type.color}20` }}>
-                    {type.type === "PDF" ? (
-                      <FileText className="h-3.5 w-3.5" style={{ color: type.color }} />
-                    ) : type.type === "Excel" ? (
-                      <FileSpreadsheet className="h-3.5 w-3.5" style={{ color: type.color }} />
-                    ) : (
-                      <File className="h-3.5 w-3.5" style={{ color: type.color }} />
+          {/* File Type Distribution */}
+          <Card className="p-4">
+            <h4 className="text-xs font-medium text-gray-500 mb-3">By File Type</h4>
+            <div className="flex items-center gap-4">
+              <div className="w-28 h-28 flex-shrink-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      activeIndex={activeTypeIndex}
+                      activeShape={renderActiveShape}
+                      data={fileTypeStats}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={28}
+                      outerRadius={48}
+                      paddingAngle={2}
+                      dataKey="count"
+                      nameKey="type"
+                      onMouseEnter={(_, index) => setActiveTypeIndex(index)}
+                      onMouseLeave={() => setActiveTypeIndex(undefined)}
+                      stroke="none"
+                    >
+                      {fileTypeStats.map((entry, index) => (
+                        <Cell key={`type-${index}`} fill={entry.color} style={{ cursor: 'pointer' }} />
+                      ))}
+                    </Pie>
+                    <Tooltip content={<CustomTooltip />} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="flex-1 space-y-1.5">
+                {fileTypeStats.map((type, index) => (
+                  <div 
+                    key={type.type} 
+                    className={cn(
+                      "flex items-center gap-2 px-2 py-1 rounded transition-colors cursor-pointer",
+                      activeTypeIndex === index && "bg-gray-50"
                     )}
+                    onMouseEnter={() => setActiveTypeIndex(index)}
+                    onMouseLeave={() => setActiveTypeIndex(undefined)}
+                  >
+                    <div className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${type.color}20` }}>
+                      {type.type === "PDF" ? (
+                        <FileText className="h-3 w-3" style={{ color: type.color }} />
+                      ) : type.type === "Excel" || type.type.includes("Excel") ? (
+                        <FileSpreadsheet className="h-3 w-3" style={{ color: type.color }} />
+                      ) : (
+                        <File className="h-3 w-3" style={{ color: type.color }} />
+                      )}
+                    </div>
+                    <span className="text-xs text-gray-600 flex-1">{type.type}</span>
+                    <span className="text-xs font-medium text-gray-500">{type.count}</span>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-gray-700">{type.type}</p>
-                    <p className="text-[10px] text-gray-400">{type.count} files</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </Card>
         </div>
