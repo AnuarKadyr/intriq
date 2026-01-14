@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { CategoryStats, FileTypeStats, DataRoomFolder } from "@/types/dataInventory";
 import { PieChart, Pie, Cell, ResponsiveContainer, Sector } from "recharts";
@@ -73,21 +72,15 @@ interface StatsOverviewProps {
 }
 
 const renderActiveShape = (props: any) => {
-  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload, value } = props;
+  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props;
 
   return (
     <g>
-      <text x={cx} y={cy - 8} textAnchor="middle" fill="#374151" className="text-sm font-semibold">
-        {payload.category || payload.type}
-      </text>
-      <text x={cx} y={cy + 12} textAnchor="middle" fill="#6b7280" className="text-xs">
-        {value} files
-      </text>
       <Sector
         cx={cx}
         cy={cy}
         innerRadius={innerRadius}
-        outerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 4}
         startAngle={startAngle}
         endAngle={endAngle}
         fill={fill}
@@ -104,8 +97,6 @@ export function StatsOverview({
   totalFolders,
   selectedFolder
 }: StatsOverviewProps) {
-  const [activeCategoryIndex, setActiveCategoryIndex] = useState<number | undefined>(undefined);
-  const [activeTypeIndex, setActiveTypeIndex] = useState<number | undefined>(undefined);
 
   return (
     <div className="space-y-6">
@@ -214,64 +205,76 @@ export function StatsOverview({
 
         {/* Right Column - Charts & Breakdown - Takes 5 columns */}
         <div className="col-span-5 space-y-4">
-          {/* Distribution Charts */}
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="p-3">
-              <h4 className="text-xs font-medium text-gray-500 mb-2">By Category</h4>
-              <div className="h-32">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      activeIndex={activeCategoryIndex}
-                      activeShape={renderActiveShape}
-                      data={categoryStats}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={30}
-                      outerRadius={48}
-                      paddingAngle={2}
-                      dataKey="count"
-                      nameKey="category"
-                      onMouseEnter={(_, index) => setActiveCategoryIndex(index)}
-                      onMouseLeave={() => setActiveCategoryIndex(undefined)}
-                    >
-                      {categoryStats.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} style={{ cursor: 'pointer' }} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
+          {/* Compact Stats Row */}
+          <Card className="p-4">
+            <div className="flex items-center justify-between gap-6">
+              {/* Category Mini Chart */}
+              <div className="flex items-center gap-3">
+                <div className="w-16 h-16">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={categoryStats}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={18}
+                        outerRadius={28}
+                        paddingAngle={2}
+                        dataKey="count"
+                        stroke="none"
+                      >
+                        {categoryStats.map((entry, index) => (
+                          <Cell key={`cat-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">Categories</p>
+                  <p className="text-lg font-semibold text-gray-900">{categoryStats.length}</p>
+                </div>
               </div>
-            </Card>
 
-            <Card className="p-3">
-              <h4 className="text-xs font-medium text-gray-500 mb-2">By File Type</h4>
-              <div className="h-32">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      activeIndex={activeTypeIndex}
-                      activeShape={renderActiveShape}
-                      data={fileTypeStats}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={30}
-                      outerRadius={48}
-                      paddingAngle={2}
-                      dataKey="count"
-                      nameKey="type"
-                      onMouseEnter={(_, index) => setActiveTypeIndex(index)}
-                      onMouseLeave={() => setActiveTypeIndex(undefined)}
-                    >
-                      {fileTypeStats.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} style={{ cursor: 'pointer' }} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="w-px h-10 bg-gray-100" />
+
+              {/* File Types Mini Chart */}
+              <div className="flex items-center gap-3">
+                <div className="w-16 h-16">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={fileTypeStats}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={18}
+                        outerRadius={28}
+                        paddingAngle={2}
+                        dataKey="count"
+                        stroke="none"
+                      >
+                        {fileTypeStats.map((entry, index) => (
+                          <Cell key={`type-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500 mb-1">File Types</p>
+                  <p className="text-lg font-semibold text-gray-900">{fileTypeStats.length}</p>
+                </div>
               </div>
-            </Card>
-          </div>
+
+              <div className="w-px h-10 bg-gray-100" />
+
+              {/* Total Files */}
+              <div className="text-center">
+                <p className="text-xs text-gray-500 mb-1">Total Files</p>
+                <p className="text-lg font-semibold text-gray-900">{totalFiles}</p>
+              </div>
+            </div>
+          </Card>
 
           {/* Category Breakdown */}
           <Card className="p-3">
