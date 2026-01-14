@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MainLayout } from "@/components/MainLayout";
-import { FolderTree } from "@/components/dataInventory/FolderTree";
+import { FolderSidebar } from "@/components/dataInventory/FolderSidebar";
 import { FileList } from "@/components/dataInventory/FileList";
 import { StatsOverview } from "@/components/dataInventory/StatsOverview";
 import { FolderDetails } from "@/components/dataInventory/FolderDetails";
@@ -24,6 +24,7 @@ const DataInventoryAgent = () => {
   const [selectedFolder, setSelectedFolder] = useState<DataRoomFolder | null>(dataRoomFolders[0]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const currentFiles = selectedFolder ? getAllFiles(selectedFolder) : [];
   const directFiles = selectedFolder?.files || [];
@@ -82,21 +83,14 @@ const DataInventoryAgent = () => {
         {/* Content */}
         <div className="flex-1 flex overflow-hidden">
           {/* Left Sidebar - Folder Tree */}
-          <div className="w-80 border-r border-gray-200 bg-white flex-shrink-0">
-            <div className="p-4 border-b border-gray-100">
-              <h3 className="text-sm font-semibold text-gray-900">Folder Structure</h3>
-              <p className="text-xs text-gray-500 mt-0.5">{dataRoomStats.totalFolders} folders mapped</p>
-            </div>
-            <ScrollArea className="h-[calc(100vh-220px)]">
-              <div className="p-2">
-                <FolderTree
-                  folders={dataRoomFolders}
-                  selectedFolder={selectedFolder}
-                  onSelectFolder={setSelectedFolder}
-                />
-              </div>
-            </ScrollArea>
-          </div>
+          <FolderSidebar
+            folders={dataRoomFolders}
+            selectedFolder={selectedFolder}
+            onSelectFolder={setSelectedFolder}
+            totalFolders={dataRoomStats.totalFolders}
+            isCollapsed={isSidebarCollapsed}
+            onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+          />
 
           {/* Main Content Area */}
           <div className="flex-1 overflow-hidden bg-gray-50">
