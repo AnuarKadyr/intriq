@@ -415,7 +415,7 @@ export function AiChatPanel() {
   };
 
   return (
-    <div className="fixed top-0 right-0 h-full w-[380px] bg-white border-l border-gray-200 flex flex-col shadow-2xl animate-slide-in-right z-50">
+    <div className="fixed top-[52px] right-0 h-[calc(100%-52px)] w-[380px] bg-white border-l border-gray-200 flex flex-col shadow-2xl animate-slide-in-right z-20">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
         <div className="flex items-center gap-3">
