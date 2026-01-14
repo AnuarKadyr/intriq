@@ -9,7 +9,8 @@ import {
   Upload,
   Mail,
   Filter,
-  Search
+  Search,
+  FolderUp
 } from "lucide-react";
 import { 
   Table, 
@@ -34,7 +35,7 @@ import { cn } from "@/lib/utils";
 
 interface IRTTableProps {
   items: IRTItem[];
-  onUploadFiles: (itemId: string) => void;
+  onBulkUpload: () => void;
   onDraftEmail: (selectedItems: IRTItem[]) => void;
   onUpdateStatus: (itemId: string, status: IRTItem["status"]) => void;
 }
@@ -68,7 +69,7 @@ const matchScoreConfig = {
   Low: { color: "bg-rose-100 text-rose-700", dotColor: "bg-rose-500" },
 };
 
-export function IRTTable({ items, onUploadFiles, onDraftEmail, onUpdateStatus }: IRTTableProps) {
+export function IRTTable({ items, onBulkUpload, onDraftEmail, onUpdateStatus }: IRTTableProps) {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -109,10 +110,11 @@ export function IRTTable({ items, onUploadFiles, onDraftEmail, onUpdateStatus }:
   const selectedIRTItems = items.filter(item => selectedItems.includes(item.id));
   const outstandingCount = items.filter(i => i.status === "Outstanding").length;
   const receivedCount = items.filter(i => i.status === "Received" || i.status === "Uploaded").length;
+  const outstandingItems = items.filter(i => i.status === "Outstanding");
 
   return (
     <div className="space-y-4">
-      {/* Stats Bar */}
+      {/* Action Bar */}
       <div className="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-4">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
@@ -135,11 +137,40 @@ export function IRTTable({ items, onUploadFiles, onDraftEmail, onUpdateStatus }:
           </div>
         </div>
         
-        {selectedItems.length > 0 && (
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-500">
-              {selectedItems.length} selected
-            </span>
+        <div className="flex items-center gap-3">
+          <Button 
+            variant="outline" 
+            onClick={() => onDraftEmail(outstandingItems)}
+            disabled={outstandingCount === 0}
+            className="gap-2"
+          >
+            <Mail className="h-4 w-4" />
+            Email Outstanding ({outstandingCount})
+          </Button>
+          <Button 
+            onClick={onBulkUpload}
+            className="gap-2"
+          >
+            <FolderUp className="h-4 w-4" />
+            Bulk Upload Files
+          </Button>
+        </div>
+      </div>
+
+      {/* Selected Items Actions */}
+      {selectedItems.length > 0 && (
+        <div className="flex items-center justify-between bg-primary/5 border border-primary/20 rounded-lg p-3">
+          <span className="text-sm text-gray-700">
+            <strong>{selectedItems.length}</strong> items selected
+          </span>
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => setSelectedItems([])}
+            >
+              Clear selection
+            </Button>
             <Button 
               variant="outline" 
               size="sm" 
@@ -147,11 +178,11 @@ export function IRTTable({ items, onUploadFiles, onDraftEmail, onUpdateStatus }:
               className="gap-2"
             >
               <Mail className="h-4 w-4" />
-              Draft Email
+              Draft Email for Selected
             </Button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Filters */}
       <div className="flex items-center gap-3 bg-white rounded-lg border border-gray-200 p-3">
@@ -211,7 +242,7 @@ export function IRTTable({ items, onUploadFiles, onDraftEmail, onUpdateStatus }:
               <TableHead>Request</TableHead>
               <TableHead className="w-32">Status</TableHead>
               <TableHead className="w-24">Ref.</TableHead>
-              <TableHead className="w-28">Actions</TableHead>
+              <TableHead className="w-20">Files</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -286,15 +317,14 @@ export function IRTTable({ items, onUploadFiles, onDraftEmail, onUpdateStatus }:
                       {item.dataroomRef || "-"}
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onUploadFiles(item.id)}
-                        className="gap-1.5 text-gray-600 hover:text-primary"
-                      >
-                        <Upload className="h-3.5 w-3.5" />
-                        Upload
-                      </Button>
+                      {hasMatchedFiles ? (
+                        <Badge variant="secondary" className="gap-1">
+                          <FileText className="h-3 w-3" />
+                          {item.matchedFiles.length}
+                        </Badge>
+                      ) : (
+                        <span className="text-gray-400 text-sm">—</span>
+                      )}
                     </TableCell>
                   </TableRow>
                   
@@ -312,23 +342,25 @@ export function IRTTable({ items, onUploadFiles, onDraftEmail, onUpdateStatus }:
                               return (
                                 <div 
                                   key={file.id}
-                                  className="flex items-center justify-between bg-white rounded-lg border border-gray-200 p-3"
+                                  className="bg-white rounded-lg border border-gray-200 p-3"
                                 >
-                                  <div className="flex items-center gap-3">
-                                    <FileText className="h-4 w-4 text-gray-400" />
-                                    <div>
-                                      <p className="text-sm font-medium text-gray-900">
-                                        {file.fileName}
-                                      </p>
-                                      <p className="text-xs text-gray-500">
-                                        {file.matchRationale}
-                                      </p>
+                                  <div className="flex items-start justify-between gap-4">
+                                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                                      <FileText className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                                      <div className="min-w-0">
+                                        <p className="text-sm font-medium text-gray-900">
+                                          {file.fileName}
+                                        </p>
+                                        <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+                                          <span className="font-medium">Rationale:</span> {file.matchRationale}
+                                        </p>
+                                      </div>
                                     </div>
+                                    <Badge className={cn("gap-1 flex-shrink-0", score.color)}>
+                                      <div className={cn("w-1.5 h-1.5 rounded-full", score.dotColor)} />
+                                      {file.matchScore} Match
+                                    </Badge>
                                   </div>
-                                  <Badge className={cn("gap-1", score.color)}>
-                                    <div className={cn("w-1.5 h-1.5 rounded-full", score.dotColor)} />
-                                    {file.matchScore} Match
-                                  </Badge>
                                 </div>
                               );
                             })}
