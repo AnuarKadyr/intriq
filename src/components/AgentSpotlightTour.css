@@ -40,6 +40,18 @@
   background: rgba(0, 0, 0, 0.7);
 }
 
+/* Transparent area over agent bar to allow scrolling */
+.spotlight-agent-bar-area {
+  position: absolute;
+  top: 0;
+  left: 288px;
+  right: 0;
+  height: 49px;
+  pointer-events: auto;
+  overflow-x: auto;
+  z-index: 1;
+}
+
 /* Beautiful glow highlight around the agent bar */
 .spotlight-glow {
   position: absolute;
