@@ -16,9 +16,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/MainLayout";
-import { AiChatInput } from "@/components/AiChatInput";
-import { AiChatPanel } from "@/components/AiChatPanel";
-import { useAiChat } from "@/contexts/AiChatContext";
 import { useState, useEffect } from "react";
 import {
   AreaChart,
@@ -175,7 +172,6 @@ const miniStats = [
 ];
 
 const Dashboard = () => {
-  const { isAiChatOpen } = useAiChat();
   const [showTour, setShowTour] = useState(false);
 
   useEffect(() => {
@@ -461,12 +457,6 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-        </div>
-        <AiChatInput />
-      
-        {/* AI Chat Panel - Fixed on the right side */}
-        <div className="fixed top-0 right-0 h-full z-20">
-          <AiChatPanel />
         </div>
     </MainLayout>
   );

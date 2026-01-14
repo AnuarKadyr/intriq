@@ -2,6 +2,8 @@ import { ReactNode, useState, useEffect } from "react";
 import { AppSidebar } from "@/components/AppSidebar";
 import { AgentQuickBar } from "@/components/AgentQuickBar";
 import { AgentSpotlightTour } from "@/components/AgentSpotlightTour";
+import { AiChatInput } from "@/components/AiChatInput";
+import { AiChatPanel } from "@/components/AiChatPanel";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -28,6 +30,10 @@ export function MainLayout({ children, showTour = false, onTourComplete }: MainL
           {children}
         </div>
       </main>
+
+      {/* AI Chat - Always available across all pages */}
+      <AiChatInput />
+      <AiChatPanel />
     </div>
   );
 }
