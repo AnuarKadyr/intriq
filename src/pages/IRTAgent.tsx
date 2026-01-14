@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { AppSidebar } from "@/components/AppSidebar";
+import { MainLayout } from "@/components/MainLayout";
 import { TemplateSelector } from "@/components/irt/TemplateSelector";
 import { IRTTable } from "@/components/irt/IRTTable";
 import { EmailDraftDialog } from "@/components/irt/EmailDraftDialog";
@@ -70,10 +70,8 @@ const IRTAgent = () => {
   };
 
   return (
-    <div className="min-h-screen flex w-full bg-gray-50">
-      <AppSidebar />
-      
-      <main className="flex-1 flex flex-col overflow-hidden ml-72">
+    <MainLayout>
+      <div className="flex flex-col h-full">
         {/* Header */}
         <header className="border-b border-gray-200 bg-white px-8 py-6">
           <div className="flex items-center gap-4">
@@ -120,7 +118,7 @@ const IRTAgent = () => {
             />
           )}
         </div>
-      </main>
+      </div>
 
       {/* Dialogs */}
       <EmailDraftDialog
@@ -141,7 +139,7 @@ const IRTAgent = () => {
         onOpenChange={setTemplateUploadOpen}
         onTemplateProcessed={handleTemplateProcessed}
       />
-    </div>
+    </MainLayout>
   );
 };
 

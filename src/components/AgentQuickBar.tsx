@@ -81,7 +81,7 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
   };
 
   return (
-    <div className="bg-white border-b border-gray-200 px-8 py-3 fixed top-[88px] left-72 right-0 z-10">
+    <div className="bg-white border-b border-gray-200 px-8 py-3 fixed top-0 left-72 right-0 z-30">
       <div className="flex items-center gap-3">
         {agents.map((agent, index) => {
           const IconComponent = agent.icon;
