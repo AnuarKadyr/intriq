@@ -267,50 +267,51 @@ const DataIntegrityAgent = () => {
               <div className="w-[400px] flex-shrink-0 flex flex-col h-full overflow-hidden">
                 {/* Compact Stats + Filter Bar */}
                 <div className="mb-4 flex-shrink-0 space-y-3">
-                  {/* Inline stats */}
-                  <div className="flex items-center gap-4 text-sm">
+                  {/* Status filter tabs */}
+                  <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => setFilterStatus(null)}
                       className={cn(
-                        "flex items-center gap-1.5 transition-colors",
-                        filterStatus === null ? "text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
+                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
+                        filterStatus === null 
+                          ? "bg-foreground text-background border-foreground" 
+                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-gray-300 hover:text-foreground"
                       )}
                     >
-                      <span className="font-bold">{stats.total}</span>
-                      <span>Total</span>
+                      All ({stats.total})
                     </button>
-                    <span className="text-gray-300">•</span>
                     <button 
                       onClick={() => setFilterStatus(filterStatus === 'open' ? null : 'open')}
                       className={cn(
-                        "flex items-center gap-1.5 transition-colors",
-                        filterStatus === 'open' ? "text-red-600 font-semibold" : "text-muted-foreground hover:text-red-600"
+                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
+                        filterStatus === 'open' 
+                          ? "bg-red-600 text-white border-red-600" 
+                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-red-300 hover:text-red-600"
                       )}
                     >
-                      <span className="font-bold">{stats.open}</span>
-                      <span>Open</span>
+                      Open ({stats.open})
                     </button>
-                    <span className="text-gray-300">•</span>
                     <button 
                       onClick={() => setFilterStatus(filterStatus === 'assumption-applied' ? null : 'assumption-applied')}
                       className={cn(
-                        "flex items-center gap-1.5 transition-colors",
-                        filterStatus === 'assumption-applied' ? "text-amber-600 font-semibold" : "text-muted-foreground hover:text-amber-600"
+                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
+                        filterStatus === 'assumption-applied' 
+                          ? "bg-amber-600 text-white border-amber-600" 
+                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-amber-300 hover:text-amber-600"
                       )}
                     >
-                      <span className="font-bold">{stats.assumptionApplied}</span>
-                      <span>Assumed</span>
+                      Assumed ({stats.assumptionApplied})
                     </button>
-                    <span className="text-gray-300">•</span>
                     <button 
                       onClick={() => setFilterStatus(filterStatus === 'resolved' ? null : 'resolved')}
                       className={cn(
-                        "flex items-center gap-1.5 transition-colors",
-                        filterStatus === 'resolved' ? "text-emerald-600 font-semibold" : "text-muted-foreground hover:text-emerald-600"
+                        "px-3 py-1.5 rounded-md text-xs font-medium transition-all border",
+                        filterStatus === 'resolved' 
+                          ? "bg-emerald-600 text-white border-emerald-600" 
+                          : "bg-transparent text-muted-foreground border-gray-200 hover:border-emerald-300 hover:text-emerald-600"
                       )}
                     >
-                      <span className="font-bold">{stats.resolved}</span>
-                      <span>Resolved</span>
+                      Resolved ({stats.resolved})
                     </button>
                   </div>
 
