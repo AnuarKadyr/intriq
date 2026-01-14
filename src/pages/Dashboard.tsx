@@ -175,18 +175,16 @@ const Dashboard = () => {
   const [showTour, setShowTour] = useState(false);
 
   useEffect(() => {
-    // Only show tour if user just completed onboarding (flag set) and hasn't seen tour yet
+    // Show tour every time user comes from the onboarding complete page
     const justCompletedOnboarding = sessionStorage.getItem("just-completed-onboarding");
-    const hasSeenTour = localStorage.getItem("agent-tour-completed");
     
-    if (justCompletedOnboarding && !hasSeenTour) {
+    if (justCompletedOnboarding) {
       setShowTour(true);
       sessionStorage.removeItem("just-completed-onboarding");
     }
   }, []);
 
   const handleTourComplete = () => {
-    localStorage.setItem("agent-tour-completed", "true");
     setShowTour(false);
   };
   
