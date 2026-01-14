@@ -85,26 +85,28 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
   return (
     <div className="bg-white border-b border-gray-200 px-8 py-3 fixed top-0 left-72 right-0 z-30">
       <div className="flex items-center gap-4">
-        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Your AI Team</span>
-        <div className="w-px h-6 bg-gray-200" />
-        {agents.map((agent, index) => {
-          const IconComponent = agent.icon;
-          return (
-            <Button
-              key={agent.id}
-              ref={el => buttonRefs.current[index] = el}
-              variant="outline"
-              size="sm"
-              onClick={() => handleAgentClick(agent.id)}
-              className="bg-gray-50 border-gray-200 hover:bg-gray-100 transition-all duration-200 gap-2"
-            >
-              <div className={`w-5 h-5 ${agent.color} rounded flex items-center justify-center`}>
-                <IconComponent className="h-3 w-3 text-white" />
-              </div>
-              {agent.name}
-            </Button>
-          );
-        })}
+        <span className="text-xs font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap flex-shrink-0">Your AI Team</span>
+        <div className="w-px h-6 bg-gray-200 flex-shrink-0" />
+        <div className="flex items-center gap-3 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pb-1 -mb-1">
+          {agents.map((agent, index) => {
+            const IconComponent = agent.icon;
+            return (
+              <Button
+                key={agent.id}
+                ref={el => buttonRefs.current[index] = el}
+                variant="outline"
+                size="sm"
+                onClick={() => handleAgentClick(agent.id)}
+                className="bg-gray-50 border-gray-200 hover:bg-gray-100 transition-all duration-200 gap-2 flex-shrink-0 whitespace-nowrap"
+              >
+                <div className={`w-5 h-5 ${agent.color} rounded flex items-center justify-center`}>
+                  <IconComponent className="h-3 w-3 text-white" />
+                </div>
+                {agent.name}
+              </Button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
