@@ -1,4 +1,4 @@
-import { ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText } from "lucide-react";
+import { ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -43,6 +43,12 @@ export const agents = [
     icon: FileText,
     color: "bg-orange-500",
   },
+  {
+    id: "price-volume",
+    name: "Price Volume",
+    icon: TrendingUp,
+    color: "bg-pink-500",
+  },
 ];
 
 interface AgentQuickBarProps {
@@ -86,6 +92,8 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
       navigate("/agent/report");
     } else if (agentId === "insights") {
       navigate("/agent/insights");
+    } else if (agentId === "price-volume") {
+      navigate("/agent/price-volume");
     } else {
       openAiChat();
       console.log(`Starting agent: ${agentId}`);
