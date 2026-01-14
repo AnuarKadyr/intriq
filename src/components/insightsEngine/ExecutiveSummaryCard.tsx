@@ -1,4 +1,4 @@
-import { Sparkles, TrendingUp, TrendingDown } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { InsightCard } from "@/types/insightsEngine";
 import { InsightCardWrapper } from "./InsightCardWrapper";
 import { cn } from "@/lib/utils";
@@ -27,13 +27,12 @@ function MiniTrendChart({ trend, change }: { trend?: "up" | "down" | "neutral"; 
         />
       </svg>
       {change && (
-        <div className={cn(
-          "flex items-center gap-0.5 text-xs font-medium",
+        <span className={cn(
+          "text-xs font-medium",
           isUp ? "text-emerald-600" : "text-red-500"
         )}>
-          {isUp ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
           {change}
-        </div>
+        </span>
       )}
     </div>
   );
@@ -54,7 +53,7 @@ export function ExecutiveSummaryCard({ data }: ExecutiveSummaryCardProps) {
               "text-center",
               idx !== data.kpis!.length - 1 && "border-r border-gray-200"
             )}>
-              <p className="text-xs text-primary font-medium mb-1">{kpi.label}</p>
+              <p className="text-xs text-muted-foreground font-medium mb-1">{kpi.label}</p>
               <div className="flex items-center justify-center gap-2">
                 <p className="text-2xl font-bold text-foreground">{kpi.value}</p>
                 {kpi.trend && kpi.change && (
