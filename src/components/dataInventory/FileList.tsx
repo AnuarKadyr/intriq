@@ -1,8 +1,8 @@
-import { FileText, FileSpreadsheet, File, FileWarning, Download, Eye } from "lucide-react";
+import { useState } from "react";
+import { FileText, FileSpreadsheet, File, FileWarning, Download, Eye, ChevronDown, ChevronUp } from "lucide-react";
 import { DataRoomFile } from "@/types/dataInventory";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface FileListProps {
@@ -11,6 +11,8 @@ interface FileListProps {
 }
 
 export function FileList({ files, title }: FileListProps) {
+  const [expandedFile, setExpandedFile] = useState<string | null>(null);
+
   const getFileIcon = (type: string) => {
     switch (type) {
       case "PDF Document":
@@ -26,19 +28,13 @@ export function FileList({ files, title }: FileListProps) {
     }
   };
 
-  const priorityColors = {
-    HIGH: "bg-red-100 text-red-700 border-red-200",
-    MEDIUM: "bg-amber-100 text-amber-700 border-amber-200",
-    LOW: "bg-green-100 text-green-700 border-green-200",
-  };
-
   const categoryColors: Record<string, string> = {
-    Financial: "bg-red-50 text-red-600 border-red-100",
-    Legal: "bg-amber-50 text-amber-600 border-amber-100",
-    Commercial: "bg-green-50 text-green-600 border-green-100",
-    HR: "bg-blue-50 text-blue-600 border-blue-100",
-    Tax: "bg-purple-50 text-purple-600 border-purple-100",
-    Other: "bg-gray-50 text-gray-600 border-gray-100",
+    Financial: "bg-red-50 text-red-600 border-red-200 hover:bg-red-100",
+    Legal: "bg-amber-50 text-amber-600 border-amber-200 hover:bg-amber-100",
+    Commercial: "bg-green-50 text-green-600 border-green-200 hover:bg-green-100",
+    HR: "bg-blue-50 text-blue-600 border-blue-200 hover:bg-blue-100",
+    Tax: "bg-purple-50 text-purple-600 border-purple-200 hover:bg-purple-100",
+    Other: "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100",
   };
 
   if (files.length === 0) {
@@ -59,48 +55,96 @@ export function FileList({ files, title }: FileListProps) {
       </div>
       
       <div className="space-y-2">
-        {files.map((file) => (
-          <Card key={file.id} className="p-4 hover:shadow-md transition-shadow">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 mt-0.5">
-                {getFileIcon(file.type)}
-              </div>
-              
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2">
-                  <h4 className="text-sm font-medium text-gray-900 truncate">
-                    {file.name}
-                  </h4>
-                  <div className="flex items-center gap-1 flex-shrink-0">
-                    <Button variant="ghost" size="icon" className="h-7 w-7">
-                      <Eye className="h-3.5 w-3.5" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-7 w-7">
-                      <Download className="h-3.5 w-3.5" />
-                    </Button>
+        {files.map((file) => {
+          const isExpanded = expandedFile === file.id;
+          
+          return (
+            <div 
+              key={file.id} 
+              className={cn(
+                "bg-white rounded-xl border transition-all duration-200 overflow-hidden",
+                isExpanded 
+                  ? "border-primary/30 shadow-md ring-1 ring-primary/10" 
+                  : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
+              )}
+            >
+              <div 
+                className="p-4 cursor-pointer"
+                onClick={() => setExpandedFile(isExpanded ? null : file.id)}
+              >
+                <div className="flex items-start gap-3">
+                  <div className={cn(
+                    "flex-shrink-0 mt-0.5 p-2 rounded-lg transition-colors",
+                    isExpanded ? "bg-gray-100" : "bg-gray-50"
+                  )}>
+                    {getFileIcon(file.type)}
+                  </div>
+                  
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <h4 className={cn(
+                        "text-sm font-medium truncate transition-colors",
+                        isExpanded ? "text-primary" : "text-gray-900"
+                      )}>
+                        {file.name}
+                      </h4>
+                      <div className="flex items-center gap-1 flex-shrink-0">
+                        {isExpanded ? (
+                          <ChevronUp className="h-4 w-4 text-gray-400" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 text-gray-400" />
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 mt-2 flex-wrap">
+                      <Badge 
+                        variant="outline" 
+                        className={cn(
+                          "text-xs px-2 py-0.5 cursor-pointer transition-colors",
+                          categoryColors[file.category]
+                        )}
+                      >
+                        {file.category}
+                      </Badge>
+                      <span className="text-xs text-gray-400">{file.type}</span>
+                      <span className="text-xs text-gray-400">•</span>
+                      <span className="text-xs text-gray-400">{file.size}</span>
+                      {file.pages && (
+                        <>
+                          <span className="text-xs text-gray-400">•</span>
+                          <span className="text-xs text-gray-400">{file.pages} pages</span>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
-                
-                <div className="flex items-center gap-2 mt-1.5">
-                  <Badge variant="outline" className={cn("text-xs px-1.5 py-0 h-5", categoryColors[file.category])}>
-                    {file.category}
-                  </Badge>
-                  <Badge variant="outline" className={cn("text-xs px-1.5 py-0 h-5", priorityColors[file.priority])}>
-                    {file.priority}
-                  </Badge>
-                  <span className="text-xs text-gray-400">{file.size}</span>
-                  {file.pages && (
-                    <span className="text-xs text-gray-400">{file.pages} pages</span>
-                  )}
-                </div>
-                
-                <p className="text-xs text-gray-500 mt-2 line-clamp-2">
-                  {file.summary}
-                </p>
               </div>
+              
+              {isExpanded && (
+                <div className="px-4 pb-4 pt-0 border-t border-gray-100 bg-gray-50/50">
+                  <div className="pt-3">
+                    <h5 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">AI Summary</h5>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {file.summary}
+                    </p>
+                    
+                    <div className="flex items-center gap-2 mt-4">
+                      <Button size="sm" variant="outline" className="gap-2">
+                        <Eye className="h-3.5 w-3.5" />
+                        Preview
+                      </Button>
+                      <Button size="sm" variant="outline" className="gap-2">
+                        <Download className="h-3.5 w-3.5" />
+                        Download
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-          </Card>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
