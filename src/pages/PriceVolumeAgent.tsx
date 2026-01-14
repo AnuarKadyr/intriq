@@ -16,7 +16,7 @@ export default function PriceVolumeAgent() {
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-background">
+      <div className="h-full overflow-y-auto bg-background">
         {/* Header */}
         <div className="border-b bg-card/50 backdrop-blur-sm sticky top-[57px] z-20">
           <div className="px-6 py-4">
