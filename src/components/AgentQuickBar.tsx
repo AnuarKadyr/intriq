@@ -1,5 +1,7 @@
 import { ClipboardList, BarChart2, GitCompare, HelpCircle, Lightbulb, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { useAiChat } from "@/contexts/AiChatContext";
 import { useRef, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +50,7 @@ interface AgentQuickBarProps {
 }
 
 export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
-  const { openAiChat } = useAiChat();
+  const { openAiChat, showAssistant, toggleShowAssistant } = useAiChat();
   const navigate = useNavigate();
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -93,7 +95,7 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
       <div className="flex items-center gap-4">
         <span className="text-xs font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap flex-shrink-0">Your AI Team</span>
         <div className="w-px h-6 bg-gray-200 flex-shrink-0" />
-        <div className="flex items-center gap-3 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pb-1 -mb-1">
+        <div className="flex items-center gap-3 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pb-1 -mb-1 flex-1">
           {agents.map((agent, index) => {
             const IconComponent = agent.icon;
             return (
@@ -112,6 +114,21 @@ export function AgentQuickBar({ onButtonPositionsChange }: AgentQuickBarProps) {
               </Button>
             );
           })}
+        </div>
+        <div className="w-px h-6 bg-gray-200 flex-shrink-0" />
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <Switch
+            id="show-assistant"
+            checked={showAssistant}
+            onCheckedChange={toggleShowAssistant}
+            className="data-[state=checked]:bg-primary"
+          />
+          <Label 
+            htmlFor="show-assistant" 
+            className="text-xs font-medium text-gray-600 cursor-pointer whitespace-nowrap"
+          >
+            Show Assistant
+          </Label>
         </div>
       </div>
     </div>
