@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
 import OnboardingComplete from "./pages/OnboardingComplete";
 import IRTAgent from "./pages/IRTAgent";
+import DataInventoryAgent from "./pages/DataInventoryAgent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/onboarding-complete" element={<OnboardingComplete />} />
             <Route path="/agent/irt" element={<IRTAgent />} />
+            <Route path="/agent/data-inventory" element={<DataInventoryAgent />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
