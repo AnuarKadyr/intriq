@@ -29,6 +29,9 @@ const DataInventoryAgent = () => {
 
   const currentFiles = selectedFolder ? getAllFiles(selectedFolder) : [];
   const directFiles = selectedFolder?.files || [];
+  
+  // Get all files from all folders for the critical document selector
+  const allDataRoomFiles = dataRoomFolders.flatMap(folder => getAllFiles(folder));
 
   return (
     <MainLayout>
@@ -114,6 +117,7 @@ const DataInventoryAgent = () => {
                       totalSize={dataRoomStats.totalSize}
                       totalFolders={dataRoomStats.totalFolders}
                       selectedFolder={selectedFolder}
+                      allFiles={allDataRoomFiles}
                     />
                   </TabsContent>
 
