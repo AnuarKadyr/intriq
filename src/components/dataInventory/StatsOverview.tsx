@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { getFileTypeIcon } from "./FileTypeIcons";
 import { cn } from "@/lib/utils";
+import { CriticalDocumentModal } from "./CriticalDocumentModal";
 
 interface CriticalDocument {
   id: string;
@@ -111,6 +112,13 @@ export function StatsOverview({
 }: StatsOverviewProps) {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number | undefined>(undefined);
   const [activeTypeIndex, setActiveTypeIndex] = useState<number | undefined>(undefined);
+  const [selectedDocument, setSelectedDocument] = useState<CriticalDocument | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDocumentClick = (doc: CriticalDocument) => {
+    setSelectedDocument(doc);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -175,6 +183,7 @@ export function StatsOverview({
               {criticalDocuments.map((doc) => (
                 <div
                   key={doc.id}
+                  onClick={() => handleDocumentClick(doc)}
                   className={cn(
                     "p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm group",
                     doc.impact === "deal-critical" && "bg-red-50/50 border-red-100 hover:border-red-200",
@@ -325,6 +334,13 @@ export function StatsOverview({
           </Card>
         </div>
       </div>
+
+      {/* Critical Document Modal */}
+      <CriticalDocumentModal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        document={selectedDocument}
+      />
     </div>
   );
 }
