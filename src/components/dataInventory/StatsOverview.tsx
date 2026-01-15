@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
-import { CategoryStats, FileTypeStats, DataRoomFolder } from "@/types/dataInventory";
+import { CategoryStats, FileTypeStats, DataRoomFolder, DataRoomFile } from "@/types/dataInventory";
 import { PieChart, Pie, Cell, ResponsiveContainer, Sector, Tooltip } from "recharts";
 import { 
   Files, 
@@ -10,11 +10,14 @@ import {
   TrendingUp, 
   Scale, 
   ChevronRight,
-  Sparkles
+  Sparkles,
+  ArrowLeft
 } from "lucide-react";
 import { getFileTypeIcon } from "./FileTypeIcons";
 import { cn } from "@/lib/utils";
 import { CriticalDocumentModal } from "./CriticalDocumentModal";
+import { CriticalDocumentSelector } from "./CriticalDocumentSelector";
+import { Button } from "@/components/ui/button";
 
 interface CriticalDocument {
   id: string;
@@ -24,43 +27,66 @@ interface CriticalDocument {
   impact: "deal-critical" | "high-value" | "risk-flag";
 }
 
-const criticalDocuments: CriticalDocument[] = [
-  {
-    id: "f5",
-    name: "Financial Model v86 (to Feb'25)",
-    category: "Financial",
-    insight: "Master valuation model - forms basis of £47M deal price. Contains 48 worksheets with full P&L projections through 2028.",
-    impact: "deal-critical"
-  },
-  {
-    id: "f2",
-    name: "Project Aurora IM (FINAL)",
-    category: "Financial", 
-    insight: "Final investment memorandum with deal thesis. Key for understanding valuation rationale and synergy assumptions.",
-    impact: "deal-critical"
-  },
-  {
-    id: "f16",
-    name: "2025-02-28 Aged Debt.xlsm",
-    category: "Financial",
-    insight: "Shows £2.3M aged >90 days. Potential working capital adjustment of £400K flagged. Requires attention.",
-    impact: "risk-flag"
-  },
-  {
-    id: "f12",
-    name: "Detailed Staff Analysis v3",
-    category: "HR",
-    insight: "22 worksheets covering all 127 staff. Identifies 8 key fee-earners generating 43% of revenue.",
-    impact: "high-value"
-  },
-  {
-    id: "f3",
-    name: "Target Co - GH HoT vSHARED",
-    category: "Legal",
-    insight: "Heads of Terms document. Contains exclusivity period ending June 30, 2025 and break fee provisions.",
-    impact: "deal-critical"
-  }
-];
+// Function to generate insights from selected files
+function generateCriticalDocuments(files: DataRoomFile[]): CriticalDocument[] {
+  const impactTypes: Array<"deal-critical" | "high-value" | "risk-flag"> = ["deal-critical", "high-value", "risk-flag"];
+  
+  const insightTemplates: Record<string, Record<string, string>> = {
+    Financial: {
+      "deal-critical": "Core financial model with valuation assumptions and projections critical to deal pricing.",
+      "high-value": "Contains key financial metrics and performance indicators for due diligence review.",
+      "risk-flag": "Potential discrepancies identified requiring further financial analysis."
+    },
+    Legal: {
+      "deal-critical": "Key legal document with material terms affecting deal structure and obligations.",
+      "high-value": "Important contractual provisions and legal frameworks supporting the transaction.",
+      "risk-flag": "Legal terms requiring careful review for potential compliance or liability issues."
+    },
+    Commercial: {
+      "deal-critical": "Strategic commercial data essential for understanding market position and deal rationale.",
+      "high-value": "Revenue streams and customer analysis supporting business valuation.",
+      "risk-flag": "Commercial risks identified that may impact future performance projections."
+    },
+    HR: {
+      "deal-critical": "Key personnel and compensation data affecting retention and integration planning.",
+      "high-value": "Organizational structure and talent assessment supporting operational due diligence.",
+      "risk-flag": "Staffing or compensation issues flagged requiring management attention."
+    },
+    Tax: {
+      "deal-critical": "Tax structure and compliance documentation critical to transaction structuring.",
+      "high-value": "Tax optimization opportunities and historical compliance records.",
+      "risk-flag": "Potential tax exposures or audit risks requiring further investigation."
+    },
+    Other: {
+      "deal-critical": "Critical supporting documentation for deal execution.",
+      "high-value": "Valuable supplementary information for due diligence.",
+      "risk-flag": "Items requiring additional review and clarification."
+    }
+  };
+
+  return files.map((file, index) => {
+    // Assign impact based on priority and position
+    let impact: "deal-critical" | "high-value" | "risk-flag";
+    if (file.priority === "HIGH") {
+      impact = index % 2 === 0 ? "deal-critical" : "high-value";
+    } else if (file.priority === "MEDIUM") {
+      impact = index % 3 === 0 ? "high-value" : "risk-flag";
+    } else {
+      impact = impactTypes[index % 3];
+    }
+
+    const category = file.category || "Other";
+    const insight = insightTemplates[category]?.[impact] || insightTemplates.Other[impact];
+
+    return {
+      id: file.id,
+      name: file.name,
+      category: category,
+      insight: insight,
+      impact: impact
+    };
+  });
+}
 
 interface StatsOverviewProps {
   categoryStats: CategoryStats[];
@@ -69,6 +95,7 @@ interface StatsOverviewProps {
   totalSize: string;
   totalFolders: number;
   selectedFolder: DataRoomFolder | null;
+  allFiles?: DataRoomFile[];
 }
 
 const renderActiveShape = (props: any) => {
@@ -108,16 +135,30 @@ export function StatsOverview({
   totalFiles, 
   totalSize, 
   totalFolders,
-  selectedFolder
+  selectedFolder,
+  allFiles = []
 }: StatsOverviewProps) {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number | undefined>(undefined);
   const [activeTypeIndex, setActiveTypeIndex] = useState<number | undefined>(undefined);
   const [selectedDocument, setSelectedDocument] = useState<CriticalDocument | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [criticalDocuments, setCriticalDocuments] = useState<CriticalDocument[]>([]);
+  const [hasAnalyzed, setHasAnalyzed] = useState(false);
 
   const handleDocumentClick = (doc: CriticalDocument) => {
     setSelectedDocument(doc);
     setIsModalOpen(true);
+  };
+
+  const handleAnalyze = (files: DataRoomFile[]) => {
+    const generated = generateCriticalDocuments(files);
+    setCriticalDocuments(generated);
+    setHasAnalyzed(true);
+  };
+
+  const handleBackToSelection = () => {
+    setHasAnalyzed(false);
+    setCriticalDocuments([]);
   };
 
   return (
@@ -168,62 +209,78 @@ export function StatsOverview({
       <div className="grid grid-cols-12 gap-4">
         {/* Critical Documents - Takes 7 columns */}
         <div className="col-span-7">
-          <Card className="p-4 h-full">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-                <AlertTriangle className="h-4 w-4 text-amber-600" />
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-gray-900">Critical Documents</h3>
-                <p className="text-xs text-gray-500">Key files requiring attention</p>
-              </div>
-            </div>
-            
-            <div className="space-y-2">
-              {criticalDocuments.map((doc) => (
-                <div
-                  key={doc.id}
-                  onClick={() => handleDocumentClick(doc)}
-                  className={cn(
-                    "p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm group",
-                    doc.impact === "deal-critical" && "bg-red-50/50 border-red-100 hover:border-red-200",
-                    doc.impact === "high-value" && "bg-blue-50/50 border-blue-100 hover:border-blue-200",
-                    doc.impact === "risk-flag" && "bg-amber-50/50 border-amber-100 hover:border-amber-200"
-                  )}
+          {!hasAnalyzed ? (
+            <CriticalDocumentSelector 
+              allFiles={allFiles} 
+              onAnalyze={handleAnalyze}
+              maxSelections={10}
+            />
+          ) : (
+            <Card className="p-4 h-full">
+              <div className="flex items-center gap-2 mb-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleBackToSelection}
+                  className="h-8 w-8 p-0"
                 >
-                  <div className="flex items-start gap-3">
-                    <div className={cn(
-                      "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
-                      doc.impact === "deal-critical" && "bg-red-100",
-                      doc.impact === "high-value" && "bg-blue-100",
-                      doc.impact === "risk-flag" && "bg-amber-100"
-                    )}>
-                      {doc.impact === "deal-critical" && <Scale className="h-4 w-4 text-red-600" />}
-                      {doc.impact === "high-value" && <TrendingUp className="h-4 w-4 text-blue-600" />}
-                      {doc.impact === "risk-flag" && <AlertTriangle className="h-4 w-4 text-amber-600" />}
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-0.5">
-                        <span className="text-sm font-medium text-gray-900 truncate">{doc.name}</span>
-                        <span className={cn(
-                          "text-[10px] px-1.5 py-0.5 rounded font-medium uppercase flex-shrink-0",
-                          doc.impact === "deal-critical" && "bg-red-100 text-red-700",
-                          doc.impact === "high-value" && "bg-blue-100 text-blue-700",
-                          doc.impact === "risk-flag" && "bg-amber-100 text-amber-700"
-                        )}>
-                          {doc.impact.replace("-", " ")}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-500 line-clamp-2">{doc.insight}</p>
-                    </div>
-                    
-                    <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0 mt-2" />
-                  </div>
+                  <ArrowLeft className="h-4 w-4" />
+                </Button>
+                <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+                  <AlertTriangle className="h-4 w-4 text-amber-600" />
                 </div>
-              ))}
-            </div>
-          </Card>
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-gray-900">Critical Documents</h3>
+                  <p className="text-xs text-gray-500">{criticalDocuments.length} files analyzed</p>
+                </div>
+              </div>
+              
+              <div className="space-y-2 max-h-[400px] overflow-y-auto">
+                {criticalDocuments.map((doc) => (
+                  <div
+                    key={doc.id}
+                    onClick={() => handleDocumentClick(doc)}
+                    className={cn(
+                      "p-3 rounded-lg border cursor-pointer transition-all hover:shadow-sm group",
+                      doc.impact === "deal-critical" && "bg-red-50/50 border-red-100 hover:border-red-200",
+                      doc.impact === "high-value" && "bg-blue-50/50 border-blue-100 hover:border-blue-200",
+                      doc.impact === "risk-flag" && "bg-amber-50/50 border-amber-100 hover:border-amber-200"
+                    )}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={cn(
+                        "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
+                        doc.impact === "deal-critical" && "bg-red-100",
+                        doc.impact === "high-value" && "bg-blue-100",
+                        doc.impact === "risk-flag" && "bg-amber-100"
+                      )}>
+                        {doc.impact === "deal-critical" && <Scale className="h-4 w-4 text-red-600" />}
+                        {doc.impact === "high-value" && <TrendingUp className="h-4 w-4 text-blue-600" />}
+                        {doc.impact === "risk-flag" && <AlertTriangle className="h-4 w-4 text-amber-600" />}
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className="text-sm font-medium text-gray-900 truncate">{doc.name}</span>
+                          <span className={cn(
+                            "text-[10px] px-1.5 py-0.5 rounded font-medium uppercase flex-shrink-0",
+                            doc.impact === "deal-critical" && "bg-red-100 text-red-700",
+                            doc.impact === "high-value" && "bg-blue-100 text-blue-700",
+                            doc.impact === "risk-flag" && "bg-amber-100 text-amber-700"
+                          )}>
+                            {doc.impact.replace("-", " ")}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-500 line-clamp-2">{doc.insight}</p>
+                      </div>
+                      
+                      <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0 mt-2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
         </div>
 
         {/* Right Column - Charts & Breakdown - Takes 5 columns */}
