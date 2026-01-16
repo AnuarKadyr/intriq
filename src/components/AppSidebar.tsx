@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Plus,
   ChevronDown,
@@ -6,7 +6,7 @@ import {
   Building2,
   ChevronRight
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -31,9 +31,17 @@ const companyResearch = [
 
 export function AppSidebar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [engagementsOpen, setEngagementsOpen] = useState(true);
   const [researchOpen, setResearchOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState<{ type: string; id: number } | null>({ type: 'engagement', id: 2 });
+  const [activeItem, setActiveItem] = useState<{ type: string; id: number } | null>(null);
+
+  // Clear active item when on Main Dashboard
+  useEffect(() => {
+    if (location.pathname === "/engagements") {
+      setActiveItem(null);
+    }
+  }, [location.pathname]);
 
   const handleEngagementsHeaderClick = (e: React.MouseEvent) => {
     e.stopPropagation();
