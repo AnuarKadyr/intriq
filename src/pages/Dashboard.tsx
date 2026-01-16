@@ -11,8 +11,10 @@ import {
   Users,
   FileText,
   ArrowUpRight,
-  Download
+  Download,
+  ChevronLeft
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/MainLayout";
@@ -172,6 +174,7 @@ const miniStats = [
 ];
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [showTour, setShowTour] = useState(false);
 
   useEffect(() => {
@@ -187,6 +190,10 @@ const Dashboard = () => {
   const handleTourComplete = () => {
     setShowTour(false);
   };
+
+  const handleBackToEngagements = () => {
+    navigate("/engagements");
+  };
   
   return (
     <MainLayout showTour={showTour} onTourComplete={handleTourComplete}>
@@ -194,9 +201,18 @@ const Dashboard = () => {
         {/* Header */}
         <header className="border-b border-gray-200 bg-white px-8 py-6 flex-shrink-0">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
-              <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handleBackToEngagements}
+                className="p-2 -ml-2 rounded-lg hover:bg-gray-100 transition-colors group"
+                title="Back to Engagements"
+              >
+                <ChevronLeft className="h-5 w-5 text-gray-400 group-hover:text-gray-600" />
+              </button>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">{companyData.name}</h1>
+                <p className="text-sm text-gray-500 mt-1">{companyData.industry} • Due Diligence Report</p>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <Button 
