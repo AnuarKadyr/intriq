@@ -96,6 +96,7 @@ interface StatsOverviewProps {
   totalFolders: number;
   selectedFolder: DataRoomFolder | null;
   allFiles?: DataRoomFile[];
+  goDeepFiles?: DataRoomFile[];
 }
 
 const renderActiveShape = (props: any) => {
@@ -136,7 +137,8 @@ export function StatsOverview({
   totalSize, 
   totalFolders,
   selectedFolder,
-  allFiles = []
+  allFiles = [],
+  goDeepFiles = []
 }: StatsOverviewProps) {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState<number | undefined>(undefined);
   const [activeTypeIndex, setActiveTypeIndex] = useState<number | undefined>(undefined);
@@ -214,6 +216,7 @@ export function StatsOverview({
               allFiles={allFiles} 
               onAnalyze={handleAnalyze}
               maxSelections={10}
+              initialSelectedFiles={goDeepFiles}
             />
           ) : (
             <Card className="p-4 h-full">

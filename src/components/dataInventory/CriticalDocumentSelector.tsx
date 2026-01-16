@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { DataRoomFile } from "@/types/dataInventory";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,15 +21,30 @@ interface CriticalDocumentSelectorProps {
   allFiles: DataRoomFile[];
   onAnalyze: (files: DataRoomFile[]) => void;
   maxSelections?: number;
+  initialSelectedFiles?: DataRoomFile[];
 }
 
 export function CriticalDocumentSelector({ 
   allFiles, 
   onAnalyze, 
-  maxSelections = 10 
+  maxSelections = 10,
+  initialSelectedFiles = []
 }: CriticalDocumentSelectorProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFiles, setSelectedFiles] = useState<DataRoomFile[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<DataRoomFile[]>(initialSelectedFiles);
+
+  // Sync with initialSelectedFiles when new files are added via Go Deep
+  useEffect(() => {
+    setSelectedFiles(prev => {
+      const newFiles = initialSelectedFiles.filter(
+        newFile => !prev.some(existing => existing.id === newFile.id)
+      );
+      if (newFiles.length > 0) {
+        return [...prev, ...newFiles].slice(0, maxSelections);
+      }
+      return prev;
+    });
+  }, [initialSelectedFiles, maxSelections]);
 
   const filteredFiles = useMemo(() => {
     if (!searchQuery.trim()) return allFiles;

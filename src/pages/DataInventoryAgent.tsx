@@ -16,9 +16,10 @@ import {
   dataRoomStats,
   getAllFiles 
 } from "@/data/dataRoomData";
-import { DataRoomFolder } from "@/types/dataInventory";
+import { DataRoomFolder, DataRoomFile } from "@/types/dataInventory";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "sonner";
 
 const DataInventoryAgent = () => {
   const navigate = useNavigate();
@@ -26,12 +27,27 @@ const DataInventoryAgent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [goDeepFiles, setGoDeepFiles] = useState<DataRoomFile[]>([]);
 
   const currentFiles = selectedFolder ? getAllFiles(selectedFolder) : [];
   const directFiles = selectedFolder?.files || [];
   
   // Get all files from all folders for the critical document selector
   const allDataRoomFiles = dataRoomFolders.flatMap(folder => getAllFiles(folder));
+
+  const handleGoDeep = (file: DataRoomFile) => {
+    const isAlreadyAdded = goDeepFiles.some(f => f.id === file.id);
+    if (isAlreadyAdded) {
+      toast.info(`"${file.name}" is already in Critical Documents`);
+      return;
+    }
+    if (goDeepFiles.length >= 10) {
+      toast.warning("Maximum 10 documents can be added to Critical Documents");
+      return;
+    }
+    setGoDeepFiles(prev => [...prev, file]);
+    toast.success(`"${file.name}" added to Critical Documents`);
+  };
 
   return (
     <MainLayout>
@@ -118,6 +134,7 @@ const DataInventoryAgent = () => {
                       totalFolders={dataRoomStats.totalFolders}
                       selectedFolder={selectedFolder}
                       allFiles={allDataRoomFiles}
+                      goDeepFiles={goDeepFiles}
                     />
                   </TabsContent>
 
@@ -128,13 +145,15 @@ const DataInventoryAgent = () => {
                         {directFiles.length > 0 && (
                           <FileList 
                             files={directFiles} 
-                            title={`Files in ${selectedFolder.name}`} 
+                            title={`Files in ${selectedFolder.name}`}
+                            onGoDeep={handleGoDeep}
                           />
                         )}
                         {directFiles.length === 0 && currentFiles.length > 0 && (
                           <FileList 
                             files={currentFiles.slice(0, 20)} 
-                            title={`All files in ${selectedFolder.name} (showing first 20)`} 
+                            title={`All files in ${selectedFolder.name} (showing first 20)`}
+                            onGoDeep={handleGoDeep}
                           />
                         )}
                         {directFiles.length === 0 && currentFiles.length === 0 && (
