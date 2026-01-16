@@ -108,6 +108,17 @@ export function CriticalDocumentSelector({
           <h3 className="text-sm font-semibold text-gray-900">Critical Document Analysis</h3>
           <p className="text-xs text-gray-500">Select up to {maxSelections} documents to analyze</p>
         </div>
+        {hasGeneratedInsights && onViewInsights && (
+          <Button
+            onClick={onViewInsights}
+            variant="outline"
+            size="sm"
+            className="gap-1.5 text-xs"
+          >
+            <ListChecks className="h-3.5 w-3.5" />
+            View Insights
+          </Button>
+        )}
         <Badge variant="outline" className={cn(
           "text-xs",
           isMaxSelected ? "border-amber-300 text-amber-700 bg-amber-50" : ""
@@ -226,27 +237,15 @@ export function CriticalDocumentSelector({
         </div>
       )}
 
-      {/* Action Buttons */}
-      <div className="mt-4 flex gap-2">
-        {hasGeneratedInsights && onViewInsights && (
-          <Button
-            onClick={onViewInsights}
-            variant="outline"
-            className="gap-2 flex-1"
-          >
-            <ListChecks className="h-4 w-4" />
-            View Insights
-          </Button>
-        )}
-        <Button
-          onClick={handleAnalyze}
-          disabled={selectedFiles.length === 0}
-          className={cn("gap-2", hasGeneratedInsights ? "flex-1" : "w-full")}
-        >
-          <Sparkles className="h-4 w-4" />
-          {hasGeneratedInsights ? "Re-analyze" : "Analyze"} {selectedFiles.length > 0 ? `${selectedFiles.length} Doc${selectedFiles.length > 1 ? 's' : ''}` : 'Documents'}
-        </Button>
-      </div>
+      {/* Analyze Button */}
+      <Button
+        onClick={handleAnalyze}
+        disabled={selectedFiles.length === 0}
+        className="mt-4 w-full gap-2"
+      >
+        <Sparkles className="h-4 w-4" />
+        {hasGeneratedInsights ? "Re-analyze" : "Analyze"} {selectedFiles.length > 0 ? `${selectedFiles.length} Document${selectedFiles.length > 1 ? 's' : ''}` : 'Documents'}
+      </Button>
     </Card>
   );
 }
