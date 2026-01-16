@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { File, Download, Eye, ChevronDown, ChevronUp } from "lucide-react";
+import { File, Download, Eye, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 import { DataRoomFile } from "@/types/dataInventory";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,9 +10,10 @@ import { DocumentPreviewModal } from "./DocumentPreviewModal";
 interface FileListProps {
   files: DataRoomFile[];
   title: string;
+  onGoDeep?: (file: DataRoomFile) => void;
 }
 
-export function FileList({ files, title }: FileListProps) {
+export function FileList({ files, title, onGoDeep }: FileListProps) {
   const [expandedFile, setExpandedFile] = useState<string | null>(null);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewFileName, setPreviewFileName] = useState("");
@@ -136,6 +137,19 @@ export function FileList({ files, title }: FileListProps) {
                           <Download className="h-3.5 w-3.5" />
                           Download
                         </Button>
+                        {onGoDeep && (
+                          <Button 
+                            size="sm" 
+                            className="gap-2 bg-primary hover:bg-primary/90"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onGoDeep(file);
+                            }}
+                          >
+                            <Sparkles className="h-3.5 w-3.5" />
+                            Go Deep
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
