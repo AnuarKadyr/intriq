@@ -423,7 +423,7 @@ export function AiChatPanel() {
             <Sparkles className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900">Tony</h3>
+            <h3 className="font-semibold text-gray-900">Aria</h3>
             <p className="text-xs text-gray-500">Your AI Partner</p>
           </div>
         </div>

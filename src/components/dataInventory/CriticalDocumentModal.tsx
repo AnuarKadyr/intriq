@@ -44,11 +44,11 @@ interface CriticalDocumentModalProps {
 
 // Sample detailed analysis data - this would come from backend in real implementation
 const detailedAnalysis = {
-  executiveSummary: `This Excel file contains comprehensive transactional and analytical data for Greenwoods Legal LLP, a UK law firm, spanning May 2023 through February 2025. The file comprises five interconnected sheets that capture 82,512 individual time-and-billing transactions, revenue attribution across 24 fee earners, departmental performance across seven practice areas, and origination source analysis.`,
-  criticalFinding: `The critical finding is significant revenue concentration risk: the top two partners (Huw Wallis and John Macaulay) generate approximately 40% of total firm revenue, with Huw Wallis alone contributing £2.85M in the most recent period.`,
+  executiveSummary: `This Excel file contains comprehensive transactional and analytical data for Harrington & Blake LLP, a UK law firm, spanning May 2023 through February 2025. The file comprises five interconnected sheets that capture 82,512 individual time-and-billing transactions, revenue attribution across 24 fee earners, departmental performance across seven practice areas, and origination source analysis.`,
+  criticalFinding: `The critical finding is significant revenue concentration risk: the top two partners (James Hartley and Michael Preston) generate approximately 40% of total firm revenue, with James Hartley alone contributing £2.85M in the most recent period.`,
   
   fileOverview: {
-    description: "Core operational and financial dataset for Greenwoods Legal LLP",
+    description: "Core operational and financial dataset for Harrington & Blake LLP",
     purpose: "Financial due diligence for 'Project Aurora' - likely an acquisition or investment transaction",
     sheets: [
       { name: "Revenue by originator", description: "Tracks revenue generation by 24 individual fee earners across 113 time periods" },
@@ -70,23 +70,23 @@ const detailedAnalysis = {
   ],
 
   topFeeEarners: [
-    { name: "Huw Wallis", role: "Equity Partner", p1: "£1,769.68k", p2: "£2,755.76k", p3: "£2,852.34k", growth1: "+55.7%", growth2: "+3.5%" },
-    { name: "John Macaulay", role: "Partner", p1: "£1,470.27k", p2: "£1,546.82k", p3: "£5,630.60k*", growth1: "+5.2%", growth2: "+264.1%*" },
-    { name: "Simon Malcolm", role: "Partner", p1: "£780.88k", p2: "£1,225.89k", p3: "£973.33k", growth1: "+57.0%", growth2: "-20.6%" },
-    { name: "Robert Dillarstone", role: "Equity Partner", p1: "£985.18k", p2: "£1,003.61k", p3: "£3,060.13k*", growth1: "+1.9%", growth2: "+205.0%*" },
-    { name: "William Thomas", role: "Partner", p1: "£184.50k", p2: "£647.77k", p3: "£668.69k", growth1: "+251.2%", growth2: "+3.2%" },
+    { name: "James Hartley", role: "Equity Partner", p1: "£1,769.68k", p2: "£2,755.76k", p3: "£2,852.34k", growth1: "+55.7%", growth2: "+3.5%" },
+    { name: "Michael Preston", role: "Partner", p1: "£1,470.27k", p2: "£1,546.82k", p3: "£5,630.60k*", growth1: "+5.2%", growth2: "+264.1%*" },
+    { name: "David Ashworth", role: "Partner", p1: "£780.88k", p2: "£1,225.89k", p3: "£973.33k", growth1: "+57.0%", growth2: "-20.6%" },
+    { name: "Thomas Blackwood", role: "Equity Partner", p1: "£985.18k", p2: "£1,003.61k", p3: "£3,060.13k*", growth1: "+1.9%", growth2: "+205.0%*" },
+    { name: "Richard Pemberton", role: "Partner", p1: "£184.50k", p2: "£647.77k", p3: "£668.69k", growth1: "+251.2%", growth2: "+3.2%" },
   ],
 
   departmentalRevenue: [
-    { department: "Disputes", contributors: "Huw Wallis (£2,583.10k), Howard Crossman (£333.98k)", revenue: "~£3,000+", percentage: "~19%" },
-    { department: "Employment", contributors: "John Macaulay (£529.89k), Simon Malcolm (£884.47k)", revenue: "~£1,800+", percentage: "~11%" },
-    { department: "Wealth Preservation", contributors: "Matthew Biles (£775.87k), multiple contributors", revenue: "~£1,500+", percentage: "~10%" },
-    { department: "Real Estate", contributors: "William Thomas (£668.69k), distributed", revenue: "~£900+", percentage: "~6%" },
+    { department: "Disputes", contributors: "James Hartley (£2,583.10k), Peter Thornton (£333.98k)", revenue: "~£3,000+", percentage: "~19%" },
+    { department: "Employment", contributors: "Michael Preston (£529.89k), David Ashworth (£884.47k)", revenue: "~£1,800+", percentage: "~11%" },
+    { department: "Wealth Preservation", contributors: "Andrew Chambers (£775.87k), multiple contributors", revenue: "~£1,500+", percentage: "~10%" },
+    { department: "Real Estate", contributors: "Richard Pemberton (£668.69k), distributed", revenue: "~£900+", percentage: "~6%" },
   ],
 
   risks: [
-    { category: "Key Person Concentration", finding: "Huw Wallis generates £2.85M (18% of firm revenue); top 2 partners represent ~54% of total revenue", severity: "high" },
-    { category: "Departmental Concentration", finding: "Huw Wallis derives 90.6% of revenue from Disputes; Simon Malcolm derives 90.9% from Employment", severity: "high" },
+    { category: "Key Person Concentration", finding: "James Hartley generates £2.85M (18% of firm revenue); top 2 partners represent ~54% of total revenue", severity: "high" },
+    { category: "Departmental Concentration", finding: "James Hartley derives 90.6% of revenue from Disputes; David Ashworth derives 90.9% from Employment", severity: "high" },
     { category: "Billing Realization", finding: "Sample transactions show 0-73% realization rates with systematic write-offs in Employment practice", severity: "high" },
     { category: "Revenue Volatility", finding: "Referrer revenue swings from -54.8% to +236.5% year-over-year; unexplained 235% spikes in Period 10", severity: "medium" },
     { category: "Junior Fee Earner Productivity", finding: "'Existing Other' category declined 16.3% in FY24 before recovering, suggesting capacity or BD issues", severity: "medium" },
@@ -114,7 +114,7 @@ const detailedAnalysis = {
   ],
 
   criticalIssues: [
-    { title: "Extreme Key Person Concentration", detail: "Huw Wallis (18% of revenue) and John Macaulay (combined ~54%) create unacceptable dependency; requires retention agreements with substantial earnout/clawback provisions" },
+    { title: "Extreme Key Person Concentration", detail: "James Hartley (18% of revenue) and Michael Preston (combined ~54%) create unacceptable dependency; requires retention agreements with substantial earnout/clawback provisions" },
     { title: "Material Billing Realization Issues", detail: "Systematic write-offs ranging from 26.7% to 100% on sampled matters; requires full-dataset quantification of total write-off impact" },
     { title: "Unexplained Revenue Volatility", detail: "235% spikes in Period 10 without clear explanation creates analytical uncertainty; requires immediate clarification" },
   ],

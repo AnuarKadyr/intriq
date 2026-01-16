@@ -29,7 +29,7 @@ export const insightCards: InsightCard[] = [
       { label: "Current", value: "184", subLabel: "compared to last year", change: "+6.9%", trend: "up" },
     ],
     summaryParagraphs: [
-      "Meridian Advisory Partners (\"the Firm\") operates as a comprehensive professional services firm across four core practice areas: Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring. The Firm maintains offices across major financial centers with multi-currency banking capabilities in GBP, EUR, and USD.",
+      "Ashford Advisory Partners (\"the Firm\") operates as a comprehensive professional services firm across four core practice areas: Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring. The Firm maintains offices across major financial centers with multi-currency banking capabilities in GBP, EUR, and USD.",
       "As of March 2025, the Firm's consolidated operating accounts across all entities totaled £14.2 billion (aggregated across operating, client trust, and escrow accounts).",
       "Achieved high-confidence data extraction for: Employee records (96%) Revenue recognition (94%)",
     ],
@@ -44,7 +44,7 @@ export const insightCards: InsightCard[] = [
       "What are the key risks?",
     ],
     sources: [
-      { id: "src-1", name: "Annual_Report_FY2025.pdf", type: "pdf", highlightText: "Meridian Advisory Partners (\"the Firm\") operates as a comprehensive professional services firm across four core practice areas: Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring. The Firm maintains offices across major financial centers with multi-currency banking capabilities in GBP, EUR, and USD." },
+      { id: "src-1", name: "Annual_Report_FY2025.pdf", type: "pdf", highlightText: "Ashford Advisory Partners (\"the Firm\") operates as a comprehensive professional services firm across four core practice areas: Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring. The Firm maintains offices across major financial centers with multi-currency banking capabilities in GBP, EUR, and USD." },
       { id: "src-2", name: "Q4_Financial_Statements.xlsx", type: "excel", highlightText: "As of March 2025, the Firm's consolidated operating accounts across all entities totaled £14.2 billion (aggregated across operating, client trust, and escrow accounts)." },
       { id: "src-3", name: "Data_Extraction_Summary.pdf", type: "pdf", highlightText: "Achieved high-confidence data extraction for: Employee records (96%) Revenue recognition (94%)" },
       { id: "src-4", name: "Corporate_Structure_Overview.docx", type: "word", highlightText: "Corporate Finance, Litigation Support, Transaction Advisory, and Restructuring" },

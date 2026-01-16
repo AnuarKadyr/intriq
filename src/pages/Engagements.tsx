@@ -49,8 +49,8 @@ interface Engagement {
 
 const engagements: Engagement[] = [
   {
-    id: "vertex-partners",
-    name: "Vertex Partners",
+    id: "northgate-industrial",
+    name: "Northgate Industrial",
     industry: "Industrial Manufacturing",
     stage: "Due Diligence",
     lastUpdated: "2 hours ago",
@@ -59,8 +59,8 @@ const engagements: Engagement[] = [
     status: "active",
   },
   {
-    id: "aurora-tech",
-    name: "Aurora Technologies",
+    id: "spectrum-software",
+    name: "Spectrum Software",
     industry: "Software & SaaS",
     stage: "Initial Review",
     lastUpdated: "1 day ago",
@@ -69,8 +69,8 @@ const engagements: Engagement[] = [
     status: "active",
   },
   {
-    id: "greenfield-energy",
-    name: "Greenfield Energy",
+    id: "evergreen-power",
+    name: "Evergreen Power",
     industry: "Renewable Energy",
     stage: "Completed",
     lastUpdated: "1 week ago",
@@ -79,8 +79,8 @@ const engagements: Engagement[] = [
     status: "completed",
   },
   {
-    id: "nexus-health",
-    name: "Nexus Healthcare",
+    id: "beacon-health",
+    name: "Beacon Health",
     industry: "Healthcare Services",
     stage: "Pending Approval",
     lastUpdated: "3 days ago",
@@ -89,8 +89,8 @@ const engagements: Engagement[] = [
     status: "pending",
   },
   {
-    id: "blue-horizon",
-    name: "Blue Horizon Capital",
+    id: "cobalt-capital",
+    name: "Cobalt Capital",
     industry: "Financial Services",
     stage: "Due Diligence",
     lastUpdated: "5 hours ago",
@@ -99,8 +99,8 @@ const engagements: Engagement[] = [
     status: "active",
   },
   {
-    id: "meridian-logistics",
-    name: "Meridian Logistics",
+    id: "compass-freight",
+    name: "Compass Freight",
     industry: "Transportation",
     stage: "Initial Review",
     lastUpdated: "2 days ago",

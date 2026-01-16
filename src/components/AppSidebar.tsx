@@ -17,16 +17,16 @@ import logoTiffany from "@/assets/logo-tiffany.svg";
 
 // Mock data for engagements
 const engagements = [
-  { id: 1, name: "Nextera Holdings" },
-  { id: 2, name: "Vertex Partners" },
-  { id: 3, name: "Pinnacle Group" },
-  { id: 4, name: "Atlas Industries" },
+  { id: 1, name: "Sterling Holdings" },
+  { id: 2, name: "Northgate Industrial" },
+  { id: 3, name: "Summit Ventures" },
+  { id: 4, name: "Titan Manufacturing" },
 ];
 
 // Mock data for company research
 const companyResearch = [
-  { id: 1, name: "Orion Systems" },
-  { id: 2, name: "Meridian Corp" },
+  { id: 1, name: "Polaris Systems" },
+  { id: 2, name: "Centurion Corp" },
 ];
 
 export function AppSidebar() {
@@ -159,11 +159,11 @@ export function AppSidebar() {
       <div className="p-4 border-t border-gray-100">
         <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
           <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
-            <span className="text-primary font-medium text-sm">MG</span>
+            <span className="text-primary font-medium text-sm">SM</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">Mia Gasker</p>
-            <p className="text-xs text-gray-500 truncate">mia@intriq.ai</p>
+            <p className="text-sm font-medium text-gray-900 truncate">Sarah Mitchell</p>
+            <p className="text-xs text-gray-500 truncate">sarah@intriq.ai</p>
           </div>
           <ChevronRight className="h-4 w-4 text-gray-400" />
         </div>

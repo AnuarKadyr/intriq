@@ -294,7 +294,7 @@ const Onboarding = () => {
                   </Label>
                   <Input
                     id="projectLead"
-                    placeholder="e.g., John Smith"
+                    placeholder="e.g., Alex Thompson"
                     value={formData.projectLead}
                     onChange={(e) =>
                       handleInputChange("projectLead", e.target.value)

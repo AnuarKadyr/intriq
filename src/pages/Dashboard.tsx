@@ -37,9 +37,9 @@ import {
 
 // Company Data
 const companyData = {
-  name: "Vertex Partners",
+  name: "Northgate Industrial",
   industry: "B2B Industrial Components",
-  description: "Vertex Partners is a B2B industrial components manufacturer serving automotive and aerospace sectors. The company generates $28M in annual revenue through long-term supply contracts with 15 OEM customers, operating two manufacturing facilities in the Midwest. Revenue is driven by unit volume (70%) and contractual price escalators (30%), with 62% concentration in top 3 customers.",
+  description: "Northgate Industrial is a B2B industrial components manufacturer serving automotive and aerospace sectors. The company generates $28M in annual revenue through long-term supply contracts with 15 OEM customers, operating two manufacturing facilities in the Midwest. Revenue is driven by unit volume (70%) and contractual price escalators (30%), with 62% concentration in top 3 customers.",
 };
 
 // KPI Data
