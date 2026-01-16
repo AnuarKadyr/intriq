@@ -215,6 +215,8 @@ export function StatsOverview({
             <CriticalDocumentSelector 
               allFiles={allFiles} 
               onAnalyze={handleAnalyze}
+              onViewInsights={() => setHasAnalyzed(true)}
+              hasGeneratedInsights={criticalDocuments.length > 0}
               maxSelections={10}
               initialSelectedFiles={goDeepFiles}
             />
