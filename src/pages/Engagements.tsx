@@ -412,17 +412,14 @@ const Engagements = () => {
               {filteredAndSortedEngagements.map((engagement) => (
                 <Card
                   key={engagement.id}
-                  className="group cursor-pointer bg-white border-0 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                  className="group cursor-pointer bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden rounded-xl"
                   onClick={() => handleEngagementClick(engagement.id)}
                 >
-                  {/* Gradient Top Bar */}
-                  <div className={`h-1 bg-gradient-to-r ${getInitialsBgColor(engagement.name)}`} />
-                  
                   <CardContent className="p-6">
                     {/* Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-4">
-                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${getInitialsBgColor(engagement.name)} flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300`}>
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/80 to-primary flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform duration-300">
                           <span className="text-white font-bold text-sm">
                             {getInitials(engagement.name)}
                           </span>
