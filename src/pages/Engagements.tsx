@@ -263,7 +263,7 @@ const Engagements = () => {
   ].filter(Boolean).length;
 
   return (
-    <MainLayout>
+    <MainLayout showAgentBar={false}>
       <div className="h-full flex flex-col overflow-hidden">
         {/* Header */}
         <header className="border-b border-gray-200 bg-white px-8 py-6 flex-shrink-0">

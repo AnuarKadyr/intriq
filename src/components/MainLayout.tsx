@@ -9,9 +9,10 @@ interface MainLayoutProps {
   children: ReactNode;
   showTour?: boolean;
   onTourComplete?: () => void;
+  showAgentBar?: boolean;
 }
 
-export function MainLayout({ children, showTour = false, onTourComplete }: MainLayoutProps) {
+export function MainLayout({ children, showTour = false, onTourComplete, showAgentBar = true }: MainLayoutProps) {
   const [buttonPositions, setButtonPositions] = useState<{ left: number; width: number }[]>([]);
 
   return (
@@ -22,11 +23,11 @@ export function MainLayout({ children, showTour = false, onTourComplete }: MainL
       <AppSidebar />
       
       <main className="flex-1 flex flex-col overflow-hidden min-h-0 ml-[252px]">
-        {/* Agent Quick Bar - Always visible */}
-        <AgentQuickBar onButtonPositionsChange={setButtonPositions} />
+        {/* Agent Quick Bar - Only visible on Engagement Details pages */}
+        {showAgentBar && <AgentQuickBar onButtonPositionsChange={setButtonPositions} />}
         
         {/* Page Content */}
-        <div className="flex-1 pt-[52px] overflow-hidden min-h-0">
+        <div className={`flex-1 ${showAgentBar ? 'pt-[52px]' : ''} overflow-hidden min-h-0`}>
           {children}
         </div>
       </main>

@@ -35,6 +35,11 @@ export function AppSidebar() {
   const [researchOpen, setResearchOpen] = useState(false);
   const [activeItem, setActiveItem] = useState<{ type: string; id: number } | null>({ type: 'engagement', id: 2 });
 
+  const handleEngagementsHeaderClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate("/engagements");
+  };
+
   return (
     <aside className="w-[252px] h-screen bg-white border-r border-gray-100 flex flex-col fixed left-0 top-0 z-20">
       {/* Header */}
@@ -43,7 +48,7 @@ export function AppSidebar() {
           src={logoTiffany} 
           alt="Intriq AI" 
           className="h-7 cursor-pointer hover:opacity-80 transition-opacity"
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/engagements")}
         />
       </div>
 
@@ -62,23 +67,33 @@ export function AppSidebar() {
       <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
         {/* Engagements */}
         <Collapsible open={engagementsOpen} onOpenChange={setEngagementsOpen}>
-          <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors group">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors group">
+            <button 
+              onClick={handleEngagementsHeaderClick}
+              className="flex items-center gap-3 flex-1 text-left"
+            >
               <FolderKanban className="h-5 w-5 text-gray-500" />
               <span className="font-medium text-gray-700">Engagements</span>
-            </div>
-            <ChevronDown 
-              className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
-                engagementsOpen ? 'rotate-0' : '-rotate-90'
-              }`} 
-            />
-          </CollapsibleTrigger>
+            </button>
+            <CollapsibleTrigger asChild>
+              <button className="p-1 hover:bg-gray-100 rounded transition-colors">
+                <ChevronDown 
+                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
+                    engagementsOpen ? 'rotate-0' : '-rotate-90'
+                  }`} 
+                />
+              </button>
+            </CollapsibleTrigger>
+          </div>
           
           <CollapsibleContent className="mt-1 ml-5 border-l border-gray-100">
             {engagements.map((item) => (
               <button
                 key={item.id}
-                onClick={() => setActiveItem({ type: 'engagement', id: item.id })}
+                onClick={() => {
+                  setActiveItem({ type: 'engagement', id: item.id });
+                  navigate("/dashboard");
+                }}
                 className={`
                   w-full text-left px-4 py-2 text-sm transition-colors
                   ${activeItem?.type === 'engagement' && activeItem?.id === item.id
