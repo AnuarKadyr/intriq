@@ -65,7 +65,7 @@ const dataQualityItems = [
   { status: 'success', text: 'Bank reconciliations complete', action: 'Through Feb 2025' }
 ];
 
-const summaryText = `The Project Aurora data room contains comprehensive due diligence materials for the acquisition of Target Co. My analysis shows a well-structured repository with 154 files organized across hierarchical categories including background documentation, VDR snapshots, and specialized financial folders.`;
+const summaryText = `The Project Aurora data room contains comprehensive due diligence materials for the strategic acquisition of Northgate Industrial Holdings. My analysis shows a well-structured repository with 154 verified files organized across financial, legal, operational, and commercial workstreams with full audit trail and version control.`;
 
 export function AIInsightsPanel({ selectedFolder }: AIInsightsPanelProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(true);

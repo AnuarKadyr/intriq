@@ -7,7 +7,7 @@ export const dataRoomFolders: DataRoomFolder[] = [
     name: "Project Aurora",
     path: "Project Aurora copy",
     priority: "HIGH",
-    description: "Root data room containing all due diligence materials for the acquisition of Target Co",
+    description: "Centralized virtual data room for the strategic acquisition of Northgate Industrial Holdings. Contains 154 verified documents across financial, legal, operational, and commercial workstreams with full audit trail and version control.",
     fileCount: 154,
     children: [
       {
