@@ -45,7 +45,7 @@ const OnboardingComplete = () => {
           <Button
             onClick={() => {
               sessionStorage.setItem("just-completed-onboarding", "true");
-              navigate("/dashboard");
+              navigate("/engagements");
             }}
             className="bg-primary hover:bg-primary/90 text-primary-foreground min-w-[220px] h-12 text-base shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
           >
