@@ -12,7 +12,8 @@ import {
   X, 
   Sparkles,
   AlertCircle,
-  Check
+  Check,
+  ListChecks
 } from "lucide-react";
 import { getFileTypeIcon } from "./FileTypeIcons";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,8 @@ import { cn } from "@/lib/utils";
 interface CriticalDocumentSelectorProps {
   allFiles: DataRoomFile[];
   onAnalyze: (files: DataRoomFile[]) => void;
+  onViewInsights?: () => void;
+  hasGeneratedInsights?: boolean;
   maxSelections?: number;
   initialSelectedFiles?: DataRoomFile[];
 }
@@ -27,6 +30,8 @@ interface CriticalDocumentSelectorProps {
 export function CriticalDocumentSelector({ 
   allFiles, 
   onAnalyze, 
+  onViewInsights,
+  hasGeneratedInsights = false,
   maxSelections = 10,
   initialSelectedFiles = []
 }: CriticalDocumentSelectorProps) {
@@ -221,15 +226,27 @@ export function CriticalDocumentSelector({
         </div>
       )}
 
-      {/* Analyze Button */}
-      <Button
-        onClick={handleAnalyze}
-        disabled={selectedFiles.length === 0}
-        className="mt-4 w-full gap-2"
-      >
-        <Sparkles className="h-4 w-4" />
-        Analyze {selectedFiles.length > 0 ? `${selectedFiles.length} Document${selectedFiles.length > 1 ? 's' : ''}` : 'Documents'}
-      </Button>
+      {/* Action Buttons */}
+      <div className="mt-4 flex gap-2">
+        {hasGeneratedInsights && onViewInsights && (
+          <Button
+            onClick={onViewInsights}
+            variant="outline"
+            className="gap-2 flex-1"
+          >
+            <ListChecks className="h-4 w-4" />
+            View Insights
+          </Button>
+        )}
+        <Button
+          onClick={handleAnalyze}
+          disabled={selectedFiles.length === 0}
+          className={cn("gap-2", hasGeneratedInsights ? "flex-1" : "w-full")}
+        >
+          <Sparkles className="h-4 w-4" />
+          {hasGeneratedInsights ? "Re-analyze" : "Analyze"} {selectedFiles.length > 0 ? `${selectedFiles.length} Doc${selectedFiles.length > 1 ? 's' : ''}` : 'Documents'}
+        </Button>
+      </div>
     </Card>
   );
 }
