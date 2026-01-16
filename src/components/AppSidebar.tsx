@@ -34,18 +34,28 @@ export function AppSidebar() {
   const location = useLocation();
   const [engagementsOpen, setEngagementsOpen] = useState(true);
   const [researchOpen, setResearchOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState<{ type: string; id: number } | null>(null);
+  const [activeEngagementId, setActiveEngagementId] = useState<number | null>(null);
 
-  // Clear active item when on Main Dashboard
+  // Determine if we're on Main Dashboard or Engagement Details
+  const isOnMainDashboard = location.pathname === "/engagements";
+  const isOnEngagementDetails = location.pathname === "/dashboard" || location.pathname.startsWith("/agent/");
+
+  // When navigating to engagement details, keep the selected engagement
+  // When on main dashboard, clear the selection
   useEffect(() => {
-    if (location.pathname === "/engagements") {
-      setActiveItem(null);
+    if (isOnMainDashboard) {
+      setActiveEngagementId(null);
     }
-  }, [location.pathname]);
+  }, [isOnMainDashboard]);
 
   const handleEngagementsHeaderClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     navigate("/engagements");
+  };
+
+  const handleEngagementClick = (id: number) => {
+    setActiveEngagementId(id);
+    navigate("/dashboard");
   };
 
   return (
@@ -75,13 +85,17 @@ export function AppSidebar() {
       <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
         {/* Engagements */}
         <Collapsible open={engagementsOpen} onOpenChange={setEngagementsOpen}>
-          <div className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors group">
+          <div className={`flex items-center justify-between w-full px-3 py-2.5 rounded-lg transition-colors group ${
+            isOnMainDashboard 
+              ? 'bg-primary/5 border border-primary/20' 
+              : 'hover:bg-gray-50'
+          }`}>
             <button 
               onClick={handleEngagementsHeaderClick}
               className="flex items-center gap-3 flex-1 text-left"
             >
-              <FolderKanban className="h-5 w-5 text-gray-500" />
-              <span className="font-medium text-gray-700">Engagements</span>
+              <FolderKanban className={`h-5 w-5 ${isOnMainDashboard ? 'text-primary' : 'text-gray-500'}`} />
+              <span className={`font-medium ${isOnMainDashboard ? 'text-primary' : 'text-gray-700'}`}>Engagements</span>
             </button>
             <CollapsibleTrigger asChild>
               <button className="p-1 hover:bg-gray-100 rounded transition-colors">
@@ -98,13 +112,10 @@ export function AppSidebar() {
             {engagements.map((item) => (
               <button
                 key={item.id}
-                onClick={() => {
-                  setActiveItem({ type: 'engagement', id: item.id });
-                  navigate("/dashboard");
-                }}
+                onClick={() => handleEngagementClick(item.id)}
                 className={`
                   w-full text-left px-4 py-2 text-sm transition-colors
-                  ${activeItem?.type === 'engagement' && activeItem?.id === item.id
+                  ${isOnEngagementDetails && activeEngagementId === item.id
                     ? 'text-primary font-medium bg-primary/5 border-l-2 border-primary -ml-[1px]' 
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }
@@ -134,14 +145,8 @@ export function AppSidebar() {
             {companyResearch.map((item) => (
               <button
                 key={item.id}
-                onClick={() => setActiveItem({ type: 'research', id: item.id })}
-                className={`
-                  w-full text-left px-4 py-2 text-sm transition-colors
-                  ${activeItem?.type === 'research' && activeItem?.id === item.id
-                    ? 'text-primary font-medium bg-primary/5 border-l-2 border-primary -ml-[1px]' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  }
-                `}
+                onClick={() => {}}
+                className="w-full text-left px-4 py-2 text-sm transition-colors text-gray-600 hover:text-gray-900 hover:bg-gray-50"
               >
                 {item.name}
               </button>
